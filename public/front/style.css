@@ -490,7 +490,7 @@ body img, .ovrimg-mx img { max-width: 100%; height: auto; }
 
 .clrlist ul {padding: 0; margin-bottom:0;}
 .clrlist li {display: inline-block;list-style-type: none;}
-/*width issue fixed for inner UL LI*/ .clrlist li ul li {display: inherit;} 
+/*width issue fixed for inner UL LI*/ .clrlist li ul li {display: inherit;}
 
 .listview ul li {display:block;}
 
@@ -1161,7 +1161,7 @@ body.modal-open { overflow: hidden; }
 .accordion-arr .panel-title .panel-default:first-child a:before,
 .accordion-arr .panel-title a.collapsed:before{ content: "\f054";}
 .accordion-arr .panel-title a:before { content: "\f078"; font-family: "FontAwesome"; border: 0;background-color: transparent;line-height: 2.2em;}
-/***./accordion***/	
+/***./accordion***/
 
 
 /*filler*/
@@ -1711,7 +1711,7 @@ div.dataTables_wrapper div.dataTables_filter label {
 
 .def-btn.hover a,
 .def-btn a:hover{
-    background-color:#39c;	
+    background-color:#39c;
     border-color:#39c;
 }
 
@@ -1808,7 +1808,7 @@ section.ftr-area {
     color: #525152;
     text-transform: uppercase;
     font-weight: 600;
-    
+
 }
 .blog-detail-page .hdr-nav{
     background-color:#fafafa;
@@ -2132,7 +2132,7 @@ body .blogs__imginner img {
     max-width: initial;
 }
 
-.post__featured .blogs__img img{ 
+.post__featured .blogs__img img{
     height: auto;
 }
 
@@ -2735,7 +2735,7 @@ a.link.pul-rgt {
 }
 .dropdown:hover .dropdown-menu {
     display: block;
-    margin-top: 0; 
+    margin-top: 0;
 }
 .dropdown-menu>.active>a, .dropdown-menu>.active>a:hover, .dropdown-menu>.active>a:focus{
     padding:10px;
@@ -3010,10 +3010,10 @@ table.table.table-topbot, table.table.table-topbot td, table.table.table-topbot 
 
 
 
-.input-number-area input[type=number]::-webkit-inner-spin-button, 
-.input-number-area input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+.input-number-area input[type=number]::-webkit-inner-spin-button,
+.input-number-area input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 
@@ -3191,9 +3191,9 @@ table.table.table-topbot, table.table.table-topbot td, table.table.table-topbot 
 
 
 .locations-page .table-bordered thead tr {
-    
+
     text-transform: uppercase;
-    
+
 }
 
 .testimo-area .carousel-inner .item img {
@@ -3241,7 +3241,7 @@ table.table.table-topbot, table.table.table-topbot td, table.table.table-topbot 
     }
     .slider-area .caro-caps {
         bottom: 30em;
-    }	
+    }
 
     .testimo-area .item img {
         width: 100%;
@@ -3266,7 +3266,7 @@ table.table.table-topbot, table.table.table-topbot td, table.table.table-topbot 
 
 
 /* 13" Notebook Large Devices, Wide Screens */
-@media only screen and (max-width : 1280px) {	
+@media only screen and (max-width : 1280px) {
 
     .box__cont p {
         min-height: 65px;
@@ -3705,7 +3705,7 @@ body .page-bnr-area {
 
     img[alt="captcha"] {
         margin-bottom: 15px;
-    }	
+    }
 
     .register-page .form-group [class*="col-sm"]{
         padding:0px;
@@ -3906,7 +3906,7 @@ body .page-bnr-area {
 }
 
 /*iPhone 6 landscape · width: 667px */
-@media only screen and (max-width : 667px) {	
+@media only screen and (max-width : 667px) {
 
     .signup-page .cont {
         clear: both;
@@ -4041,7 +4041,7 @@ section.box-area.text-center.pt20.pb50 {
 
 /* iPhone 6 PLUS (414x736) */
 @media only screen and (max-width : 414px) {
-	
+
 .cpass-area .fom-shad {
     margin-top: 30px;
     float: left;
@@ -4050,7 +4050,7 @@ section.box-area.text-center.pt20.pb50 {
 }
 
 
-.myorders-page .table tr td {font-size: 10px;}	
+.myorders-page .table tr td {font-size: 10px;}
 
     body.register-page .page__title h2 {
         margin-top: 0;
@@ -4089,7 +4089,7 @@ section.box-area.text-center.pt20.pb50 {
 	/*
     body .table-valign tr+tr {margin-top: 50px;display: block;}
 	*/
-	
+
     .view-page .table-total-area .table tr td a.btn, .table-total-area .table tr td button {
         min-width: 100%;
         margin: 8px 0 8px;
@@ -4225,13 +4225,13 @@ section.box-area.text-center.pt20.pb50 {
 
 
 /* Galaxy S5 (360x640) */
-@media only screen and (max-width : 360px) {	
+@media only screen and (max-width : 360px) {
 
 }
 
 
 /* iPhone 3/4 Blackberry8300 / LG/ AUSUS / S3 S4 */
-@media only screen and (max-width : 320px) {	
+@media only screen and (max-width : 320px) {
 
 
     section.packages-area {
@@ -4300,3 +4300,6 @@ section.box-area.text-center.pt20.pb50 {
 /*Galaxy Y*/
 @media only screen and (max-width : 240px) {	}
 
+.listview ul li{
+    font-size: 1.3em;
+}
