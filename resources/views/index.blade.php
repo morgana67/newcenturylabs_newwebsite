@@ -36,7 +36,7 @@
             </div>
 
             <div class="box col-sm-4 anime-left ">
-                <div class="box__img"><img alt="" src="../newcenturylabs.com/front/images/icon1.png"/></div>
+                <div class="box__img"><img alt="" src="/front/images/icon1.png"/></div>
 
                 <div class="box__cont ">
                     <h4>View labs &amp; order test</h4>
@@ -48,7 +48,7 @@
             </div>
 
             <div class="box col-sm-4 anime-in">
-                <div class="box__img"><img alt="" src="../newcenturylabs.com/front/images/icon2.png"/></div>
+                <div class="box__img"><img alt="" src="/front/images/icon2.png"/></div>
 
                 <div class="box__cont">
                     <h4>Print your lab order</h4>
@@ -60,7 +60,7 @@
             </div>
 
             <div class="box col-sm-4 anime-right">
-                <div class="box__img"><img alt="" src="../newcenturylabs.com/front/images/icon3.png"/></div>
+                <div class="box__img"><img alt="" src="/front/images/icon3.png"/></div>
 
                 <div class="box__cont">
                     <h4>Visit one of or our locations</h4>
@@ -91,7 +91,7 @@
 
             <div class="most__img col-sm-5">
                 <div class="most__inr box">
-                    <div class="most__inr__img hidden"><img alt="" src="../newcenturylabs.com/front/images/box1.jpg"/>
+                    <div class="most__inr__img hidden"><img alt="" src="/front/images/box1.jpg"/>
                     </div>
 
                     <div class="most__inr__cont text-center ">
@@ -126,7 +126,7 @@
 
             <div class="most__img col-sm-5 pul-lft ">
                 <div class="most__inr box">
-                    <div class="most__inr__img"><img alt="" src="../newcenturylabs.com/front/images/box2.jpg"/></div>
+                    <div class="most__inr__img"><img alt="" src="/front/images/box2.jpg"/></div>
                 </div>
             </div>
         </div>
@@ -148,7 +148,7 @@
     </section>
 
     <section class="testlab-area text-center bg-full white p100 valigner mt40 rotate-img--hover"
-             style="background-image: url('../newcenturylabs.com/front/images/testlab-bg.jpg')">
+             style="background-image: url('/front/images/testlab-bg.jpg')">
         <div class="container">
             <div class="valign">
                 <h4>My blood tests are so affordable and I&rsquo;m now able to have a more meaningful conversation with
