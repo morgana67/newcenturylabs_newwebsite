@@ -26,8 +26,7 @@
                             Follow us on Twitter</a></li>
                     <li><a href="https://www.youtube.com/channel/UCT8xbfOLFiY6JeMaNCKTTag" target="_black"><i
                                 class="fa fa-youtube-play"></i> Subscribe our Youtube page</a></li>
-                    <li><a href="https://plus.google.com/102097982760148436196" target="_black"><i
-                                class="fa fa-google-plus"></i> Follow us on Google+</a></li>
+
                 </ul>
             </div>
         </div>
