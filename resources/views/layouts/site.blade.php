@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{asset('front/css/font-awesome.min.css')}}">
     <script src="{{asset('front/js/jquery-2.2.4.min.js')}}"></script>
     <script src="{{asset('front/js/bootstrapValidator.min.js')}}"></script>
+    @yield('css')
 </head>
 <body class="transition nav-plusminus slide-navbar slide-navbar--left">
     @include('layouts.header')
@@ -36,5 +37,6 @@
     <script src="{{asset('front/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('front/js/viewportchecker.js')}}"></script>
     <script src="{{asset('front/js/kodeized.js')}}"></script>
+    @yield('script')
 </body>
 </html>

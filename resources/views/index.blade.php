@@ -1,30 +1,52 @@
 @extends('layouts.site')
 @section('content')
-    <section class="slider-area no-ctrl fadeft">
-        <div class="carousel slide" data-interval="false" data-ride="carousel" id="carousel-example-generic">
-            <ol class="carousel-indicators hidden">
-                <li class="active" data-slide-to="0" data-target="#carousel-example-generic">&nbsp;</li>
-                <li data-slide-to="1" data-target="#carousel-example-generic">&nbsp;</li>
-                <li data-slide-to="2" data-target="#carousel-example-generic">&nbsp;</li>
-            </ol>
-            <!-- Wrapper for slides -->
+{{--    <section class="slider-area no-ctrl fadeft">--}}
+{{--        <div class="carousel slide" data-interval="false" data-ride="carousel" id="carousel-example-generic">--}}
+{{--            <ol class="carousel-indicators hidden">--}}
+{{--                <li class="active" data-slide-to="0" data-target="#carousel-example-generic">&nbsp;</li>--}}
+{{--                <li data-slide-to="1" data-target="#carousel-example-generic">&nbsp;</li>--}}
+{{--                <li data-slide-to="2" data-target="#carousel-example-generic">&nbsp;</li>--}}
+{{--            </ol>--}}
+{{--            <!-- Wrapper for slides -->--}}
 
-            <div class="carousel-inner">
-                <div class="item active"><img alt="..." src="front/images/slide1.jpg"/>
-                    <div class="container posrel">
-                        <div class="caro-caps anime-flipInX">
-                            <h1>The most <strong>affordable</strong>&nbsp;blood tests online</h1>
+{{--            <div class="carousel-inner">--}}
+{{--                <div class="item active">--}}
+{{--                    <img alt="..." src="front/images/slide1.jpg"/>--}}
+{{--                    <div class="container posrel">--}}
+{{--                        <div class="caro-caps anime-flipInX">--}}
+{{--                            <h1>The most <strong>affordable</strong>&nbsp;blood tests online</h1>--}}
 
-                            <p>We offer over 200 blood tests online from single tests to advanced compressive panels you
-                                can order from the comfort of your home.</p>
+{{--                            <p>We offer over 200 blood tests online from single tests to advanced compressive panels you--}}
+{{--                                can order from the comfort of your home.</p>--}}
 
-                            <div class="lnk-btn inline-block more-btn"><a href="register.html">Sign Up With Us</a></div>
-                        </div>
+{{--                            <div class="lnk-btn inline-block more-btn"><a href="register.html">Sign Up With Us</a></div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
+
+    <section class="vdo-area text-center">
+        <div class="container0">
+            <div class="col-sm-12 p0">
+                <video id="video" width="100%" height="800" autoplay controls onclick="play()">
+                    <source src="{{ asset('front/video/videoplayback.mp4') }}" type="video/mp4" />
+                </video>
+                <div class="container posrel">
+                    <div class="caro-caps anime-flipInX">
+                        <h1>The most <strong>affordable</strong>&nbsp;blood tests online</h1>
+
+                        <p>We offer over 200 blood tests online from single tests to advanced compressive panels you
+                            can order from the comfort of your home.</p>
+
+                        <div class="lnk-btn inline-block more-btn"><a href="register.html">Sign Up With Us</a></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <section class="box-area text-center pt20 pb50">
         <div class="container">
@@ -132,20 +154,20 @@
         </div>
     </section>
 
-    <section class="vdo-area text-center">
-        <div class="container0">
-            <div class="col-sm-12 p0">
-                <iframe frameborder="0" height="420" src="https://www.youtube.com/embed/TlNw-ybTo-w"
-                        width="100%"></iframe>
+{{--    <section class="vdo-area text-center">--}}
+{{--        <div class="container0">--}}
+{{--            <div class="col-sm-12 p0">--}}
+{{--                <iframe frameborder="0" height="420" src="https://www.youtube.com/embed/TlNw-ybTo-w"--}}
+{{--                        width="100%"></iframe>--}}
 
-                <div class="vdo__cont hidden">
-                    <h2>THIS IS WHAT KIM HAD TO SAY</h2>
+{{--                <div class="vdo__cont hidden">--}}
+{{--                    <h2>THIS IS WHAT KIM HAD TO SAY</h2>--}}
 
-                    <p>&ldquo;New Century Labs is my hero&rdquo;</p>
-                </div>
-            </div>
-        </div>
-    </section>
+{{--                    <p>&ldquo;New Century Labs is my hero&rdquo;</p>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
 
     <section class="testlab-area text-center bg-full white p100 valigner mt40 rotate-img--hover"
              style="background-image: url('/front/images/testlab-bg.jpg')">
@@ -289,3 +311,4 @@
         </div>
     </section>
 @endsection
+
