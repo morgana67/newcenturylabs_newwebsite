@@ -27,10 +27,10 @@
 {{--        </div>--}}
 {{--    </section>--}}
 
-    <section class="vdo-area text-center">
+    <section class="slider-area no-ctrl fadeft">
         <div class="container0">
             <div class="col-sm-12 p0">
-                <video id="video" width="100%" height="800" autoplay controls onclick="play()">
+                <video id="video" width="100%" autoplay controls onclick="play()">
                     <source src="{{ asset('front/video/videoplayback.mp4') }}" type="video/mp4" />
                 </video>
                 <div class="container posrel">

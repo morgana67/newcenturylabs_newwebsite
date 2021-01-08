@@ -4115,16 +4115,16 @@ section.box-area.text-center.pt20.pb50 {
     .slider-area .caro-caps {
         width: 100%;
         left: 0;
-        bottom: 1em;
+        bottom: 4em;
     }
 
     .slider-area .caro-caps p {
-        font-size: 0.8em;
+        font-size: 0.7em;
         margin: 5px 0 10px;
     }
 
     .slider-area .caro-caps h1 {
-        font-size: 1.6em;
+        font-size: 1.5em;
         margin: 0;
         text-shadow: 1px 1px 12px #fff;
     }
