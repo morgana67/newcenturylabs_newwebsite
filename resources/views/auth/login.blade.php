@@ -6,42 +6,48 @@
                 <div class="hed"><h2>LOGIN</h2></div>
             </div>
         </section>
-
         <section class="inr-intro-area ">
             <div class="container">
-
                 <div class="fom col-sm-6 fom-shad pt20">
-                    <form method="POST" class="form" action="">
-                        <input type="hidden" name="_token" value="eXCobM3GVbblofigprE2vU9ciECwU3OdyOd2obbV">
+                    <form method="POST" class="form" action="{{ route('login') }}">
+                        @csrf
                         <div class="form-group">
-                            <input type="email" class="form-control" name="email" placeholder="Email Address" required/>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email Address" required/>
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
                         </div>
 
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password" name="password"
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password"
                                    required/>
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
                         </div>
-
                         <div class="form-group mb10 overload">
                             <div class="checkbox-area pul-lft">
                                 <input type="checkbox" class="checkbox" name="remember"><label>Remember Me</label>
                             </div>
 
                         </div>
-
                         <div class="form-group">
                             <button ype="submit" class="form-control w100 btn-primary">LOGIN</button>
                         </div>
                     </form>
                     <a href="forgot.html" class="link pul-lft">
-                        <i class="fa fa-support"></i>Lost your passward?
+                        <i class="fa fa-support"></i>Lost your password?
                     </a>
                 </div>
                 <div class="cont text-center col-sm-6 pl50 pr50">
                     <h2>REGISTER</h2>
                     <p>Registering allows you to order tests. Just fill in the fields and we’ll get you ready to go in
                         no time. We will only ask you for information that allows us to prepare your lab order.</p>
-                    <div class="lnk-btn "><a href="register.html">REGISTER</a></div>
+                    <div class="lnk-btn "><a href="{{route('register')}}">REGISTER</a></div>
                 </div>
             </div>
         </section>

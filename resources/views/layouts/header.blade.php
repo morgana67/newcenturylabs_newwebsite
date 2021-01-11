@@ -45,12 +45,18 @@
                                 <li><a href="/about-us">ABOUT US</a></li>
                                 <li><a href="/locations">LOCATIONS</a></li>
                                 <li><a href="/blog">BLOG</a></li>
-
-                                <li class="login-link"><a href="/login">Login</a></li>
-                                <!--
-                               <li class="KNav6"><a href="https://newcenturylabs.com/connect">MD CONNECT &reg;</a></li>
-                               -->
-
+                                @if(!is_customer())
+                                    <li class="login-link"><a href="{{route('login')}}">Login</a></li>
+                                @else
+                                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/" class="pagelinkcolor">My Orders</a></li>
+                                            <li><a href="/" class="pagelinkcolor">Change Password</a></li>
+                                            <li><a href="/" class="pagelinkcolor">Profile</a></li>
+                                            <li><a href="/" class="pagelinkcolor" id="logout">Log Out</a></li>
+                                        </ul>
+                                    </li>
+                                @endif
 
                                 <li class="cart-item">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"

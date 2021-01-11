@@ -32,11 +32,11 @@
         @include('layouts.footer')
     </main>
     <div id="loading"></div>
-
     <script src="{{asset('front/js/css_browser_selector.js')}}"></script>
     <script src="{{asset('front/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('front/js/viewportchecker.js')}}"></script>
     <script src="{{asset('front/js/kodeized.js')}}"></script>
+    <script src="{{asset('front/js/main.js')}}"></script>
     @yield('script')
 </body>
 </html>

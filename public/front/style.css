@@ -4303,3 +4303,12 @@ section.box-area.text-center.pt20.pb50 {
 .listview ul li{
     font-size: 1.3em;
 }
+
+/*Css custom for all page*/
+.invalid-feedback{
+    text-align: left !important;
+    color: #ff4265;
+}
+/*.is-invalid{*/
+/*    border-color: #ff4265;*/
+/*}*/
