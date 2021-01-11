@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use DB;
+use App\Models\Address;
+
 class RegisterController extends Controller
 {
     /*
@@ -61,11 +65,11 @@ class RegisterController extends Controller
             'lastName' => ['required', 'string', 'max:191'],
             'email' => ['required', 'string', 'email', 'max:191', 'unique:customers'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'state' => 'required|max::191',
-            'city' => 'required|max::191',
-            'address' => 'required|max::191',
-            'zip' => 'required|max::191',
-            'phone' => 'required|max::191',
+            'state' => 'required|max:191',
+            'city' => 'required|max:191',
+            'address' => 'required|max:191',
+            'zip' => 'required|max:191',
+            'phone' => 'required|max:191',
         ]);
     }
 
@@ -75,28 +79,54 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    public function postRegister(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'firstName' => ['required', 'string', 'max:191'],
+            'lastName' => ['required', 'string', 'max:191'],
+            'email' => ['required', 'string', 'email', 'max:191', 'unique:customers'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'state' => 'required|max:191',
+            'city' => 'required|max:191',
+            'address' => 'required|max:191',
+            'zip' => 'required|max:191',
+            'phone' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
+        }
+
         DB::beginTransaction();
         try {
-            $dataUser = [
-                'firstName' => $data['firstName'],
-                'lastName' => $data['lastName'],
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-                'gender' => $data['gender'],
-                'state' => $data['state'],
+            $dataCustomer = [
+                'firstName' => $request['firstName'],
+                'lastName' => $request['lastName'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+                'gender' => $request['gender'],
                 'role_id' => 2,
-                'dob' => $data['year'] . "-" . $data['month'] . "-" . $data['date'],
-                'token' => Hash::make($data['email']. $data['password']),
+                'dob' => $request['year'] . "-" . $request['month'] . "-" . $request['date'],
+                'token' => Hash::make($request['email']. $request['password']),
 
             ];
-            $user = User::create($dataUser);
+            $customerId = Customer::insertGetId($dataCustomer);
 
-
-            return ;
+            $dataAddress = [
+                'customer_id' => $customerId,
+                'phone' => $request['phone'],
+                'country_id' => 230,
+                'state' => $request['state'],
+                'city' => $request['city'],
+                'address' => $request['address'],
+                'zip' => $request['zip']
+            ];
+            Address::insert($dataAddress);
+            DB::commit();
+            return redirect()->route('login')->with('success', 'Account registration is successful');
         }catch (\Exception $exception){
             DB::rollback();
+            return redirect()->back()->withInput($request->all())->withErrors($exception->getMessage());
         }
     }
 }

@@ -6,13 +6,19 @@
                 <div class="hed"><h2>LOGIN</h2></div>
             </div>
         </section>
+        @if(session()->has('success'))
+            <div class="mt-2 alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {!! session('success') !!}
+            </div>
+        @endif
         <section class="inr-intro-area ">
             <div class="container">
                 <div class="fom col-sm-6 fom-shad pt20">
                     <form method="POST" class="form" action="{{ route('login') }}">
                         @csrf
                         <div class="form-group">
-                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email Address" required/>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email Address" value="{{old('email')}}" required/>
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -39,7 +45,7 @@
                             <button ype="submit" class="form-control w100 btn-primary">LOGIN</button>
                         </div>
                     </form>
-                    <a href="forgot.html" class="link pul-lft">
+                    <a href="{{route('password.request')}}" class="link pul-lft">
                         <i class="fa fa-support"></i>Lost your password?
                     </a>
                 </div>

@@ -13,7 +13,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a href="index.html" class="navbar-brand">
-                            <img src="front/images/logo.png" alt="Logo"/>
+                            <img src="{{asset('front/images/logo.png')}}" alt="Logo"/>
                         </a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,10 +50,10 @@
                                 @else
                                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="/" class="pagelinkcolor">My Orders</a></li>
-                                            <li><a href="/" class="pagelinkcolor">Change Password</a></li>
-                                            <li><a href="/" class="pagelinkcolor">Profile</a></li>
-                                            <li><a href="/" class="pagelinkcolor" id="logout">Log Out</a></li>
+                                            <li><a href="!#" class="pagelinkcolor">My Orders</a></li>
+                                            <li><a href="!#" class="pagelinkcolor">Change Password</a></li>
+                                            <li><a href="!#" class="pagelinkcolor">Profile</a></li>
+                                            <li><a href="!#" class="pagelinkcolor" id="logout">Log Out</a></li>
                                         </ul>
                                     </li>
                                 @endif

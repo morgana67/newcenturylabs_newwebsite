@@ -17,7 +17,7 @@ class CreateCustomersTable extends Migration
             $table->id();
             $table->string('firstName',191);
             $table->string('lastName',191);
-            $table->string('middleName',191);
+            $table->string('middleName',191)->nullable();
             $table->string('email',191)->unique();
             $table->string('password',191);
             $table->date('dob')->nullable();
@@ -28,7 +28,7 @@ class CreateCustomersTable extends Migration
             $table->string('gender',191)->nullable();
             $table->string('company',191)->nullable();
             $table->string('stripe_customer_id',191)->nullable();
-            $table->string('state',191)->nullable();
+//            $table->string('state',191)->nullable();
             $table->timestamps();
         });
     }

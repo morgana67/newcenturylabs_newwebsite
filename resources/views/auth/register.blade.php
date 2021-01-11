@@ -10,15 +10,7 @@
         </div>
     </section>
 
-
-    <section class="inr-intro-area pt30">
-        <div class="container">
-
-
-        </div>
-    </section>
-
-    <form method="POST" action="{{route('register')}}" class="form" name="register">
+    <form method="POST" action="{{route('postRegister')}}" class="form" name="register">
         @csrf
         <section class="billing-area ">
             <div class="container">
@@ -27,28 +19,43 @@
 
                     <div class="form-group col-sm-6">
                         <input placeholder="First Name *" class="form-control" required="required" name="firstName"
-                               type="text">
+                               type="text" value="{{old('firstName')}}">
+                        @error('firstName')
+                            <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span>
+                        @enderror
                     </div>
                     <div class="form-group col-sm-6">
                         <input placeholder="Last Name *" class="form-control" required="required" name="lastName"
-                               type="text" maxlength="191">
+                               type="text" maxlength="191" value="{{old('lastName')}}">
+                        @error('lastName')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                        @enderror
                     </div>
 
                     <div class="form-group col-sm-12">
-                        <input placeholder="Email *" class="form-control" required="required" name="email" type="email">
+                        <input placeholder="Email *" class="form-control" required="required" name="email" type="email"
+                               value="{{old('email')}}" >
+                        @error('email')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                        @enderror
                     </div>
 
                     <div class="form-group col-sm-12">
                         <input placeholder="Password *" class="form-control"
                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required="required" name="password"
                                type="password" value="">
-
+                        @error('password')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                        @enderror
                     </div>
 
                     <div class="form-group col-sm-12">
                         <input data-match-error="Whoops, these don&#039;t match" placeholder="Confirm Password *"
                                data-match="#password" class="form-control" required="required"
                                name="password_confirmation" type="password" value="">
+                        @error('password_confirmation')
+                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                        @enderror
                     </div>
                     <div class="form-group col-sm-12">
                         <div class="alert alert-info">
@@ -61,9 +68,9 @@
                         <h5><label for="gender">Gender *</label></h5>
                         <div class="inline-form">
 
-                            <input checked="checked" name="gender" type="radio" value="m" id="gender">
+                            <input {{old('gender') == 'm' || empty(old('gender')) ? 'checked' : ''}} name="gender" type="radio" value="m" id="gender">
                             <label for="Male">Male</label>
-                            <input name="gender" type="radio" value="f" id="gender">
+                            <input {{old('gender') == 'f' ? 'checked' : ''}} name="gender" type="radio" value="f" id="gender">
                             <label for="Female">Female</label>
                         </div>
                     </div>
@@ -74,31 +81,31 @@
                         <div class="form-group col-sm-2 pl0">
                             <select class="form-control" required="required" name="date">
                                 @for($i = 1;$i <= 31; $i++)
-                                    <option value="{{$i}}">{{$i}}</option>
+                                    <option  {{old('date') == $i ? 'checked' : ''}} value="{{$i}}">{{$i}}</option>
                                 @endfor
                             </select>
                         </div>
 
                         <div class="form-group col-sm-3">
                             <select class="form-control" required="required" name="month">
-                                <option value="1">January</option>
-                                <option value="2">February</option>
-                                <option value="3">March</option>
-                                <option value="4">April</option>
-                                <option value="5">May</option>
-                                <option value="6">June</option>
-                                <option value="7">July</option>
-                                <option value="8">August</option>
-                                <option value="9">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
+                                <option {{old('month') == 1 ? 'checked' : ''}} value="1">January</option>
+                                <option {{old('month') == 2 ? 'checked' : ''}} value="2">February</option>
+                                <option {{old('month') == 3 ? 'checked' : ''}} value="3">March</option>
+                                <option {{old('month') == 4 ? 'checked' : ''}} value="4">April</option>
+                                <option {{old('month') == 5 ? 'checked' : ''}} value="5">May</option>
+                                <option {{old('month') == 6 ? 'checked' : ''}} value="6">June</option>
+                                <option {{old('month') == 7 ? 'checked' : ''}} value="7">July</option>
+                                <option {{old('month') == 8 ? 'checked' : ''}} value="8">August</option>
+                                <option {{old('month') == 9 ? 'checked' : ''}} value="9">September</option>
+                                <option {{old('month') == 10 ? 'checked' : ''}} value="10">October</option>
+                                <option {{old('month') == 11 ? 'checked' : ''}} value="11">November</option>
+                                <option {{old('month') == 12 ? 'checked' : ''}} value="12">December</option>
                             </select>
                         </div>
                         <div class="form-group col-sm-2">
                             <select class="form-control" required="required" name="year">
                                 @for($i = 2016;$i >= 1930; $i--)
-                                    <option value="{{$i}}">{{$i}}</option>
+                                    <option {{old('year') == $i ? 'checked' : ''}} value="{{$i}}">{{$i}}</option>
                                 @endfor
                             </select>
                         </div>
@@ -114,56 +121,48 @@
                         <select name="state" id="state" required class="form-control">
                             <option>State *</option>
                             @foreach(\App\Models\State::get() as $state)
-                                <option value="{{$state->code}}">{{$state->title}}</option>
+                                <option {{old('state') == $i ? 'checked' : ''}} value="{{$state->code}}">{{$state->title}}</option>
                             @endforeach
                         </select>
+                        @error('state')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                        @enderror
                     </div>
 
                     <div class="form-group col-sm-6">
-                        <input placeholder="City *" class="form-control" required="required" name="city" type="text">
+                        <input placeholder="City *" class="form-control" required="required" name="city" type="text" value="{{old('city')}}">
+                        @error('city')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                        @enderror
                     </div>
 
 
                     <div class="form-group col-sm-12">
                         <input placeholder="Address *" class="form-control" required="required" name="address"
-                               type="text">
+                               type="text" value="{{old('address')}}">
+                        @error('address')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                        @enderror
                     </div>
 
 
                     <div class="form-group col-sm-6">
                         <input placeholder="Postal Code / Zipcode *" class="form-control" required="required" name="zip"
-                               type="text">
+                               type="text" value="{{old('zip')}}">
+                        @error('zip')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                        @enderror
                     </div>
 
                     <div class="form-group col-sm-6">
-                        <input placeholder="Phone *" class="form-control" required="required" name="phone" type="text">
+                        <input placeholder="Phone *" class="form-control" required="required" name="phone" type="text"
+                               value="{{old('phone')}}" >
+                        @error('phone')
+                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
+                        @enderror
                     </div>
                     <div class="form-group col-sm-6">
-                        <script type="text/javascript">
-                            var RecaptchaOptions = {"curl_timeout": 1, "lang": "en"};
-                        </script>
-                        <script src='../www.google.com/recaptcha/api0125.js?render=onload&amp;hl=en'></script>
-                        <div class="g-recaptcha" data-sitekey="6LfDeBEUAAAAADjEUrNZafnWg0Em4-dhHWf60Zn4"></div>
-                        <noscript>
-                            <div style="width: 302px; height: 352px;">
-                                <div style="width: 302px; height: 352px; position: relative;">
-                                    <div style="width: 302px; height: 352px; position: absolute;">
-                                        <iframe
-                                            src="https://www.google.com/recaptcha/api/fallback?k=6LfDeBEUAAAAADjEUrNZafnWg0Em4-dhHWf60Zn4"
-                                            frameborder="0" scrolling="no"
-                                            style="width: 302px; height:352px; border-style: none;">
-                                        </iframe>
-                                    </div>
-                                    <div style="width: 250px; height: 80px; position: absolute; border-style: none;
-                  bottom: 21px; left: 25px; margin: 0; padding: 0; right: 25px;">
-                <textarea id="g-recaptcha-response" name="g-recaptcha-response"
-                          class="g-recaptcha-response"
-                          style="width: 250px; height: 80px; border: 1px solid #c1c1c1;
-                         margin: 0; padding: 0; resize: none;"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </noscript>
+
                     </div>
                     <div class="form-group col-sm-6 text-right">
                         <button type="submit" class="btn btn-flat btn-primary ">SIGNUP</button>
