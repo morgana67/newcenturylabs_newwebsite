@@ -3239,9 +3239,9 @@ table.table.table-topbot, table.table.table-topbot td, table.table.table-topbot 
     .slider-area .carousel-inner>.item img {
         width: 100%;
     }
-    .slider-area .caro-caps {
-        bottom: 30em;
-    }
+    /*.slider-area .caro-caps {*/
+    /*    bottom: 30em;*/
+    /*}*/
 
     .testimo-area .item img {
         width: 100%;
