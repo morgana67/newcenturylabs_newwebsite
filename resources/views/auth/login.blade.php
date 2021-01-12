@@ -15,25 +15,18 @@
         <section class="inr-intro-area ">
             <div class="container">
                 <div class="fom col-sm-6 fom-shad pt20">
+                    <div class="col-md-12">
+                        @include('layouts.alert')
+                    </div>
                     <form method="POST" class="form" action="{{ route('login') }}">
                         @csrf
                         <div class="form-group">
                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email Address" value="{{old('email')}}" required/>
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
                         </div>
 
                         <div class="form-group">
                             <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password"
                                    required/>
-                            @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
                         </div>
                         <div class="form-group mb10 overload">
                             <div class="checkbox-area pul-lft">

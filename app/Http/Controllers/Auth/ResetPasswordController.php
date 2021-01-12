@@ -39,31 +39,36 @@ class ResetPasswordController extends Controller
 
     public function reset_password(Request $request)
     {
-        $validation = array(
-            'email' => 'required|email',
-        );
+        try {
+            $validation = array(
+                'email' => 'required|email',
+            );
 
-        $validator = Validator::make($request->all(), $validation);
+            $validator = Validator::make($request->all(), $validation);
 
-        if ($validator->fails()) {
+            if ($validator->fails()) {
 
-            return redirect('forgot')->withErrors($validator->errors());
-        }
+                return redirect('forgot')->withErrors($validator->errors());
+            }
 
-        $customer = Customer::where("email", "=", $request->email)->first();
-        if (!empty($customer)) {
-            $password = substr(md5(microtime()), rand(0, 26), 7);
-            $replaces['NAME'] = $customer->firstName . ' ' . $customer->lastName;
-            $replaces['PASSWORD'] = $password;
-            $affectedRows = Customer::where('id', '=', $customer->id)->update(array('password' => bcrypt($password)));
-            $mail = Functions::sendEmail($request->email,'Reset Password', 'New password: '.$password);
-            \Session::flash('success', 'Your new password has been emailed.');
+            $customer = Customer::where("email", "=", $request->email)->first();
+            if (!empty($customer)) {
+                $password = substr(md5(microtime()), rand(0, 26), 7);
+                $replaces['NAME'] = $customer->firstName . ' ' . $customer->lastName;
+                $replaces['PASSWORD'] = $password;
+                $affectedRows = Customer::where('id', '=', $customer->id)->update(array('password' => bcrypt($password)));
+                $mail = Functions::sendEmail($request->email,'Reset Password', 'New password: '.$password);
+                \Session::flash('success', 'Your new password has been emailed.');
+                return redirect()->route('login');
+            } else {
+                \Session::flash('success', 'Email not found.');
+                return redirect()->back();
+            }
+
             return redirect()->route('login');
-        } else {
-            \Session::flash('success', 'Email not found.');
-            return redirect()->back();
+        }catch (\Exception $exception){
+            return redirect()->back()->withErrors($exception->getMessage());
         }
 
-        return redirect()->route('login');
     }
 }

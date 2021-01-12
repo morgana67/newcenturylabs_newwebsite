@@ -9,21 +9,15 @@
             </div>
         </div>
     </section>
-    @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
     <form method="POST" action="{{route('resetPassword')}}" class="form pt-3" name="register" style="margin-bottom: 50px">
         @csrf
         <section class="billing-area ">
             <div class="container">
                 <div class="fom col-sm-6 fom-shad pt20 p0 pul-cntr">
+                    <div class="col-md-12">
+                        @include('layouts.alert')
+                    </div>
                     <div class="form-group col-sm-12">
                         <input placeholder="Email *" class="form-control" required="required" name="email" type="email"
                                value="{{old('email')}}" >

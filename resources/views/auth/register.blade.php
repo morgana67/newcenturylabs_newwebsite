@@ -16,46 +16,37 @@
             <div class="container">
 
                 <div class="fom fom-shad pt20 col-sm-9 p0 pul-cntr">
-
+                    <div class="col-md-12">
+                        @include('layouts.alert')
+                    </div>
                     <div class="form-group col-sm-6">
                         <input placeholder="First Name *" class="form-control" required="required" name="firstName"
                                type="text" value="{{old('firstName')}}">
-                        @error('firstName')
-                            <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong></span>
-                        @enderror
                     </div>
                     <div class="form-group col-sm-6">
                         <input placeholder="Last Name *" class="form-control" required="required" name="lastName"
                                type="text" maxlength="191" value="{{old('lastName')}}">
-                        @error('lastName')
-                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                        @enderror
+
                     </div>
 
                     <div class="form-group col-sm-12">
                         <input placeholder="Email *" class="form-control" required="required" name="email" type="email"
                                value="{{old('email')}}" >
-                        @error('email')
-                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                        @enderror
+
                     </div>
 
                     <div class="form-group col-sm-12">
                         <input placeholder="Password *" class="form-control"
                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required="required" name="password"
                                type="password" value="">
-                        @error('password')
-                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                        @enderror
+
                     </div>
 
                     <div class="form-group col-sm-12">
                         <input data-match-error="Whoops, these don&#039;t match" placeholder="Confirm Password *"
                                data-match="#password" class="form-control" required="required"
                                name="password_confirmation" type="password" value="">
-                        @error('password_confirmation')
-                            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                        @enderror
+
                     </div>
                     <div class="form-group col-sm-12">
                         <div class="alert alert-info">
@@ -124,42 +115,23 @@
                                 <option {{old('state') == $state->code ? 'selected' : ''}} value="{{$state->code}}">{{$state->title}}</option>
                             @endforeach
                         </select>
-                        @error('state')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                        @enderror
                     </div>
 
                     <div class="form-group col-sm-6">
                         <input placeholder="City *" class="form-control" required="required" name="city" type="text" value="{{old('city')}}">
-                        @error('city')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                        @enderror
                     </div>
-
-
                     <div class="form-group col-sm-12">
                         <input placeholder="Address *" class="form-control" required="required" name="address"
                                type="text" value="{{old('address')}}">
-                        @error('address')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                        @enderror
                     </div>
-
-
                     <div class="form-group col-sm-6">
                         <input placeholder="Postal Code / Zipcode *" class="form-control" required="required" name="zip"
                                type="text" value="{{old('zip')}}">
-                        @error('zip')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                        @enderror
                     </div>
 
                     <div class="form-group col-sm-6">
                         <input placeholder="Phone *" class="form-control" required="required" name="phone" type="text"
                                value="{{old('phone')}}" >
-                        @error('phone')
-                        <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong> </span>
-                        @enderror
                     </div>
                     <div class="form-group col-sm-6">
 
