@@ -36,6 +36,13 @@ Route::get('/testlistbydisease', function () {return view('testlistbydisease');}
 Auth::routes();
 Route::post('/post-register','Auth\RegisterController@postRegister')->name('postRegister');
 Route::post('/reset-password','Auth\ResetPasswordController@reset_password')->name('resetPassword');
+
+Route::group(['prefix' => 'profile'],function (){
+    Route::match(['get','post'],'/','ProfileController@profile')->name('profile');
+    Route::match(['get','post'],'/change-password','ProfileController@changePassword')->name('changePassword');
+});
+
+
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });

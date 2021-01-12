@@ -32,7 +32,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-sm-12">
-                            <button ype="submit" class="form-control w100 btn-primary">LOGIN</button>
+                            <button type="submit" class="form-control w100 btn-primary">RESET PASSWORD</button>
                     </div>
                 </div>
             </div>

@@ -51,8 +51,8 @@
                                     <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li><a href="!#" class="pagelinkcolor">My Orders</a></li>
-                                            <li><a href="!#" class="pagelinkcolor">Change Password</a></li>
-                                            <li><a href="!#" class="pagelinkcolor">Profile</a></li>
+                                            <li><a href="{{route('changePassword')}}" class="pagelinkcolor">Change Password</a></li>
+                                            <li><a href="{{route('profile')}}" class="pagelinkcolor">Profile</a></li>
                                             <li><a href="!#" class="pagelinkcolor" id="logout">Log Out</a></li>
                                         </ul>
                                     </li>

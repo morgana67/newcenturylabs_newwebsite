@@ -28,7 +28,6 @@ class CreateCustomersTable extends Migration
             $table->string('gender',191)->nullable();
             $table->string('company',191)->nullable();
             $table->string('stripe_customer_id',191)->nullable();
-//            $table->string('state',191)->nullable();
             $table->timestamps();
         });
     }

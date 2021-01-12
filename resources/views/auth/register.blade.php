@@ -81,31 +81,31 @@
                         <div class="form-group col-sm-2 pl0">
                             <select class="form-control" required="required" name="date">
                                 @for($i = 1;$i <= 31; $i++)
-                                    <option  {{old('date') == $i ? 'checked' : ''}} value="{{$i}}">{{$i}}</option>
+                                    <option  {{old('date') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
                                 @endfor
                             </select>
                         </div>
 
                         <div class="form-group col-sm-3">
                             <select class="form-control" required="required" name="month">
-                                <option {{old('month') == 1 ? 'checked' : ''}} value="1">January</option>
-                                <option {{old('month') == 2 ? 'checked' : ''}} value="2">February</option>
-                                <option {{old('month') == 3 ? 'checked' : ''}} value="3">March</option>
-                                <option {{old('month') == 4 ? 'checked' : ''}} value="4">April</option>
-                                <option {{old('month') == 5 ? 'checked' : ''}} value="5">May</option>
-                                <option {{old('month') == 6 ? 'checked' : ''}} value="6">June</option>
-                                <option {{old('month') == 7 ? 'checked' : ''}} value="7">July</option>
-                                <option {{old('month') == 8 ? 'checked' : ''}} value="8">August</option>
-                                <option {{old('month') == 9 ? 'checked' : ''}} value="9">September</option>
-                                <option {{old('month') == 10 ? 'checked' : ''}} value="10">October</option>
-                                <option {{old('month') == 11 ? 'checked' : ''}} value="11">November</option>
-                                <option {{old('month') == 12 ? 'checked' : ''}} value="12">December</option>
+                                <option {{old('month') == 1 ? 'selected' : ''}} value="1">January</option>
+                                <option {{old('month') == 2 ? 'selected' : ''}} value="2">February</option>
+                                <option {{old('month') == 3 ? 'selected' : ''}} value="3">March</option>
+                                <option {{old('month') == 4 ? 'selected' : ''}} value="4">April</option>
+                                <option {{old('month') == 5 ? 'selected' : ''}} value="5">May</option>
+                                <option {{old('month') == 6 ? 'selected' : ''}} value="6">June</option>
+                                <option {{old('month') == 7 ? 'selected' : ''}} value="7">July</option>
+                                <option {{old('month') == 8 ? 'selected' : ''}} value="8">August</option>
+                                <option {{old('month') == 9 ? 'selected' : ''}} value="9">September</option>
+                                <option {{old('month') == 10 ? 'selected' : ''}} value="10">October</option>
+                                <option {{old('month') == 11 ? 'selected' : ''}} value="11">November</option>
+                                <option {{old('month') == 12 ? 'selected' : ''}} value="12">December</option>
                             </select>
                         </div>
                         <div class="form-group col-sm-2">
                             <select class="form-control" required="required" name="year">
                                 @for($i = 2016;$i >= 1930; $i--)
-                                    <option {{old('year') == $i ? 'checked' : ''}} value="{{$i}}">{{$i}}</option>
+                                    <option {{old('year') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
                                 @endfor
                             </select>
                         </div>
@@ -121,7 +121,7 @@
                         <select name="state" id="state" required class="form-control">
                             <option>State *</option>
                             @foreach(\App\Models\State::get() as $state)
-                                <option {{old('state') == $i ? 'checked' : ''}} value="{{$state->code}}">{{$state->title}}</option>
+                                <option {{old('state') == $state->code ? 'selected' : ''}} value="{{$state->code}}">{{$state->title}}</option>
                             @endforeach
                         </select>
                         @error('state')
