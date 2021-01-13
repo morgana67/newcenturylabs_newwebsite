@@ -4,101 +4,147 @@
 @endphp
 @extends('layouts.site')
 @section('content')
-{{--    <section class="slider-area no-ctrl fadeft">--}}
-{{--        <div class="carousel slide" data-interval="false" data-ride="carousel" id="carousel-example-generic">--}}
-{{--            <ol class="carousel-indicators hidden">--}}
-{{--                <li class="active" data-slide-to="0" data-target="#carousel-example-generic">&nbsp;</li>--}}
-{{--                <li data-slide-to="1" data-target="#carousel-example-generic">&nbsp;</li>--}}
-{{--                <li data-slide-to="2" data-target="#carousel-example-generic">&nbsp;</li>--}}
-{{--            </ol>--}}
-{{--            <!-- Wrapper for slides -->--}}
-
-{{--            <div class="carousel-inner">--}}
-{{--                <div class="item active">--}}
-{{--                    <img alt="..." src="front/images/slide1.jpg"/>--}}
-{{--                    <div class="container posrel">--}}
-{{--                        <div class="caro-caps anime-flipInX">--}}
-{{--                            <h1>The most <strong>affordable</strong>&nbsp;blood tests online</h1>--}}
-
-{{--                            <p>We offer over 200 blood tests online from single tests to advanced compressive panels you--}}
-{{--                                can order from the comfort of your home.</p>--}}
-
-{{--                            <div class="lnk-btn inline-block more-btn"><a href="register.html">Sign Up With Us</a></div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
-
     <section class="slider-area no-ctrl fadeft">
-        <div class="container0">
-            <div class="col-sm-12 p0">
-                <video id="video" width="100%" {{$Agent->isMobile() ? '' : 'height=800' }} autoplay controls onclick="play()">
-                    <source src="{{ asset('front/video/videoplayback.mp4') }}" type="video/mp4" />
-                </video>
-                <div class="container posrel">
-                    <div class="caro-caps anime-flipInX">
-                        <h1>The most <strong>affordable</strong>&nbsp;blood tests online</h1>
+        <div class="carousel slide" data-interval="false" data-ride="carousel" id="carousel-example-generic">
+            <ol class="carousel-indicators hidden">
+                <li class="active" data-slide-to="0" data-target="#carousel-example-generic">&nbsp;</li>
+                <li data-slide-to="1" data-target="#carousel-example-generic">&nbsp;</li>
+                <li data-slide-to="2" data-target="#carousel-example-generic">&nbsp;</li>
+            </ol>
+            <!-- Wrapper for slides -->
 
-                        <p>We offer over 200 blood tests online from single tests to advanced compressive panels you
-                            can order from the comfort of your home.</p>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img alt="..." src="/front/images/slide1.jpg"/>
+                    <div class="container posrel">
+                        <div class="caro-caps anime-flipInX">
+                            <h1>The most <strong>affordable</strong>&nbsp;blood tests online</h1>
 
-                        <div class="lnk-btn inline-block more-btn"><a href="register.html">Sign Up With Us</a></div>
+                            <p>We offer over 200 blood tests online from single tests to advanced compressive panels you
+                                can order from the comfort of your home.</p>
+
+                            <div class="lnk-btn inline-block more-btn"><a href="{{route('register')}}">Sign Up With Us</a></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
     <section class="box-area text-center pt20 pb50">
-        <div class="container">
-            <div class="hed">
-                <h2>IT&rsquo;S EASY TO GET STARTED</h2>
+        <div class="hed">
+            <h2>IT&rsquo;S EASY TO GET STARTED</h2>
 
-                <p>Place your order on your desk top or any mobile device.<br/>
-                    Get your lab order straight to your email.</p>
-            </div>
-
-            <div class="box col-sm-4 anime-left ">
-                <div class="box__img"><img alt="" src="/front/images/icon1.png"/></div>
-
-                <div class="box__cont ">
-                    <h4>View labs &amp; order test</h4>
-
-                    <p>Your lab order will be emailed to you securely</p>
-
-                    <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>
-                </div>
-            </div>
-
-            <div class="box col-sm-4 anime-in">
-                <div class="box__img"><img alt="" src="/front/images/icon2.png"/></div>
-
-                <div class="box__cont">
-                    <h4>Print your lab order</h4>
-
-                    <p>Your lab order can be easily printed from your home PC</p>
-
-                    <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>
-                </div>
-            </div>
-
-            <div class="box col-sm-4 anime-right">
-                <div class="box__img"><img alt="" src="/front/images/icon3.png"/></div>
-
-                <div class="box__cont">
-                    <h4>Visit one of or our locations</h4>
-
-                    <p>Visit one of our 2,300 friendly affiliated Quest Diagnostics patient service centers with your
-                        lab order, no appointment needed!</p>
-
-                    <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>
-                </div>
-            </div>
+            <p>Place your order on your desk top or any mobile device.<br/>
+                Get your lab order straight to your email.</p>
         </div>
     </section>
+    <section class="slider-area no-ctrl fadeft">
+            <div class="box-area text-center col-md-4">
+                <div class="box col-sm-12 anime-left ">
+                    <div class="box__img"><img alt="" src="/front/images/icon1.png"/></div>
+
+                    <div class="box__cont ">
+                        <h4>View labs &amp; order test</h4>
+
+                        <p>Your lab order will be emailed to you securely</p>
+
+                        <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>
+                    </div>
+                </div>
+
+                <div class="box col-sm-12 anime-in">
+                    <div class="box__img"><img alt="" src="/front/images/icon2.png"/></div>
+
+                    <div class="box__cont">
+                        <h4>Print your lab order</h4>
+
+                        <p>Your lab order can be easily printed from your home PC</p>
+
+                        <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>
+                    </div>
+                </div>
+
+                <div class="box col-sm-12 anime-right">
+                    <div class="box__img"><img alt="" src="/front/images/icon3.png"/></div>
+
+                    <div class="box__cont">
+                        <h4>Visit one of or our locations</h4>
+
+                        <p>Visit one of our 2,300 friendly affiliated Quest Diagnostics patient service centers with your
+                            lab order, no appointment needed!</p>
+
+                        <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>
+                    </div>
+                </div>
+            </div>
+        <div class="col-md-8">
+            <div class="col-sm-12">
+                <video id="video" style="outline: none" width="100%" {{$Agent->isMobile() ? '' :'height=500' }} autoplay controls>
+                    <source src="{{ asset('front/video/videoplayback.mp4') }}" type="video/mp4" />
+                </video>
+{{--                <div class="container posrel">--}}
+{{--                    <div class="caro-caps anime-flipInX">--}}
+{{--                        <h1>The most <strong>affordable</strong>&nbsp;blood tests online</h1>--}}
+
+{{--                        <p>We offer over 200 blood tests online from single tests to advanced compressive panels you--}}
+{{--                            can order from the comfort of your home.</p>--}}
+
+{{--                        <div class="lnk-btn inline-block more-btn"><a href="register.html">Sign Up With Us</a></div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+            </div>
+        </div>
+
+    </section>
+
+
+{{--    <section class="box-area text-center pt20 pb50">--}}
+{{--        <div class="container">--}}
+{{--            <div class="hed">--}}
+{{--                <h2>IT&rsquo;S EASY TO GET STARTED</h2>--}}
+
+{{--                <p>Place your order on your desk top or any mobile device.<br/>--}}
+{{--                    Get your lab order straight to your email.</p>--}}
+{{--            </div>--}}
+
+{{--            <div class="box col-sm-4 anime-left ">--}}
+{{--                <div class="box__img"><img alt="" src="/front/images/icon1.png"/></div>--}}
+
+{{--                <div class="box__cont ">--}}
+{{--                    <h4>View labs &amp; order test</h4>--}}
+
+{{--                    <p>Your lab order will be emailed to you securely</p>--}}
+
+{{--                    <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <div class="box col-sm-4 anime-in">--}}
+{{--                <div class="box__img"><img alt="" src="/front/images/icon2.png"/></div>--}}
+
+{{--                <div class="box__cont">--}}
+{{--                    <h4>Print your lab order</h4>--}}
+
+{{--                    <p>Your lab order can be easily printed from your home PC</p>--}}
+
+{{--                    <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--            <div class="box col-sm-4 anime-right">--}}
+{{--                <div class="box__img"><img alt="" src="/front/images/icon3.png"/></div>--}}
+
+{{--                <div class="box__cont">--}}
+{{--                    <h4>Visit one of or our locations</h4>--}}
+
+{{--                    <p>Visit one of our 2,300 friendly affiliated Quest Diagnostics patient service centers with your--}}
+{{--                        lab order, no appointment needed!</p>--}}
+
+{{--                    <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
 
     <section class="most-area text-center bg-full pt50 pb50">
         <div class="container">
