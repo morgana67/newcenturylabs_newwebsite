@@ -7,15 +7,9 @@ use Mail;
 class Functions {
 
 
-    public static function setEmailTemplate($contentModel, $replaces) {
-        $data['body'] = $contentModel[0]->body;
-        $data['subject'] = $contentModel[0]->subject;
-        $data['title'] = $contentModel[0]->title;
-        foreach ($replaces as $key => $replace) {
-            $data['body'] = str_replace("%%" . $key . "%%", $replace, $data['body']);
-        }
-
-        return $data;
+    public static function replaceBodyEmail($body,$customer) {
+        $body = str_replace("{{NAME}}", $customer->lastName.' '.$customer->firstName, $body);
+        return $body;
     }
 
     public static function sendEmail($email, $subject, $body, $header = '', $cc = "", $bcc = "") {

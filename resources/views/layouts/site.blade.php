@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="{{asset('front/css/colorized.css')}}">
     <link rel="stylesheet" href="{{asset('front/css/animate.css')}}">
     <link rel="stylesheet" href="{{asset('front/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('front/plugin/toast/bootoast.css')}}">
+{{--    <link rel="stylesheet" href="{{asset('front/plugin/toast/bootoast.css')}}">--}}
     <script src="{{asset('front/js/jquery-2.2.4.min.js')}}"></script>
     <script src="{{asset('front/js/bootstrapValidator.min.js')}}"></script>
     @yield('css')
@@ -37,7 +37,7 @@
     <script src="{{asset('front/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('front/js/viewportchecker.js')}}"></script>
     <script src="{{asset('front/js/kodeized.js')}}"></script>
-    <script src="{{asset('front/plugin/toast/bootoast.js')}}"></script>
+{{--    <script src="{{asset('front/plugin/toast/bootoast.js')}}"></script>--}}
     <script src="{{asset('front/js/main.js')}}"></script>
     @yield('script')
 </body>

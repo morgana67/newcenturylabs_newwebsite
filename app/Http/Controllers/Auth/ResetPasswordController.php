@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\MailConfig;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
@@ -57,7 +58,12 @@ class ResetPasswordController extends Controller
                 $replaces['NAME'] = $customer->firstName . ' ' . $customer->lastName;
                 $replaces['PASSWORD'] = $password;
                 $affectedRows = Customer::where('id', '=', $customer->id)->update(array('password' => bcrypt($password)));
-                $mail = Functions::sendEmail($request->email,'Reset Password', 'New password: '.$password);
+
+                $mailConfig = MailConfig::where('code','=','forgot_password')->first();
+                $body =  Functions::replaceBodyEmail($mailConfig->body,$customer);
+                $body = $body = str_replace("{{PASSWORD}}", $password, $body);
+                $mail = Functions::sendEmail($request->email,$mailConfig->title, $body);
+
                 \Session::flash('success', 'Your new password has been emailed.');
                 return redirect()->route('login');
             } else {

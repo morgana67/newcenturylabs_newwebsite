@@ -19,7 +19,7 @@ class MailConfigTableSeeder extends Seeder
 
                         <p>If you&#39;ve forgotten your password no worries, simply copy and paste your temporary password to this link below then create your unique password under &quot;My Account.&quot;</p>
 
-                        <p>New passowrd: {{PASSWORD}}</p>
+                        <p>New password: {{PASSWORD}}</p>
 
                         <p>For your convenience, you can change your password by visiting the &quot;My Account&quot; section of our website.</p>
 
