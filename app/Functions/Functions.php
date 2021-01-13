@@ -8,7 +8,7 @@ class Functions {
 
 
     public static function replaceBodyEmail($body,$customer) {
-        $body = str_replace("{{NAME}}", $customer->lastName.' '.$customer->firstName, $body);
+        $body = str_replace("{{NAME}}", $customer->firstName.' '.$customer->lastName, $body);
         return $body;
     }
 
