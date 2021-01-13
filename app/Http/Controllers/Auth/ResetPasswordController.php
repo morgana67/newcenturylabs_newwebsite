@@ -54,7 +54,7 @@ class ResetPasswordController extends Controller
 
             $customer = Customer::where("email", "=", $request->email)->first();
             if (!empty($customer)) {
-                $password = substr(md5(microtime()), rand(0, 26), 7);
+                $password = substr(md5(microtime()), rand(0, 26), 8);
                 $replaces['NAME'] = $customer->firstName . ' ' . $customer->lastName;
                 $replaces['PASSWORD'] = $password;
                 $affectedRows = Customer::where('id', '=', $customer->id)->update(array('password' => bcrypt($password)));
