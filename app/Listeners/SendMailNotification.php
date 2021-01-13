@@ -9,14 +9,16 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Mail;
 
-class SendMailNotification implements ShouldQueue
+class SendMailNotification
 {
     /**
      * Create the event listener.
      *
      * @return void
      */
-
+//    public $connection = 'database';
+//    public $queue = 'listeners';
+//    public $delay = 1;
     public function __construct()
     {
         //
@@ -40,11 +42,12 @@ class SendMailNotification implements ShouldQueue
         $headers .= 'From: <' . env('MAIL_FROM_ADDRESS') . '>' . "\r\n";
         // $headers .= 'Cc: myboss@example.com' . "\r\n";
         //return mail($email, $subject, $body, $headers);
+//        for ($i = 0;$i < 10;$i++){
+            Mail::send('emails.template', $data, function($message) use ($data) {
+                $message->to($data['to'])->subject($data['subject']);
+            });
+//        }
 
-
-        Mail::send('emails.template', $data, function($message) use ($data) {
-            $message->to($data['to'])->subject($data['subject']);
-        });
 //        Functions::sendEmail($event->email,$event->subject, $event->body);
     }
 }
