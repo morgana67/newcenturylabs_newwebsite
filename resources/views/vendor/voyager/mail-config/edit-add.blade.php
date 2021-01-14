@@ -37,7 +37,10 @@
                     <!-- CSRF TOKEN -->
                         {{ csrf_field() }}
                         <div class="panel-body">
-                            <?= "<p style='font-weight: bold;margin-left: 5px'>NOTE: {{NAME}} = First Name + Last Name, {{PASSWORD}} = Password </p>"?>
+                            <?= "<div style='font-weight: bold;margin-left: 15px'><p> NOTE: Parameters can be used to define body mail </p>
+                                    <p style='font-weight: 500;margin-left: 40px'>{{NAME}} = First Name + Last Name</p>
+                                    <p style='font-weight: 500;margin-left: 40px'>{{PASSWORD}} = Password</p>
+                                    <p style='font-weight: 500;margin-left: 40px'>{{LINK}} = Link Reset Password </p></div>"?>
                             @if (count($errors) > 0)
                                 <div class="alert alert-danger">
                                     <ul>
