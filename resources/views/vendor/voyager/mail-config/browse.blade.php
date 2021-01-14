@@ -251,11 +251,12 @@
                                             </td>
                                         @endforeach
                                         <td class="no-sort no-click bread-actions">
-
+                                            @php $i = 0; @endphp
                                             @foreach($actions as $action)
-                                                @if (!method_exists($action, 'masActions'))
+                                                @if (!method_exists($action, 'masActions') && $i != 0)
                                                     @include('voyager::bread.partials.actions', ['action' => $action])
                                                 @endif
+                                                @php $i++; @endphp
                                             @endforeach
                                         </td>
                                     </tr>
