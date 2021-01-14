@@ -79,6 +79,9 @@ class ResetPasswordController extends Controller
     }
 
     public function change_password(Request $request){
+        Auth::guard('customer')->logout();
+        session()->flush();
+        session()->regenerate();
         $token = $request->get('token');
         $customer = Customer::where('token', $token)->firstOrFail();
         if($request->isMethod('POST')) {
