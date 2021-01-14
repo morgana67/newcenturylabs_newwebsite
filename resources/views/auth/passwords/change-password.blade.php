@@ -10,20 +10,16 @@
         </div>
     </section>
 
-    <form method="POST" action="{{route('profile.changePassword')}}" class="form pt-3" name="register" style="margin-bottom: 50px">
+    <form method="POST" action="{{route('changePassword')}}" class="form pt-3" name="register" style="margin-bottom: 50px">
         @csrf
         <section class="billing-area ">
             <div class="container">
                 <div class="fom col-sm-6 fom-shad pt20 p0 pul-cntr">
+                    @csrf
                     <div class="col-md-12">
-                       @include('layouts.alert')
+                        @include('layouts.alert')
                     </div>
-                    <div class="form-group col-sm-12">
-                        <input placeholder="Old Password" class="form-control"
-                               required="required" name="old_password"
-                               type="password" value="">
-                    </div>
-
+                    <input type="hidden" name="token" value="{{!empty(request()->get('token')) ? request()->get('token') : ''}}">
                     <div class="form-group col-sm-12">
                         <input placeholder="Password *" class="form-control" required="required" name="password"
                                type="password" value="" min="8">

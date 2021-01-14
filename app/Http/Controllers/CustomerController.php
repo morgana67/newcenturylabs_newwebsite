@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SendMailProcessed;
+use App\Functions\Functions;
 use App\Models\Address;
 use App\Models\Customer;
+use App\Models\MailConfig;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -282,10 +285,10 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
                 'token' => Hash::make($request['email']. $request['password']),
             ];
 
-            $customerId = Customer::insertGetId($dataCustomer);
+            $customer = Customer::create($dataCustomer);
 
             $dataAddress = [
-                'customer_id' => $customerId,
+                'customer_id' => $customer->id,
                 'phone' => $request['phone'],
                 'country_id' => 230,
                 'state' => $request['state'],
@@ -295,6 +298,9 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
             ];
             Address::insert($dataAddress);
             DB::commit();
+            $mailConfig = MailConfig::where('code','=','new_customer')->first();
+            $body =  Functions::replaceBodyEmail($mailConfig->body,$customer);
+            event(new SendMailProcessed($request['email'],$mailConfig->subject,$body));
 
             return redirect()
                 ->route("voyager.{$dataType->slug}.index")

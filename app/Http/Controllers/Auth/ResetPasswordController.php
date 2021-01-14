@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Functions\Functions;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 class ResetPasswordController extends Controller
 {
@@ -75,6 +76,28 @@ class ResetPasswordController extends Controller
         }catch (\Exception $exception){
             return redirect()->back()->withErrors($exception->getMessage());
         }
+    }
 
+    public function change_password(Request $request){
+        $token = $request->get('token');
+        $customer = Customer::where('token', $token)->firstOrFail();
+        if($request->isMethod('POST')) {
+            $validator = Validator::make($request->all(),[
+                'password' => 'required|min:8|confirmed',
+            ]);
+            if($validator->fails()){
+                return redirect()->back()->withErrors($validator->getMessageBag());
+            }
+            $customer->password = Hash::make($request['password']);
+            $customer->token = Hash::make($customer->email. $request['password']);
+            $customer->save();
+            return redirect()->route('login');
+        }else{
+            if ($customer) {
+                return view('auth.passwords.change-password');
+            }else{
+                return abort(404);
+            }
+        }
     }
 }

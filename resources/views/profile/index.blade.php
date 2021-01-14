@@ -13,7 +13,7 @@
         </div>
     </section>
 
-    <form method="POST" action="{{route('profile')}}" class="form" name="register">
+    <form method="POST" action="{{route('profile.profile')}}" class="form" name="register">
         @csrf
         <section class="billing-area ">
             <div class="container">
