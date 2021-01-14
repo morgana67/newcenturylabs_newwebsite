@@ -34,12 +34,10 @@
                     @if($edit)
                         {{ method_field("PUT") }}
                     @endif
-
                     <!-- CSRF TOKEN -->
                         {{ csrf_field() }}
-
                         <div class="panel-body">
-
+                            <?= "<p style='font-weight: bold;margin-left: 5px'>NOTE: {{NAME}} = First Name + Last Name, {{PASSWORD}} = Password </p>"?>
                             @if (count($errors) > 0)
                                 <div class="alert alert-danger">
                                     <ul>

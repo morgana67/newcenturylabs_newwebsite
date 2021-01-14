@@ -125,17 +125,53 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
         // Check permission
         $this->authorize('edit', $data);
 
-        // Validate fields with ajax
-        $val = $this->validateBread($request->all(), $dataType->editRows, $dataType->name, $id);
-
-        if ($val->fails()) {
-            return response()->json(['errors' => $val->messages()]);
+        $condition = [
+            'firstName' => ['required', 'string', 'max:191'],
+            'lastName' => ['required', 'string', 'max:191'],
+            'state' => 'required|max:191',
+            'city' => 'required|max:191',
+            'address' => 'required|max:191',
+            'zip' => 'required|numeric',
+            'dob' => 'nullable|'.'before:' . date('Y-m-d'),
+            'phone' => 'required|numeric',
+            'facebook' => 'nullable|url',
+            'twitter' => 'nullable|url',
+            'instagram' => 'nullable|url',
+        ];
+        if(!empty($request->password)){
+            $condition['password'] = ['required', 'min:8'];
+        }
+        $validator = Validator::make($request->all(),$condition );
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         }
 
-        if (!$request->ajax()) {
-            $this->insertUpdateData($request, $slug, $dataType->editRows, $data);
+        DB::beginTransaction();
+        try {
+            $dataCustomer = [
+                'firstName' => $request['firstName'],
+                'lastName' => $request['lastName'],
+                'gender' => $request['gender'],
+                'role_id' => 2,
+                'dob' => $request['dob'],
+                'token' => Hash::make($request['email']. $request['password']),
+            ];
 
-            event(new BreadDataUpdated($dataType, $data));
+            if(!empty($request->password)){
+                $dataCustomer['password'] = Hash::make($request['password']);
+            }
+            $customer = Customer::where('id',$id)->update($dataCustomer);
+
+            $dataAddress = [
+                'phone' => $request['phone'],
+                'country_id' => 230,
+                'state' => $request['state'],
+                'city' => $request['city'],
+                'address' => $request['address'],
+                'zip' => $request['zip']
+            ];
+            Address::where('customer_id',$id)->update($dataAddress);
+            DB::commit();
 
             return redirect()
                 ->route("voyager.{$dataType->slug}.index")
@@ -143,7 +179,13 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
                     'message'    => __('voyager::generic.successfully_updated')." {$dataType->display_name_singular}",
                     'alert-type' => 'success',
                 ]);
+        }catch (\Exception $exception){
+            DB::rollback();
+            return redirect()->back()->withInput($request->all())->withErrors($exception->getMessage());
         }
+
+
+
     }
 
     //***************************************
@@ -238,8 +280,8 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
                 'role_id' => 2,
                 'dob' => $request['dob'],
                 'token' => Hash::make($request['email']. $request['password']),
-
             ];
+
             $customerId = Customer::insertGetId($dataCustomer);
 
             $dataAddress = [
