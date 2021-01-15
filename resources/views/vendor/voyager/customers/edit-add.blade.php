@@ -233,7 +233,7 @@
     <script>
         var params = {};
         var $file;
-
+        $('#state').select2({});
         function deleteHandler(tag, isMulti) {
             return function () {
                 $file = $(this).siblings(tag);
