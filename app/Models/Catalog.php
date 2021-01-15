@@ -20,6 +20,6 @@ class Catalog extends Model
 
     public function scopeOnlyParent($query)
     {
-        return $query->where('parent_id','=', 0);
+        return $query->where('parent_id','=', 0)->orWhereNull('parent_id');
     }
 }
