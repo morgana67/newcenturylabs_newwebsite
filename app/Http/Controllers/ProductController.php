@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catalog;
+use App\Models\CatalogProduct;
+use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use TCG\Voyager\Database\Schema\SchemaManager;
@@ -12,7 +15,7 @@ use TCG\Voyager\Events\BreadDataUpdated;
 use TCG\Voyager\Events\BreadImagesDeleted;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
-
+use Illuminate\Support\Arr;
 class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseController
 {
     public function show(Request $request, $id)
@@ -71,6 +74,7 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
         $dataTypeContent = (strlen($dataType->model_name) != 0)
             ? app($dataType->model_name)->findOrFail($id)
             : DB::table($dataType->name)->where('id', $id)->first(); // If Model doest exist, get data from table name
+        $catalogsSelected = Arr::pluck(CatalogProduct::where('product_id',$id)->get()->toArray(),'catalog_id');
 
         foreach ($dataType->editRows as $key => $row) {
             $dataType->editRows[$key]['col_width'] = isset($row->details->width) ? $row->details->width : 100;
@@ -91,7 +95,7 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
             $view = "voyager::$slug.edit-add";
         }
         $catalogs = Catalog::onlyParent()->with('children_catalogs')->get();
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','catalogs','catalogsSelected'));
     }
 
     // POST BR(E)AD
@@ -113,11 +117,23 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
         $val = $this->validateBread($request->all(), $dataType->editRows, $dataType->name, $id);
 
         if ($val->fails()) {
-            return response()->json(['errors' => $val->messages()]);
+            return redirect()->back()->withInput($request->all())->withErrors($val->errors());
         }
+
 
         if (!$request->ajax()) {
             $this->insertUpdateData($request, $slug, $dataType->editRows, $data);
+            CatalogProduct::where('product_id',$id)->delete();
+            if ($request->type == 'bundle' && isset($request->catalogs) && count($request->catalogs) > 0){
+                $catalogData = array();
+                foreach ($request->catalogs as $catalogId){
+                    $catalogData[] = [
+                        'product_id' => $data->id,
+                        'catalog_id' => $catalogId,
+                    ];
+                }
+                CatalogProduct::insert($catalogData);
+            }
 
             event(new BreadDataUpdated($dataType, $data));
 
@@ -195,12 +211,24 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
         $val = $this->validateBread($request->all(), $dataType->addRows);
 
         if ($val->fails()) {
-            return response()->json(['errors' => $val->messages()]);
+            return redirect()->back()->withInput($request->all())->withErrors($val->errors());
         }
 
         if (!$request->has('_validate')) {
-            $data = $this->insertUpdateData($request, $slug, $dataType->addRows, new $dataType->model_name());
-
+            $productData = $request->except('catalogs','_token');
+            $productData['created_at'] = Carbon::now();
+            $data = Product::create($productData);
+//            $data = $this->insertUpdateData($request->all(), $slug, $dataType->addRows, new $dataType->model_name());
+            if ($request->type == 'bundle' && isset($request->catalogs) && count($request->catalogs) > 0){
+                $catalogData = array();
+                foreach ($request->catalogs as $catalogId){
+                    $catalogData[] = [
+                        'product_id' => $data->id,
+                        'catalog_id' => $catalogId,
+                    ];
+                }
+                CatalogProduct::insert($catalogData);
+            }
             event(new BreadDataAdded($dataType, $data));
 
             if ($request->ajax()) {
