@@ -28,6 +28,8 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="/shop">Single Test Menu</a></li>
                                         <li><a href="/bundle">Wellness Tests</a></li>
+                                        <li><a href="/testbydisease">Test By Disease</a></li>
+
                                         <li><a href="/faq">faq</a></li>
                                         <li><a href="/privacy">privacy</a></li>
                                         <li><a href="/terms">terms</a></li>
@@ -36,7 +38,6 @@
                                         <li><a href="/cart">cart</a></li>
                                         <li><a href="/blog-detail">blog-detail</a></li>
                                         <li><a href="/product-detail">product-detai</a></li>
-                                        <li><a href="/testlistbydisease">testlistbydisease</a></li>
 
                                     </ul>
                                 </li>
