@@ -14,13 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 //
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/shop', 'HomeController@shop');
+Route::get('/product/{slug}', 'HomeController@product_detail')->name('product_detail');
+Route::get('/bundle', 'HomeController@bundle')->name('bundle');
+Route::get('/testlistbydisease/{id}', 'HomeController@testlistbydisease')->name('testlistbydisease');
+Route::get('/testbydisease', 'HomeController@testbydisease')->name('testbydisease');
+
 Route::get('/how-to-order', function () {return view('how-to-order');});
 Route::get('/about-us', function () {return view('about-us');});
 Route::get('/locations', function () {return view('locations');});
 Route::get('/blog', function () {return view('blog');});
 Route::get('/login', function () {return view('login');});
-Route::get('/shop', function () {return view('shop');});
-Route::get('/bundle', function () {return view('bundle');});
 Route::get('/faq', function () {return view('faq');});
 Route::get('/forgot', function () {return view('forgot');});
 Route::get('/register', function () {return view('register');});
@@ -30,7 +34,6 @@ Route::get('/terms', function () {return view('terms');});
 Route::get('/cart', function () {return view('cart');});
 Route::get('/blog-detail', function () {return view('blog-detail');});
 Route::get('/product-detail', function () {return view('product-detail');});
-Route::get('/testlistbydisease', function () {return view('testlistbydisease');});
 
 
 Auth::routes();

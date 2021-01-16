@@ -8,4 +8,12 @@ class CatalogProduct extends Model
 {
     protected $table = 'catalog_product';
     protected $guarded = ['id'];
+
+
+    public function catalog(){
+        return $this->belongsTo('App\Models\Catalog','catalog_id','id');
+    }
+    public function product(){
+        return $this->belongsTo('App\Models\Product','product_id','id');
+    }
 }

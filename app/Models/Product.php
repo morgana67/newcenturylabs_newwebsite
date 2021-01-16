@@ -13,4 +13,16 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\Catalog');
     }
+
+    public function scopeActive($query){
+        return $query->where('status','=',1);
+    }
+
+    public function scopeSimpleType($query){
+        return $query->where('type','=','simple');
+    }
+    public function scopeBundleType($query){
+        return $query->where('type','=','bundle');
+    }
+
 }

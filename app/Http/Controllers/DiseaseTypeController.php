@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Catalog;
-use App\Models\CatalogProduct;
+use App\Models\DiseaseType;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,8 +14,8 @@ use TCG\Voyager\Events\BreadDataUpdated;
 use TCG\Voyager\Events\BreadImagesDeleted;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
-use Illuminate\Support\Arr;
-class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseController
+
+class DiseaseTypeController extends \TCG\Voyager\Http\Controllers\VoyagerBaseController
 {
     public function show(Request $request, $id)
     {
@@ -74,7 +73,6 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
         $dataTypeContent = (strlen($dataType->model_name) != 0)
             ? app($dataType->model_name)->findOrFail($id)
             : DB::table($dataType->name)->where('id', $id)->first(); // If Model doest exist, get data from table name
-        $catalogsSelected = Arr::pluck(CatalogProduct::where('product_id',$id)->get()->toArray(),'catalog_id');
 
         foreach ($dataType->editRows as $key => $row) {
             $dataType->editRows[$key]['col_width'] = isset($row->details->width) ? $row->details->width : 100;
@@ -94,8 +92,9 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
         }
-        $catalogs = Catalog::select('id','name')->onlyParent()->with('children_catalogs')->get();
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','catalogs','catalogsSelected'));
+
+        $products = Product::select('id','name')->get();
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','products'));
     }
 
     // POST BR(E)AD
@@ -120,20 +119,19 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
             return redirect()->back()->withInput($request->all())->withErrors($val->errors());
         }
 
-
         if (!$request->ajax()) {
             $this->insertUpdateData($request, $slug, $dataType->editRows, $data);
-            CatalogProduct::where('product_id',$id)->delete();
-            if ($request->type == 'bundle' && isset($request->catalogs) && count($request->catalogs) > 0){
-                $catalogData = array();
-                foreach ($request->catalogs as $catalogId){
-                    $catalogData[] = [
-                        'product_id' => $data->id,
-                        'catalog_id' => $catalogId,
-                    ];
-                }
-                CatalogProduct::insert($catalogData);
+
+            $arrProducts = null;
+            if (isset($request->products) && count($request->products) > 0){
+                $arrProducts = implode(',',$request->products);
             }
+            $data = DiseaseType::where('id',$id)->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'products' => $arrProducts,
+                'updated_at' => Carbon::now(),
+            ]);
 
             event(new BreadDataUpdated($dataType, $data));
 
@@ -187,8 +185,8 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
         }
-        $catalogs = Catalog::select('id','name')->onlyParent()->with('children_catalogs')->get();
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','catalogs'));
+        $products = Product::select('id','name')->get();
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','products'));
     }
 
     /**
@@ -211,24 +209,21 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
         $val = $this->validateBread($request->all(), $dataType->addRows);
 
         if ($val->fails()) {
-            return redirect()->back()->withInput($request->all())->withErrors($val->errors());
+            return response()->json(['errors' => $val->messages()]);
         }
 
         if (!$request->has('_validate')) {
-            $productData = $request->except('catalogs','_token');
-            $productData['created_at'] = Carbon::now();
-            $data = Product::create($productData);
-//            $data = $this->insertUpdateData($request->all(), $slug, $dataType->addRows, new $dataType->model_name());
-            if ($request->type == 'bundle' && isset($request->catalogs) && count($request->catalogs) > 0){
-                $catalogData = array();
-                foreach ($request->catalogs as $catalogId){
-                    $catalogData[] = [
-                        'product_id' => $data->id,
-                        'catalog_id' => $catalogId,
-                    ];
-                }
-                CatalogProduct::insert($catalogData);
+            $arrProducts = null;
+            if (isset($request->products) && count($request->products) > 0){
+                $arrProducts = implode(',',$request->products);
             }
+            $data = DiseaseType::insert([
+                'name' => $request->name,
+                'description' => $request->description,
+                'products' => $arrProducts,
+                'created_at' => Carbon::now(),
+            ]);
+
             event(new BreadDataAdded($dataType, $data));
 
             if ($request->ajax()) {
@@ -297,80 +292,5 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
         }
 
         return redirect()->route("voyager.{$dataType->slug}.index")->with($data);
-    }
-
-    /**
-     * Remove translations, images and files related to a BREAD item.
-     *
-     * @param \Illuminate\Database\Eloquent\Model $dataType
-     * @param \Illuminate\Database\Eloquent\Model $data
-     *
-     * @return void
-     */
-
-    /**
-     * Order BREAD items.
-     *
-     * @param string $table
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function order(Request $request)
-    {
-        $slug = $this->getSlug($request);
-
-        $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
-
-        // Check permission
-        $this->authorize('edit', app($dataType->model_name));
-
-        if (!isset($dataType->order_column) || !isset($dataType->order_display_column)) {
-            return redirect()
-                ->route("voyager.{$dataType->slug}.index")
-                ->with([
-                    'message'    => __('voyager::bread.ordering_not_set'),
-                    'alert-type' => 'error',
-                ]);
-        }
-
-        $model = app($dataType->model_name);
-        $results = $model->orderBy($dataType->order_column, $dataType->order_direction)->get();
-
-        $display_column = $dataType->order_display_column;
-
-        $dataRow = Voyager::model('DataRow')->whereDataTypeId($dataType->id)->whereField($display_column)->first();
-
-        $view = 'voyager::bread.order';
-
-        if (view()->exists("voyager::$slug.order")) {
-            $view = "voyager::$slug.order";
-        }
-
-        return Voyager::view($view, compact(
-            'dataType',
-            'display_column',
-            'dataRow',
-            'results'
-        ));
-    }
-
-    public function update_order(Request $request)
-    {
-        $slug = $this->getSlug($request);
-
-        $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
-
-        // Check permission
-        $this->authorize('edit', app($dataType->model_name));
-
-        $model = app($dataType->model_name);
-
-        $order = json_decode($request->input('order'));
-        $column = $dataType->order_column;
-        foreach ($order as $key => $item) {
-            $i = $model->findOrFail($item->id);
-            $i->$column = ($key + 1);
-            $i->save();
-        }
     }
 }

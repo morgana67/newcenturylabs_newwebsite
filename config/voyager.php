@@ -235,13 +235,14 @@ return [
             'y'              => 0,
             'size'           => 15,
        ],
+        */
        'thumbnails'          => [
            [
                 'type'  => 'fit',
-                'name'  => 'fit-500',
-                'width' => 500,
-                'height'=> 500
+                'name'  => 'fit-300',
+                'width' => 300,
+                'height'=> 300,
            ],
-       ]*/
+       ]
     ],
 ];
