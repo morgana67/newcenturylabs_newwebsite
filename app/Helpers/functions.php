@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Storage;
 if (!function_exists('is_customer')) {
     function is_customer()
     {
@@ -23,5 +24,22 @@ if (!function_exists('message_set')) {
     {
         session()->flash('message.level', $type);
         session()->flash('message.content', $message);
+    }
+}
+
+if (!function_exists('image')) {
+    function image($fileName,$size = ''): string
+    {
+        $fileNameArr = explode('.',$fileName);
+
+        $newFileName = '';
+        for ($i = 0; $i < count($fileNameArr); $i++){
+            if ($i == (count($fileNameArr)-1)){
+                $newFileName .= $size.'.'.$fileNameArr[$i];
+            }else{
+                $newFileName .= $fileNameArr[$i];
+            }
+        }
+        return Storage::disk('public')->url($newFileName);
     }
 }

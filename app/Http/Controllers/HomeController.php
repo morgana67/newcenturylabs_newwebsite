@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\DiseaseType;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\CatalogProduct;
@@ -87,7 +89,25 @@ class HomeController extends Controller
         return view('front.testlistbydisease', compact('products','disease'));
     }
 
-    public function blog(){
+    public function blog(Request $request,$slug = ''){
+        $where = array();
+        $category = null;
+        if (!empty($slug)){
+            $category = Category::where('slug',$slug)->firstOrFail();
+            $where[] = ['category_id','=',$category->id];
+        }
+        if ($request->has('q')){
+            $where[] = ['title','LIKE','%'.$request->get('q').'%'];
+        }
+        $posts = Post::published()->where($where)->orderBy('featured', 'DESC')->orderBy('created_at', 'DESC')->paginate(9);
+        $latestPosts = Post::published()->orderBy('updated_at', 'DESC')->take(5)->get();
+        $categories = Category::all();
+        return view('front.blog',compact('posts','categories','latestPosts','category'));
+    }
 
+    public function post_detail($slug){
+        $post = Post::published()->where([['slug','=',$slug]])->firstOrFail();
+        $similarPosts = Post::where("category_id", '=', $post->category_id)->limit(3)->get();
+        return view('front.blog-detail',compact('post','similarPosts'));
     }
 }

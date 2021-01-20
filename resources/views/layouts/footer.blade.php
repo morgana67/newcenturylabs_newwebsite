@@ -1,22 +1,23 @@
 <footer>
     <section class="ftr-area bg-gray white">
         <div class="container">
-            <div class="ftr__box ftr__links col-sm-4 clrlist listview">
-                <h4>Learn</h4>
-                <ul>
-                    <li><a href="how-to-order.html">How to order</a></li>
-                    <li><a href="shop.html">Test Menu</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="ftr__box ftr__links col-sm-4  clrlist listview">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="about-us.html">About Us</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="locations.html">Locations</a></li>
-                </ul>
-            </div>
+            {!! menu('Menu Footer','menu_footer') !!}
+{{--            <div class="ftr__box ftr__links col-sm-4 clrlist listview">--}}
+{{--                <h4>Learn</h4>--}}
+{{--                <ul>--}}
+{{--                    <li><a href="how-to-order.html">How to order</a></li>--}}
+{{--                    <li><a href="shop.html">Test Menu</a></li>--}}
+{{--                    <li><a href="faq.html">FAQ</a></li>--}}
+{{--                </ul>--}}
+{{--            </div>--}}
+{{--            <div class="ftr__box ftr__links col-sm-4  clrlist listview">--}}
+{{--                <h4>Company</h4>--}}
+{{--                <ul>--}}
+{{--                    <li><a href="about-us.html">About Us</a></li>--}}
+{{--                    <li><a href="blog.html">Blog</a></li>--}}
+{{--                    <li><a href="locations.html">Locations</a></li>--}}
+{{--                </ul>--}}
+{{--            </div>--}}
             <div class="ftr__box shake-icon col-sm-4 social-area icon-boxed icon-rounded clrlist listview ">
                 <h4>Stay Connected</h4>
                 <ul>
