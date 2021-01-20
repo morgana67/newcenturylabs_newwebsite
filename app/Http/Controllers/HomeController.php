@@ -86,4 +86,8 @@ class HomeController extends Controller
         //    print_r($get_product_details);exit;
         return view('front.testlistbydisease', compact('products','disease'));
     }
+
+    public function blog(){
+
+    }
 }
