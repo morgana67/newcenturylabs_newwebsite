@@ -1,53 +1,7 @@
-<style>
-    .flip {
-        /* padding: 5px; */
-
-        /*background-color: #e5eecc;*/
-        border: solid 1px #c3c3c3;
-        -webkit-box-shadow: 0px 0px 0px 5px rgba(148, 148, 148, 1);
-        -moz-box-shadow: 0px 0px 0px 5px rgba(148, 148, 148, 1);
-        box-shadow: 0px 0px 0px 5px rgba(148, 148, 148, 1);
-        margin-bottom: 28px;
-        border-left-style: solid;
-        border-left-width: 5px;
-        border-left-color: #0076c4;
-    }
-
-    .panel {
-        padding: 5px;
-        text-align: center;
-        background-color: #e5eecc;
-        border: solid 1px #c3c3c3;
-        padding: 50px;
-        display: none;
-    }
-
-    .test:after {
-        content: '\2807';
-        font-size: 3em;
-        color: #2e2e2e
-    }
-
-    /* .info-msg,{
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 3px 3px 3px 3px;
-    } */
-    .info-msg {
-        color: #059;
-        /* background-color: #BEF; */
-        text-align: center;
-        /* height: 65px; */
-        /* padding-top: 16px; */
-        /* width: 600px; */
-        font-size: 20px;
-        /* margin-right: 10px; */
-        /* margin-left: 635px; */
-        /* margin-bottom: 58px; */
-        margin-top: -16px;
-    }
-</style>
 @extends('layouts.site')
+@section('title'){{ $disease->name }}@endsection
+@section('description'){{ $disease->description }}@endsection
+@section('keywords'){{ $disease->title }}@endsection
 @section('content')
     <section class="bnr-area page-bnr-area bg-full bg-cntr valigner"
              style="background-image:url('../front/images/testmenu2.jpg');">

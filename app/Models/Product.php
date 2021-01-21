@@ -25,4 +25,8 @@ class Product extends Model
         return $query->where('type','=','bundle');
     }
 
+    public function scopeAdditionalType($query){
+        return $query->where('type','=','additional');
+    }
+
 }

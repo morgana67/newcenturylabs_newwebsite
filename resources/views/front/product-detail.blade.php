@@ -1,11 +1,14 @@
 @extends('layouts.site')
+@section('title'){{ $product->name }}@endsection
+@section('description'){{ strip_tags($product->description) }}@endsection
+@section('keywords'){{ $product->keywords }}@endsection
 @section('content')
     <section class="bnr-area page-bnr-area bg-full bg-cntr valigner"
-             style="background-image:url('../front/images/testmenu2.jpg');">
+             style="background-image:url({{asset('/front/images/testmenu2.jpg')}});">
         <div class="container">
             <div class="bnr__cont valign white text-center col-sm-12 text-uppercase anime-flipInX">
                 <h2></h2>
-                <h3>ABO Group and RH Type </h3>
+                <h3>{{ $product->name }}</h3>
             </div>
         </div>
     </section>
@@ -25,23 +28,32 @@
                     <div class="circle__cont text-center">
                         <div>
                             <h3>{{ $product->name }}</h3>
+                            @php
+                              if($product->sale_price != null){
+                                    $price = floatval($product->sale_price);
+                                }else{
+                                    $price = floatval($product->price);
+                                }
+                            @endphp
                             @if ($product->sale_price != null)
-                                <h2><sup>$</sup>{{ floatval($product->sale_price) }}</h2>
+                                <h2><sup>$</sup>{{ $price }}</h2>
                                 <strong>Average competitors price</strong>
                                 <h4><sup>$</sup>{{floatval($product->price)}}</h4>
                             @else
-                                <h2><sup>$</sup>{{ floatval($product->price) }}</h2>
+                                <h2><sup>$</sup>{{ $price }}</h2>
                                 <strong>Average competitors price</strong>
                             @endif
                             <strong>Pricing based on average direct to consumer pricing.</strong>
                             <div class="checkout-area">
-                                <button id="btn_add_to_cart" class="out-btn btn btn-default">CHECKOUT</button>
-                                {{--                            <form id="form_add_to_cart" class="prod-detail-form">--}}
-                                {{--                                <input type="hidden" value="1" name="quantity" id="quantity"/>--}}
-                                {{--                                <input type="hidden" name="total_price" id="total_price" value="29"/>--}}
-                                {{--                                <input type="hidden" name="price" id="price" value="29"/>--}}
-                                {{--                                <input type="hidden" name="product_id" id="product_id" value="8"/>--}}
-                                {{--                            </form>--}}
+                                <form method="POST" action="{{route('cart.add')}}">
+                                    @csrf
+                                    <input type="hidden" value="1" name="quantity" id="quantity"/>
+                                    <input type="hidden" name="price" id="price" value="{{$price}}"/>
+                                    <input type="hidden" name="product_id" id="product_id" value="{{$product->id}}"/>
+                                    <input type="hidden" name="name" id="name" value="{{$product->name}}"/>
+                                    <input type="hidden" name="slug" id="slug" value="{{$product->slug}}"/>
+                                    <button id="btn_add_to_cart" class="out-btn btn btn-default">CHECKOUT</button>
+                                </form>
                             </div>
                         </div>
                     </div>

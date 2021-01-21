@@ -14,13 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 //
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/shop', 'HomeController@shop');
+Route::get('/shop', 'HomeController@shop')->name('shop');
 Route::get('/product/{slug}', 'HomeController@product_detail')->name('product_detail');
 Route::get('/bundle', 'HomeController@bundle')->name('bundle');
 Route::get('/testlistbydisease/{id}', 'HomeController@testlistbydisease')->name('testlistbydisease');
 Route::get('/testbydisease', 'HomeController@testbydisease')->name('testbydisease');
 Route::get('/blog/{slug?}', 'HomeController@blog')->name('blog');
 Route::get('/post/{slug}', 'HomeController@post_detail')->name('post_detail');
+Route::get('/checkout', function (){ return view('front.cart.checkout');});
 
 
 Route::get('/how-to-order', function () {return view('how-to-order');});
@@ -38,14 +39,21 @@ Route::get('/cart', function () {return view('cart');});
 Route::get('/blog-detail', function () {return view('blog-detail');});
 Route::get('/product-detail', function () {return view('product-detail');});
 
-
 Auth::routes();
+
 Route::post('/post-register','Auth\RegisterController@postRegister')->name('postRegister');
 Route::post('/reset-password','Auth\ResetPasswordController@reset_password')->name('resetPassword');
 Route::match(['get','post'],'/change-password','Auth\ResetPasswordController@change_password')->name('changePassword');
 Route::group(['prefix' => 'profile','middleware' => 'customer','as' => 'profile.'],function (){
     Route::match(['get','post'],'/','ProfileController@profile')->name('profile');
     Route::match(['get','post'],'/change-password','ProfileController@changePassword')->name('changePassword');
+});
+
+Route::group(['prefix' => 'cart','as' => 'cart.'],function (){
+    Route::post('add','CartController@add')->name('add');
+    Route::get('view','CartController@view')->name('view');
+    Route::post('update','CartController@update')->name('update');
+    Route::post('delete','CartController@delete')->name('delete');
 });
 
 

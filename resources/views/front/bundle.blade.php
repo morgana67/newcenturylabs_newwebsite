@@ -1,4 +1,7 @@
 @extends('layouts.site')
+@section('title'){{ 'Bundle' }}@endsection
+@section('description'){{'Bundle'}}@endsection
+@section('keywords'){{'Bundle'}}@endsection
 @section('content')
     <section class="inr-intro-area pt100 pb40">
         <div class="container">

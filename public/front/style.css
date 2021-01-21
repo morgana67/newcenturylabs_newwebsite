@@ -4316,3 +4316,19 @@ section.box-area.text-center.pt20.pb50 {
 /*.is-invalid{*/
 /*    border-color: #ff4265;*/
 /*}*/
+
+button{
+    outline: none !important;
+}
+
+.d-flex{
+    display: flex !important;
+}
+
+.justify-content-center{
+    justify-content: center !important;
+}
+
+.justify-content-flex-end{
+    justify-content: flex-end !important;
+}

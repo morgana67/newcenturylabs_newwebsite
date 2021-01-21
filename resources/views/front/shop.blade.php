@@ -1,4 +1,7 @@
 @extends('layouts.site')
+@section('title'){{ 'Shop' }}@endsection
+@section('description'){{'Shop'}}@endsection
+@section('keywords'){{'Shop'}}@endsection
 @section('content')
     <section class="bnr-area page-bnr-area bg-full bg-cntr valigner"
              style="background-image:url('front/images/testmenu2.jpg');">

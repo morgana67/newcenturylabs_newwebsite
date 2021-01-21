@@ -13,11 +13,12 @@
                  }
             }
         @endphp
-        <li class="{{$isActive}}"><a @if(!$menu_item->children->isEmpty())
-                                     href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                     aria-haspopup="true" aria-expanded="false"
-                                     @else
-                                     href="{{ $menu_item->link() }}"
+        <li class="{{$isActive}}">
+            <a  @if(!$menu_item->children->isEmpty())
+                 href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                 aria-haspopup="true" aria-expanded="false"
+                @else
+                 href="{{ $menu_item->link() }}"
                 @endif
             >{{ $menu_item->title }} </a>
             @if(!$menu_item->children->isEmpty())
@@ -32,7 +33,8 @@
     @if(!is_customer())
         <li class="login-link {{$isActive}}"><a href="{{route('login')}}">Login</a></li>
     @else
-        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account<span class="caret"></span></a>
+        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">My Account<span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="!#" class="pagelinkcolor">My Orders</a></li>
                 <li><a href="{{route('profile.changePassword')}}" class="pagelinkcolor">Change Password</a></li>
@@ -49,7 +51,18 @@
                     class="badge"></sup></span> </a>
 
         <ul class="dropdown-menu">
-            <li><a href="javascript:void(0);" class="pagelinkcolor">No items</a></li>
+            @if(Cart::count() == 0)
+                 <li><a href="javascript:void(0);" class="pagelinkcolor">No items</a></li>
+            @else
+                @foreach(Cart::content() as $product)
+                    <li><a href="https://newcenturylabs.com/product/aluminum-random-urine" class="pagelinkcolor">{{$product->name}}</a></li>
+                @endforeach
+                    <li>
+                        <div class="p10 col-sm-12 active d-flex justify-content-flex-end"><a class="btn btn-warning" href="https://newcenturylabs.com/cart/view"><i class="fa fa-arrow-right"></i> View Cart</a>
+                            <a class="btn btn-primary" href="https://newcenturylabs.com/checkout"><i class="fa fa-shopping-cart"></i> Check out</a></div>
+                    </li>
+            @endif
+
         </ul>
     </li>
 </ul>

@@ -241,19 +241,30 @@
 
                 $('#confirm_delete_modal').modal('hide');
             });
-
             $('[data-toggle="tooltip"]').tooltip();
-
+            let divFieldMandatory = $('[name=mandatory]').parents('div.form-group');
             $('select[name=type]').on('change',function () {
                 if($(this).val() === 'bundle'){
                     $('.list_catalog').removeClass('hide');
                 }else{
                     $('.list_catalog').addClass('hide');
                 }
+
+                if($(this).val() === 'additional'){
+                    divFieldMandatory.removeClass('hide')
+                }else{
+                    divFieldMandatory.addClass('hide')
+                }
             })
             $('.check_all').on('change', function () {
                 $(".sub_cat_" + this.id).prop('checked', $(this).prop('checked'));
             });
+            @if((isset($dataTypeContent) && $dataTypeContent->type != 'additional') || !isset($dataTypeContent))
+                divFieldMandatory.addClass('hide')
+            @else
+                divFieldMandatory.removeClass('hide')
+            @endif
         });
     </script>
+
 @stop

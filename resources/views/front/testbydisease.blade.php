@@ -1,4 +1,7 @@
 @extends('layouts.site')
+@section('title'){{ 'Test By Disease' }}@endsection
+@section('description'){{'Test By Disease'}}@endsection
+@section('keywords'){{'Test By Disease'}}@endsection
 @section('content')
     <section class="bnr-area page-bnr-area bg-full bg-cntr valigner" style="background-image:url('{{ asset('front/images/testmenu2.jpg') }}');">
         <div class="container">

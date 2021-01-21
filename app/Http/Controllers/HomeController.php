@@ -44,7 +44,11 @@ class HomeController extends Controller
     }
 
     public function product_detail($slug){
-        $product = Product::where('slug',$slug)->firstOrFail();
+        if (is_numeric($slug)){
+            $product = Product::where('id',$slug)->firstOrFail();
+        }else{
+            $product = Product::where('slug',$slug)->firstOrFail();
+        }
         return view('front.product-detail', compact('product'));
     }
 
