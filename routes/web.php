@@ -65,5 +65,14 @@ Route::group(['middleware' => 'customer'],function (){
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+Route::group(['prefix' => 'admin','namespace' => 'Admin','as' => 'admin.'], function () {
+    Route::group(['prefix' => 'orders','as' => 'orders.',],function (){
+        Route::get('/','OrderController@index')->name('index');
+        Route::match(['get','post'],'detail/{id}','OrderController@detail')->name('detail');
+        Route::delete('destroy/{id}','OrderController@destroy')->name('destroy');
+        Route::post('updateOrderStatus/{id}','OrderController@updateOrderStatus')->name('updateOrderStatus');
+        Route::post('updatePaymentStatus/{id}','OrderController@updatePaymentStatus')->name('updatePaymentStatus');
+    });
+});
 
 
