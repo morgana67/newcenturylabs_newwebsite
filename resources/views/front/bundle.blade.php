@@ -59,8 +59,16 @@
                 <div class="cont">
                     <p>{!! $product->description  !!} </p>
                     <div class="lnk-btn inline-btns">
-                        <a href="javascript:void(0);"
-                           onclick="AddToCart('<?php echo $product->id ?>', '<?php echo $price ?>');">Add to Cart</a>
+                        <form method="POST" action="{{route('cart.add')}}">
+                            @csrf
+                            <input type="hidden" value="1" name="quantity" id="quantity"/>
+                            <input type="hidden" name="price" id="price" value="{{$price}}"/>
+                            <input type="hidden" name="product_id" id="product_id" value="{{$product->id}}"/>
+                            <input type="hidden" name="name" id="name" value="{{$product->name}}"/>
+                            <input type="hidden" name="slug" id="slug" value="{{$product->slug}}"/>
+                            <button id="btn_add_to_cart" class="out-btn btn btn-default">CHECKOUT</button>
+                        </form>
+
                     </div>
                 </div>
 

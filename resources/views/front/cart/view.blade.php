@@ -115,11 +115,11 @@
 
                         <tbody><tr>
                             <td class="text-left">Subtotal</td>
-                            <td>${{Cart::total() + $priceMandatory}}</td>
+                            <td>${{str_replace(',','',Cart::total()) + number_format($priceMandatory,2)}}</td>
                         </tr>
                         <tr>
                             <td class="text-left">Total</td>
-                            <td>${{Cart::total() + $priceMandatory}}</td>
+                            <td>${{str_replace(',','',Cart::total()) + number_format($priceMandatory,2)}}</td>
                         </tr>
                         </tbody></table>
                 </div>
