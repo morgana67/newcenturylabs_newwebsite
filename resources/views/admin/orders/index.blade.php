@@ -49,7 +49,19 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div class="pull-left">
+                            <div role="status" class="show-res" aria-live="polite">{{ trans_choice(
+                                    'voyager::generic.showing_entries', $orders->total(), [
+                                        'from' => $orders->firstItem(),
+                                        'to' => $orders->lastItem(),
+                                        'all' => $orders->total()
+                                    ]) }}</div>
+                        </div>
+                        <div class="pull-right">
+                            {{ $orders->links() }}
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
