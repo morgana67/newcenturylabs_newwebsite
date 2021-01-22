@@ -4,7 +4,7 @@
 
 @section('page_header')
     <h1 class="page-title">
-        <i class=""></i> {{ __('voyager::generic.viewing') }} Order
+        <i class="icon voyager-basket"></i> {{ __('voyager::generic.viewing') }} Order
         <a href="{{ route('admin.orders.index') }}" class="btn btn-warning">
             <span class="glyphicon glyphicon-list"></span>&nbsp;
             {{ __('voyager::generic.return_to_list') }}
