@@ -55,11 +55,13 @@
                  <li><a href="javascript:void(0);" class="pagelinkcolor">No items</a></li>
             @else
                 @foreach(Cart::content() as $product)
-                    <li><a href="https://newcenturylabs.com/product/aluminum-random-urine" class="pagelinkcolor">{{$product->name}}</a></li>
+                    <li><a href="{{route('product_detail',['slug' => $product->id])}}" class="pagelinkcolor">{{$product->name}}</a></li>
                 @endforeach
                     <li>
-                        <div class="p10 col-sm-12 active d-flex justify-content-flex-end"><a class="btn btn-warning" href="https://newcenturylabs.com/cart/view"><i class="fa fa-arrow-right"></i> View Cart</a>
-                            <a class="btn btn-primary" href="https://newcenturylabs.com/checkout"><i class="fa fa-shopping-cart"></i> Check out</a></div>
+                        <div class="p10 col-sm-12 active d-flex justify-content-flex-end">
+                            <a class="btn btn-warning" href="{{route('cart.view')}}"><i class="fa fa-arrow-right"></i> View Cart</a>
+                            <a class="btn btn-primary" href="{{route('cart.checkout')}}"><i class="fa fa-shopping-cart"></i> Check out</a>
+                        </div>
                     </li>
             @endif
 

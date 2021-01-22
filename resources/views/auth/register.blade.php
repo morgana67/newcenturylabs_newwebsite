@@ -58,7 +58,6 @@
                     <div class="form-group col-sm-6 clrhm">
                         <h5><label for="gender">Gender *</label></h5>
                         <div class="inline-form">
-
                             <input {{old('gender') == 'm' || empty(old('gender')) ? 'checked' : ''}} name="gender" type="radio" value="m" id="gender">
                             <label for="Male">Male</label>
                             <input {{old('gender') == 'f' ? 'checked' : ''}} name="gender" type="radio" value="f" id="gender">

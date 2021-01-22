@@ -129,4 +129,5 @@ class RegisterController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($exception->getMessage());
         }
     }
+
 }

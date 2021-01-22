@@ -69,7 +69,7 @@
                                             <a class="view-cat-link">{{$product->name}}</a>
                                         </td>
                                         <td class="text-center">
-                                            ${{floatval($product->price)}}
+                                            ${{$price}}
                                         </td>
                                         <td class="text-center">
 {{--                                            {{$product->qty}}--}}
@@ -114,11 +114,11 @@
                         </tr></thead>
 
                         <tbody><tr>
-                            <td>Subtotal</td>
+                            <td class="text-left">Subtotal</td>
                             <td>${{Cart::total() + $priceMandatory}}</td>
                         </tr>
                         <tr>
-                            <td>Total</td>
+                            <td class="text-left">Total</td>
                             <td>${{Cart::total() + $priceMandatory}}</td>
                         </tr>
                         </tbody></table>
@@ -126,7 +126,7 @@
                 <div class="clearfix"></div>
                 <div class="btn-group pul-rgt pr20">
                     <a href="{{route('shop')}}" class="btn  btn-primary">Continue Shopping <i class="fa fa-arrow-right"></i></a>
-                    <a href="https://newcenturylabs.com/checkout" class="btn  btn-success">Proceed to Checkout <i class="fa fa-shopping-cart"></i></a>
+                    <a href="{{is_customer() ? route('cart.checkout') : route('login')}}" class="btn  btn-success">Proceed to Checkout <i class="fa fa-shopping-cart"></i></a>
                 </div>
             @endif
         </section>
@@ -139,7 +139,6 @@
         })
 
         $('[name=qty]').on('change',function () {
-            // console.log($(this).parents('form'));
             $(this).parent('form').submit();
         })
 

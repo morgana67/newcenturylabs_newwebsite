@@ -21,8 +21,6 @@ Route::get('/testlistbydisease/{id}', 'HomeController@testlistbydisease')->name(
 Route::get('/testbydisease', 'HomeController@testbydisease')->name('testbydisease');
 Route::get('/blog/{slug?}', 'HomeController@blog')->name('blog');
 Route::get('/post/{slug}', 'HomeController@post_detail')->name('post_detail');
-Route::get('/checkout', function (){ return view('front.cart.checkout');});
-
 
 Route::get('/how-to-order', function () {return view('how-to-order');});
 Route::get('/about-us', function () {return view('about-us');});
@@ -44,18 +42,25 @@ Auth::routes();
 Route::post('/post-register','Auth\RegisterController@postRegister')->name('postRegister');
 Route::post('/reset-password','Auth\ResetPasswordController@reset_password')->name('resetPassword');
 Route::match(['get','post'],'/change-password','Auth\ResetPasswordController@change_password')->name('changePassword');
-Route::group(['prefix' => 'profile','middleware' => 'customer','as' => 'profile.'],function (){
-    Route::match(['get','post'],'/','ProfileController@profile')->name('profile');
-    Route::match(['get','post'],'/change-password','ProfileController@changePassword')->name('changePassword');
-});
 
-Route::group(['prefix' => 'cart','as' => 'cart.'],function (){
-    Route::post('add','CartController@add')->name('add');
-    Route::get('view','CartController@view')->name('view');
-    Route::post('update','CartController@update')->name('update');
-    Route::post('delete','CartController@delete')->name('delete');
-});
+Route::group(['middleware' => 'customer'],function (){
+    Route::group(['prefix' => 'profile','as' => 'profile.'],function (){
+        Route::match(['get','post'],'/','ProfileController@profile')->name('profile');
+        Route::match(['get','post'],'/change-password','ProfileController@changePassword')->name('changePassword');
+    });
 
+    Route::group(['prefix' => 'cart','as' => 'cart.'],function (){
+        Route::post('add','CartController@add')->name('add');
+        Route::get('view','CartController@view')->name('view');
+        Route::post('update','CartController@update')->name('update');
+        Route::post('delete','CartController@delete')->name('delete');
+        Route::get('/checkout', 'CheckoutController@view')->name('checkout');
+        Route::post('/checkoutProceed', 'CheckoutController@checkoutProceed')->name('checkoutProceed');
+    });
+
+    Route::get('/order-success/{id?}','CheckoutController@orderSuccess')->name('order-success');
+
+});
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

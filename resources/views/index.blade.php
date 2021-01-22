@@ -79,7 +79,7 @@
             </div>
         <div class="col-md-8">
             <div class="col-sm-12">
-                <video id="video" style="outline: none" width="100%" {{$Agent->isMobile() ? '' :'height=500' }} autoplay controls>
+                <video id="video" style="outline: none" width="100%" {{$Agent->isMobile() ? '' :'height=500' }} controls>
                     <source src="{{ asset('front/video/videoplayback.mp4') }}" type="video/mp4" />
                 </video>
 {{--                <div class="container posrel">--}}

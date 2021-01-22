@@ -2244,7 +2244,7 @@ filter: blur(0px);
     font-family:'Raleway', sans-serif;
     font-weight:500;
 }
-.sidebar__srch input::::-moz-placeholder { color:#616161; -webkit-transition: padding 0.5s; transition: all 1s;}
+.sidebar__srch input::-moz-placeholder { color:#616161; -webkit-transition: padding 0.5s; transition: all 1s;}
 .sidebar__srch input:-ms-input-placeholder { color:#616161; -webkit-transition: padding 0.5s; transition: all 1s;}
 .sidebar__srch input::-webkit-input-placeholder { color:#616161; -webkit-transition: padding 0.5s; transition: 1s;}
 .sidebar__srch i{
