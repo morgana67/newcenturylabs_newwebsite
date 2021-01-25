@@ -43,3 +43,13 @@ if (!function_exists('image')) {
         return Storage::disk('public')->url($newFileName);
     }
 }
+
+if (!function_exists('uploadFile')) {
+    function uploadFile($path = "./uploads", $name = "file")
+    {
+        $file     = request()->file($name);
+        $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
+        $file->move(public_path($path), $fileName);
+        return $path . $fileName;
+    }
+}

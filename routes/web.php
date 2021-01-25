@@ -22,7 +22,7 @@ Route::get('/testbydisease', 'HomeController@testbydisease')->name('testbydiseas
 Route::get('/blog/{slug?}', 'HomeController@blog')->name('blog');
 Route::get('/post/{slug}', 'HomeController@post_detail')->name('post_detail');
 
-Route::get('/how-to-order', function () {return view('how-to-order');});
+Route::get('/how-to-order', function () {return view('how-to-order');})->name('how-to-order');
 Route::get('/about-us', function () {return view('about-us');});
 Route::get('/locations', function () {return view('locations');});
 //Route::get('/blog', function () {return view('blog');});
@@ -72,6 +72,11 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','as' => 'admin.'], func
         Route::delete('destroy/{id}','OrderController@destroy')->name('destroy');
         Route::post('updateOrderStatus/{id}','OrderController@updateOrderStatus')->name('updateOrderStatus');
         Route::post('updatePaymentStatus/{id}','OrderController@updatePaymentStatus')->name('updatePaymentStatus');
+    });
+
+    Route::group(['prefix' => 'page-static','as' => 'page-static.',],function (){
+        Route::get('/','PageStaticController@index')->name('index');
+        Route::match(['get','post'],'detail/{code?}','PageStaticController@detail')->name('detail');
     });
 });
 

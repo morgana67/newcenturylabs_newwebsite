@@ -79,9 +79,7 @@
             </div>
         <div class="col-md-8">
             <div class="col-sm-12">
-                <video id="video" style="outline: none" width="100%" {{$Agent->isMobile() ? '' :'height=500' }} controls>
-                    <source src="{{ asset('front/video/videoplayback.mp4') }}" type="video/mp4" />
-                </video>
+                <iframe width="100%" {{$Agent->isMobile() ? '' :'height=550' }}  src="https://www.youtube.com/embed/TlNw-ybTo-w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 {{--                <div class="container posrel">--}}
 {{--                    <div class="caro-caps anime-flipInX">--}}
 {{--                        <h1>The most <strong>affordable</strong>&nbsp;blood tests online</h1>--}}
@@ -157,7 +155,7 @@
                         now order any blood tests on your terms, on demand 24 hour a day 7 days per week from your
                         desktop or any mobile device.</p>
 
-                    <div class="lnk-btn browse-btn"><a href="shop.html">View all Test &gt;&gt;</a></div>
+                    <div class="lnk-btn browse-btn"><a href="{{route('shop')}}">View all Test &gt;&gt;</a></div>
                 </div>
             </div>
 
@@ -191,7 +189,7 @@
                     <p>Did you know that 70-80% of all clinical decisions come from blood tests and disease happens
                         before you get a symptom. Don&#39;t neglect yourself, empower yourself and take charge.</p>
 
-                    <div class="lnk-btn browse-btn"><a href="how-to-order.html">Let&rsquo;s Get Proactive &gt;&gt;</a>
+                    <div class="lnk-btn browse-btn"><a href="{{route('how-to-order')}}">Let&rsquo;s Get Proactive &gt;&gt;</a>
                     </div>
                 </div>
             </div>
