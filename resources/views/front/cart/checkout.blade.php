@@ -161,8 +161,8 @@
                             @endforeach
                             <tr class="h4">
                                 <td for="LAB TEST">Total</td>
-                                <td for="TOTAL">${{Cart::total() + $priceMandatory}}</td>
-                                <input type="hidden" name="totalAmount" value="{{Cart::total() + $priceMandatory}}">
+                                <td for="TOTAL">${{str_replace(',','',Cart::total()) + $priceMandatory}}</td>
+                                <input type="hidden" name="totalAmount" value="{{str_replace(',','',Cart::total()) + $priceMandatory}}">
                             </tr>
                             </tbody>
                         </table>
