@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use TCG\Voyager\Traits\Translatable;
 
@@ -52,7 +53,22 @@ class Page extends Model
         return $query->where('status', static::STATUS_ACTIVE);
     }
 
+    public function scopePageDefault($query){
+        return $query->whereNull('code_page');
+    }
+
     public function scopePageStatic($query){
         return $query->whereNotNull('code_page');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('pageDefault', function (Builder $builder) {
+            $builder->whereNull('code_page');
+        });
+
+    }
+
+
 }

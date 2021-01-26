@@ -1,6 +1,7 @@
 @php
     use Jenssegers\Agent\Agent as Agent;
     $Agent = new Agent();
+    $body = json_decode($page->body);
 @endphp
 @extends('layouts.site')
 @section('content')
@@ -15,13 +16,12 @@
 
             <div class="carousel-inner">
                 <div class="item active">
-                    <img alt="..." src="/front/images/slide1.jpg"/>
+                    <img alt="..." src="{{image($body->banner)}}"/>
                     <div class="container posrel">
                         <div class="caro-caps anime-flipInX">
-                            <h1>The most <strong>affordable</strong>&nbsp;blood tests online</h1>
+                            <h1>{!! $body->title_banner ?? null !!}</h1>
 
-                            <p>We offer over 200 blood tests online from single tests to advanced compressive panels you
-                                can order from the comfort of your home.</p>
+                            <p>{!! $body->desc_banner ?? null !!}</p>
 
                             <div class="lnk-btn inline-block more-btn"><a href="{{route('register')}}">Sign Up With Us</a></div>
                         </div>

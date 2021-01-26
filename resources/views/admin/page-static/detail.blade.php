@@ -9,7 +9,6 @@
         }
     </style>
 @stop
-
 @section('page_title', 'Page Static')
 
 @section('page_header')
@@ -33,11 +32,16 @@
                         <div class="panel-body">
                             @if($page->code_page == 'home')
                                 @include('admin.page-static.elements.home')
+                            @elseif($page->code_page == 'faq')
+                                @include('admin.page-static.elements.faq')
+                            @elseif($page->code_page == 'how-to-order')
+                                @include('admin.page-static.elements.how-to-order')
+                            @elseif($page->code_page == 'about-us')
+                                @include('admin.page-static.elements.about-us')
                             @else
-
+                                @include('admin.page-static.elements.default')
                             @endif
-                        </div><!-- panel-body -->
-
+                        </div>
                         <div class="panel-footer">
                             <button type="submit" class="btn btn-primary save">Save</button>
                         </div>

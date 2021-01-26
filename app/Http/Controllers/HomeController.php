@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\DiseaseType;
+use App\Models\Page;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\Product;
@@ -28,7 +29,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $page = Page::withoutGlobalScopes()->where(['code_page' => 'home'])->first();
+        return view('front.index',compact('page'));
     }
 
     public function shop(){

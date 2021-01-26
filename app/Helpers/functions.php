@@ -28,8 +28,9 @@ if (!function_exists('message_set')) {
 }
 
 if (!function_exists('image')) {
-    function image($fileName,$size = ''): string
+    function image($fileName,$size = ''): ?string
     {
+        if(empty($fileName)) return null;
         $fileNameArr = explode('.',$fileName);
 
         $newFileName = '';
@@ -45,11 +46,10 @@ if (!function_exists('image')) {
 }
 
 if (!function_exists('uploadFile')) {
-    function uploadFile($path = "./uploads", $name = "file")
+    function uploadFile($path = "", $name = "file")
     {
         $file     = request()->file($name);
-        $fileName = md5($file->getClientOriginalName() . time()) . "." . $file->getClientOriginalExtension();
-        $file->move(public_path($path), $fileName);
-        return $path . $fileName;
+        $fileName = $name.'.'.$file->getClientOriginalExtension();
+        return Storage::disk(config('voyager.storage.disk'))->putFileAs($path,request()->file($name),$fileName);
     }
 }

@@ -25,17 +25,9 @@
 
 <div>
     <div class="form-group col-md-12">
-        <h4>Banner</h4>
-        <label class="control-label" for="name">Title Banner</label>
-        <input type="text" class="form-control" name="title_banner"
-               placeholder="Title Banner"
-               value="{{old('title_banner',$body->title_banner ?? null)}}">
-    </div>
-    <div class="form-group col-md-12">
         <label class="control-label" for="content_banner">Description Banner</label>
-        <input type="text" class="form-control" name="desc_banner"
-               placeholder="Description Banner"
-               value="{{old('desc_banner',$body->desc_banner ?? null)}}">
+        <textarea type="text" class="form-control" rows="6" name="desc_banner"
+               placeholder="Description Banner">{{old('desc_banner',$body->desc_banner ?? null)}}</textarea>
     </div>
     <div class="form-group col-md-12">
         <label class="control-label" for="name">Banner</label>
@@ -46,22 +38,9 @@
     </div>
     <div class="form-group col-md-12">
         <h4>Section 1</h4>
-        <label class="control-label" for="name">Title</label>
-        <input type="text" class="form-control" name="title_section1"
-               placeholder="Title"
-               value="{{old('title_section1',$body->title_section1 ?? null)}}">
-    </div>
-    <div class="form-group col-md-12">
         <label class="control-label" for="content_banner">Description</label>
-        <input type="text" class="form-control" name="desc_section1"
-               placeholder="Desc"
-               value="{{old('desc_section1',$body->desc_section1 ?? null)}}">
-    </div>
-    <div class="form-group col-md-12">
-        <label class="control-label" for="link_video">Link video (*Youtube)</label>
-        <input type="text" class="form-control" name="link_video_section1"
-               placeholder="Desc Banner"
-               value="{{old('link_video_section1',$body->link_video_section1 ?? null)}}">
+        <textarea type="text" class="form-control richTextBox" name="desc_section1"
+                  placeholder="Desc">{{old('desc_section1',$body->desc_section1 ?? null)}}</textarea>
     </div>
 
     <div>
@@ -73,9 +52,8 @@
         </div>
         <div class="form-group col-md-4">
             <label class="control-label" for="desc_icon_1_section1">Desc icon 1</label>
-            <input type="text" class="form-control" name="desc_icon_1_section1"
-                   placeholder="Desc"
-                   value="{{old('desc_icon_1_section1',$body->desc_icon_1_section1 ?? null)}}">
+            <textarea type="text" class="form-control" name="desc_icon_1_section1"
+                      placeholder="Desc">{{old('desc_icon_1_section1',$body->desc_icon_1_section1 ?? null)}}</textarea>
         </div>
         <div class="form-group col-md-4">
             <label class="control-label" for="img_icon_1_section1">Icon</label>
@@ -85,8 +63,9 @@
             @if(!empty($body->img_icon_1_section1))
                 <img class="img-responsive" src="{{image($body->img_icon_1_section1)}}" alt="">
             @endif
-{{--        </div>--}}
+        </div>
     </div>
+    <div class="clearfix"></div>
     <div>
         <div class="form-group col-md-4">
             <label class="control-label" for="title_icon_2_section1">Title icon 2</label>
@@ -96,9 +75,8 @@
         </div>
         <div class="form-group col-md-4">
             <label class="control-label" for="desc_icon_2_section1">Desc icon 2</label>
-            <input type="text" class="form-control" name="desc_icon_2_section1"
-                   placeholder="Desc"
-                   value="{{old('desc_icon_2_section1',$body->desc_icon_2_section1 ?? null)}}">
+            <textarea type="text" class="form-control" name="desc_icon_2_section1"
+                      placeholder="Desc">{{old('desc_icon_2_section1',$body->desc_icon_2_section1 ?? null)}}</textarea>
         </div>
         <div class="form-group col-md-4">
             <label class="control-label" for="img_icon_2_section1">Icon</label>
@@ -110,19 +88,18 @@
             @endif
         </div>
     </div>
-
+    <div class="clearfix"></div>
     <div>
         <div class="form-group col-md-4">
             <label class="control-label" for="title_icon_3_section1">Title icon 3</label>
-            <input type="text" class="form-control" name="title_icon_3_section1"
+            <input type="text" class="form-control" name="title_icon_2_section1"
                    placeholder="Title"
-                   value="{{old('title_icon_3_section1',$body->title_icon_3_section1 ?? null)}}">
+                   value="{{old('title_icon_2_section1',$body->title_icon_3_section1 ?? null)}}">
         </div>
         <div class="form-group col-md-4">
             <label class="control-label" for="desc_icon_3_section1">Desc icon 3</label>
-            <input type="text" class="form-control" name="desc_icon_3_section1"
-                   placeholder="Desc"
-                   value="{{old('desc_icon_3_section1',$body->desc_icon_3_section1 ?? null)}}">
+            <textarea type="text" class="form-control" name="desc_icon_3_section1"
+                      placeholder="Desc">{{old('desc_icon_3_section1',$body->desc_icon_3_section1 ?? null)}}</textarea>
         </div>
         <div class="form-group col-md-4">
             <label class="control-label" for="img_icon_3_section1">Icon</label>
@@ -135,58 +112,24 @@
         </div>
     </div>
     <hr>
+
     <div class="form-group col-md-12">
         <h4>Section 2</h4>
-        <label class="control-label" for="name">Title</label>
-        <input type="text" class="form-control" name="title_section2"
+        <label class="control-label" for="name">Link</label>
+        <input type="text" class="form-control" name="link_section2"
                placeholder="Title"
-               value="{{old('title_section2',$body->title_section2 ?? null)}}">
+               value="{{old('link_section2',$body->link_section2 ?? null)}}">
     </div>
     <div class="form-group col-md-12">
         <label class="control-label" for="content_banner">Description</label>
-        <textarea name="desc_section2" class="form-control" id="desc_section2" cols="20" rows="5">{{old('desc_section2',$body->desc_section2 ?? null)}}</textarea>
-    </div>
-    <div class="form-group col-md-6">
-        <label class="control-label" for="price_section2">Price</label>
-        <input type="text" class="form-control" name="price_section2" value="{{old('price_section2',$body->price_section2 ?? null)}}">
-    </div>
-    <div class="form-group col-md-6">
-        <label class="control-label" for="sale_price_section2">Sale Price</label>
-        <input type="text" class="form-control" name="sale_price_section2" value="{{old('sale_price_section2',$body->sale_price_section2 ?? null)}}">
-    </div>
-
-    <div class="form-group col-md-12">
-        <h4>Section 3</h4>
-        <label class="control-label" for="name">Title</label>
-        <input type="text" class="form-control" name="title_section3"
-               placeholder="Title"
-               value="{{old('title_section3',$body->title_section3 ?? null)}}">
+        <textarea name="desc_section2" class="form-control" id="desc_section2" cols="20"
+                  rows="5">{{old('desc_section2',$body->desc_section2 ?? null)}}</textarea>
     </div>
     <div class="form-group col-md-12">
-        <label class="control-label" for="content_banner">Description</label>
-        <textarea name="desc_section3" class="form-control" id="desc_section3" cols="20" rows="5">{{old('desc_section3',$body->desc_section3 ?? null)}}</textarea>
-    </div>
-    <div class="form-group col-md-12">
-        <input type="file" name="image_section3"
-               value="{{old('image_section3',$body->image_section3 ?? null)}}">
-        @if(!empty($body->image_section3))
-            <img src="{{image($body->image_section3)}}" alt="">
-        @endif
-    </div>
-
-    <div class="form-group col-md-12">
-        <h4>Section 4</h4>
-        <label class="control-label" for="name">Title</label>
-        <input type="text" class="form-control" name="title_section4"
-               placeholder="Title"
-               value="{{old('title_section4',$body->title_section4 ?? null)}}">
-    </div>
-
-    <div class="form-group col-md-12">
-        <input type="file" name="image_section4"
-               value="{{old('image_section4',$body->image_section4 ?? null)}}">
-        @if(!empty($body->image_section4))
-            <img class="img-responsive" src="{{image($body->image_section4)}}" alt="">
+        <input type="file" name="image_section2"
+               value="{{old('image_section2',$body->image_section2 ?? null)}}">
+        @if(!empty($body->image_section2))
+            <img src="{{image($body->image_section2)}}" alt="">
         @endif
     </div>
 </div>
