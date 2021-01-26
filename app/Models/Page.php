@@ -10,7 +10,6 @@ use TCG\Voyager\Traits\Translatable;
 class Page extends Model
 {
     use Translatable;
-
     protected $translatable = ['title', 'slug', 'body'];
 
     /**
@@ -36,6 +35,9 @@ class Page extends Model
         // If no author has been assigned, assign the current user's id as the author of the post
         if (!$this->author_id && Auth::user()) {
             $this->author_id = Auth::user()->getKey();
+        }
+        if (strpos($this->slug, 'page/') === false) {
+            $this->slug = 'page/'.$this->slug;
         }
 
         return parent::save();
@@ -67,7 +69,6 @@ class Page extends Model
         static::addGlobalScope('pageDefault', function (Builder $builder) {
             $builder->whereNull('code_page');
         });
-
     }
 
 

@@ -92,9 +92,9 @@
     <div>
         <div class="form-group col-md-4">
             <label class="control-label" for="title_icon_3_section1">Title icon 3</label>
-            <input type="text" class="form-control" name="title_icon_2_section1"
+            <input type="text" class="form-control" name="title_icon_3_section1"
                    placeholder="Title"
-                   value="{{old('title_icon_2_section1',$body->title_icon_3_section1 ?? null)}}">
+                   value="{{old('title_icon_3_section1',$body->title_icon_3_section1 ?? null)}}">
         </div>
         <div class="form-group col-md-4">
             <label class="control-label" for="desc_icon_3_section1">Desc icon 3</label>

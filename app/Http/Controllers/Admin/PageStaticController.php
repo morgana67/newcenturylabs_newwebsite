@@ -177,6 +177,7 @@ class PageStaticController extends Controller
 
     public function prepareAboutUs($request,$page){
         $data = $request->except('_token','title','slug','meta_description','meta_keywords');
+        $decodeBody = json_decode($page->body);
         $this->validateField['banner'] = 'mimes:jpeg,jpg,png,gif|max:10000';
         $this->validateField['img_icon_1_section1'] = 'mimes:jpeg,jpg,png,gif|max:10000';
         $this->validateField['img_icon_2_section1'] = 'mimes:jpeg,jpg,png,gif|max:10000';

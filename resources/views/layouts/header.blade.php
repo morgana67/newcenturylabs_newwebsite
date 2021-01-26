@@ -13,7 +13,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a href="/" class="navbar-brand">
-                            <img src="{{asset('front/images/logo.png')}}" alt="Logo"/>
+                            <img src="{{image(setting('site.logo'))}}" alt="Logo"/>
                         </a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->

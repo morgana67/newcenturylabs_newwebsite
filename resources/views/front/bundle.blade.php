@@ -16,8 +16,6 @@
                 menu</p>
         </div>
     </section>
-
-
     <section class="packages-area bg-snow p30 mb30 box-scale--hover">
         <div class="container">
             <?php
@@ -33,7 +31,7 @@
 
 
             $thHead .= "<th>" . $product->name . "</th>";
-            $thPrice .= "<th>$" . floatval($price) . "</th>";
+            $thPrice .= "<th>".setting('site.currency') . floatval($price) . "</th>";
             ?>
             <div class="pack-box col-sm-3 ">
                 <div clsas="pack__hed">
@@ -41,9 +39,9 @@
                     <h2>
                         @if($product->sale_price !=  null)
                             <span id="old_price" style="text-decoration: line-through;">${{ $product->price }}</span>
-                            <span id="price">${{ $product->sale_price }}</span>
+                            <span id="price">{{setting('site.currency')}}{{ $product->sale_price }}</span>
                         @else
-                            <span id="price">${{ $product->price }}</span>
+                            <span id="price">{{setting('site.currency')}}{{ $product->price }}</span>
                         @endif
                     </h2>
                     <div class="rating-area clrlist">

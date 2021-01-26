@@ -36,11 +36,11 @@
                                 }
                             @endphp
                             @if ($product->sale_price != null)
-                                <h2><sup>$</sup>{{ $price }}</h2>
+                                <h2><sup>{{setting('site.currency')}}</sup>{{ $price }}</h2>
                                 <strong>Average competitors price</strong>
-                                <h4><sup>$</sup>{{floatval($product->price)}}</h4>
+                                <h4><sup>{{setting('site.currency')}}</sup>{{floatval($product->price)}}</h4>
                             @else
-                                <h2><sup>$</sup>{{ $price }}</h2>
+                                <h2><sup>{{setting('site.currency')}}</sup>{{ $price }}</h2>
                                 <strong>Average competitors price</strong>
                             @endif
                             <strong>Pricing based on average direct to consumer pricing.</strong>

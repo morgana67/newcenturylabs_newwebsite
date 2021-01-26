@@ -30,7 +30,8 @@ class HomeController extends Controller
     public function index()
     {
         $page = Page::withoutGlobalScopes()->where(['code_page' => 'home'])->first();
-        return view('front.index',compact('page'));
+        $faq = Page::withoutGlobalScopes()->where(['code_page' => 'faq'])->first();
+        return view('front.index',compact('page','faq'));
     }
 
     public function shop(){
@@ -115,5 +116,39 @@ class HomeController extends Controller
         $post = Post::published()->where([['slug','=',$slug]])->firstOrFail();
         $similarPosts = Post::where("category_id", '=', $post->category_id)->limit(3)->get();
         return view('front.blog-detail',compact('post','similarPosts'));
+    }
+
+    public function faq(){
+        $faq = Page::withoutGlobalScopes()->where(['code_page' => 'faq'])->first();
+        return view('front.faq',compact('faq'));
+    }
+
+    public function howToOrder(){
+        $page = Page::withoutGlobalScopes()->where(['code_page' => 'how-to-order'])->first();
+        return view('front.how-to-order',compact('page'));
+    }
+
+    public function aboutUs(){
+        $page = Page::withoutGlobalScopes()->where(['code_page' => 'about-us'])->first();
+        return view('front.about-us',compact('page'));
+    }
+
+    public function privacy(){
+        $page = Page::withoutGlobalScopes()->where(['code_page' => 'privacy'])->first();
+        return view('front.privacy',compact('page'));
+    }
+    public function terms(){
+        $page = Page::withoutGlobalScopes()->where(['code_page' => 'terms'])->first();
+        return view('front.terms',compact('page'));
+    }
+
+    public function credits(){
+        $page = Page::withoutGlobalScopes()->where(['code_page' => 'site-credits'])->first();
+        return view('front.credits',compact('page'));
+    }
+
+    public function page_detail($slug){
+        $page = Page::where(['slug' => 'page/'.$slug])->firstOrFail();
+        return view('front.page-detail',compact('page'));
     }
 }

@@ -21,21 +21,21 @@ Route::get('/testlistbydisease/{id}', 'HomeController@testlistbydisease')->name(
 Route::get('/testbydisease', 'HomeController@testbydisease')->name('testbydisease');
 Route::get('/blog/{slug?}', 'HomeController@blog')->name('blog');
 Route::get('/post/{slug}', 'HomeController@post_detail')->name('post_detail');
+Route::get('/faq', 'HomeController@faq')->name('faq');
+Route::get('/how-to-order', 'HomeController@howToOrder')->name('how-to-order');
+Route::get('/about-us','HomeController@aboutUs')->name('about_us');
+Route::get('/privacy', 'HomeController@privacy')->name('privacy');
+Route::get('/terms', 'HomeController@terms')->name('terms');
+Route::get('/credits', 'HomeController@credits')->name('credits');
+Route::get('/page/{slug}', 'HomeController@page_detail')->name('page_detail');
+Route::get('/locations', 'HomeController@locations')->name('locations');
 
-Route::get('/how-to-order', function () {return view('how-to-order');})->name('how-to-order');
-Route::get('/about-us', function () {return view('about-us');});
-Route::get('/locations', function () {return view('locations');});
-//Route::get('/blog', function () {return view('blog');});
 Route::get('/login', function () {return view('login');});
-Route::get('/faq', function () {return view('faq');});
 Route::get('/forgot', function () {return view('forgot');});
 Route::get('/register', function () {return view('register');});
 Route::get('/signup', function () {return view('signup');});
-Route::get('/privacy', function () {return view('privacy');});
-Route::get('/terms', function () {return view('terms');});
-Route::get('/cart', function () {return view('cart');});
-Route::get('/blog-detail', function () {return view('blog-detail');});
-Route::get('/product-detail', function () {return view('product-detail');});
+
+
 
 Auth::routes();
 

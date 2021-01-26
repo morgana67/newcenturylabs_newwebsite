@@ -1183,7 +1183,7 @@ body.modal-open { overflow: hidden; }
 .fa-flickr { color:#0062dc; }
 .fa-dribbble { color:#ea4b88; }
 
-.icon-boxed i { width: 26px; color: #fff; height: 26px; margin: 0 2px; line-height: 1.7em; text-align: center; background-color: #ccc; font-size: 1.15em; }
+.icon-boxed i { width: 32px; color: #fff; height: 32px; margin: 0 2px; line-height: 1.7em; text-align: center; background-color: #ccc; font-size: 1.15em; }
 
 .icon-rounded i { border-radius: 50%; }
 

@@ -10,7 +10,7 @@
     <!--iPhone from zooming form issue-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
-    <title>{{env('APP_NAME')}} | @yield('title')</title>
+    <title>{{setting('site.title')}} | @yield('title')</title>
     <meta name="description" content="@yield('description')">
     <meta name="keywords" content="@yield('keywords')" />
     <link rel="icon" type="image/png" href="{{asset('front/images/favicon.png')}}">
