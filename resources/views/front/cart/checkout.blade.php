@@ -144,7 +144,7 @@
                             @foreach(Cart::content() as $product)
                                 <tr>
                                     <td for="LAB TEST">{{$product->name}}</td>
-                                    <td for="TOTAL">${{$product->price}}</td>
+                                    <td for="TOTAL">{{setting('site.currency')}}{{$product->price}}</td>
                                 </tr>
                             @endforeach
 
@@ -156,12 +156,12 @@
                                 @endphp
                                 <tr>
                                     <td for="LAB TEST">{{$product->name}}</td>
-                                    <td for="TOTAL">${{$price}}</td>
+                                    <td for="TOTAL">{{setting('site.currency')}}{{$price}}</td>
                                 </tr>
                             @endforeach
                             <tr class="h4">
                                 <td for="LAB TEST">Total</td>
-                                <td for="TOTAL">${{str_replace(',','',Cart::total()) + $priceMandatory}}</td>
+                                <td for="TOTAL">{{setting('site.currency')}}{{str_replace(',','',Cart::total()) + $priceMandatory}}</td>
                                 <input type="hidden" name="totalAmount" value="{{str_replace(',','',Cart::total()) + $priceMandatory}}">
                             </tr>
                             </tbody>

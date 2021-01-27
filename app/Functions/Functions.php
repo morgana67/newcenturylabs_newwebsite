@@ -28,9 +28,21 @@ class Functions {
         //return mail($email, $subject, $body, $headers);
 
 
-        return Mail::send('emails.template', $data, function($message) use ($data) {
+         Mail::send('emails.template', $data, function($message) use ($data) {
             $message->to($data['to'])->subject($data['subject']);
         });
+    }
+
+    public static function makeCurlRequest($url) {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL => $url,
+            )
+        );
+        $resp = curl_exec($curl);
+        curl_close($curl);
+        return $resp;
     }
 
 }

@@ -23,7 +23,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title"><a data-parent="#accordion" data-toggle="collapse"
-                                                                   href="#collapse{{$i}}"></a>{!! $detail_left->left_title !!}
+                                                                   href="#collapse{{$i}}">{!! $detail_left->left_title !!}</a>
                                         </h4>
                                     </div>
 
@@ -44,7 +44,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title"><a data-parent="#accordion" data-toggle="collapse"
-                                                                   href="#collapse{{$i}}"></a>{!! $detail_right->right_title !!}
+                                                                   href="#collapse{{$i}}">{!! $detail_right->right_title !!}</a>
                                         </h4>
                                     </div>
 

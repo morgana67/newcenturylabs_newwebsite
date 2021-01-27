@@ -11,5 +11,21 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+
+mix.styles([
+    'public/front/css/bootstrap.min.css',
+    'public/front/css/colorized.css',
+    'public/front/css/animate.css',
+    'public/front/css/font-awesome.min.css',
+    'public/front/style.css'
+],'public/front/css/app.css')
+
+mix.scripts([
+    'public/front/js/jquery-2.2.4.min.js',
+    'public/front/js/bootstrapValidator.min.js',
+    'public/front/js/css_browser_selector.js',
+    'public/front/js/bootstrap.min.js',
+    'public/front/js/viewportchecker.js',
+    'public/front/js/kodeized.js',
+    'public/front/js/main.js',
+], 'public/front/js/app.js');

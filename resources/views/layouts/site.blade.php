@@ -14,13 +14,17 @@
     <meta name="description" content="@yield('description')">
     <meta name="keywords" content="@yield('keywords')" />
     <link rel="icon" type="image/png" href="{{asset('front/images/favicon.png')}}">
-    <link rel="stylesheet" href="{{asset('front/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('front/style.css')}}">
-    <link rel="stylesheet" href="{{asset('front/css/colorized.css')}}">
-    <link rel="stylesheet" href="{{asset('front/css/animate.css')}}">
-    <link rel="stylesheet" href="{{asset('front/css/font-awesome.min.css')}}">
-    <script src="{{asset('front/js/jquery-2.2.4.min.js')}}"></script>
-    <script src="{{asset('front/js/bootstrapValidator.min.js')}}"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700">
+{{--    <link rel="stylesheet" href="{{asset('front/css/bootstrap.min.css')}}">--}}
+{{--    <link rel="stylesheet" href="{{asset('front/style.css')}}">--}}
+{{--    <link rel="stylesheet" href="{{asset('front/css/colorized.css')}}">--}}
+{{--    <link rel="stylesheet" href="{{asset('front/css/animate.css')}}">--}}
+{{--    <link rel="stylesheet" href="{{asset('front/css/font-awesome.min.css')}}">--}}
+{{--    <script src="{{asset('front/js/jquery-2.2.4.min.js')}}"></script>--}}
+{{--    <script src="{{asset('front/js/bootstrapValidator.min.js')}}"></script>--}}
+
+    <link rel="stylesheet" href="{{asset('front/css/app.css')}}">
+
     @yield('css')
 </head>
 <body class="transition nav-plusminus slide-navbar slide-navbar--left">
@@ -30,11 +34,12 @@
         @include('layouts.footer')
     </main>
     <div id="loading"></div>
-    <script src="{{asset('front/js/css_browser_selector.js')}}"></script>
-    <script src="{{asset('front/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('front/js/viewportchecker.js')}}"></script>
-    <script src="{{asset('front/js/kodeized.js')}}"></script>
-    <script src="{{asset('front/js/main.js')}}"></script>
+{{--    <script src="{{asset('front/js/css_browser_selector.js')}}"></script>--}}
+{{--    <script src="{{asset('front/js/bootstrap.min.js')}}"></script>--}}
+{{--    <script src="{{asset('front/js/viewportchecker.js')}}"></script>--}}
+{{--    <script src="{{asset('front/js/kodeized.js')}}"></script>--}}
+{{--    <script src="{{asset('front/js/main.js')}}"></script>--}}
+    <script src="{{asset('front/js/app.js')}}"></script>
     @yield('script')
 </body>
 </html>

@@ -39,7 +39,7 @@
                                         </form>
                                     </td>
                                     <td class="text-center">
-                                        ${{$product->price}}
+                                        {{setting('site.currency')}}{{$product->price}}
                                     </td>
                                     <td class="text-center">
                                         <div class="form-group d-flex justify-content-center">
@@ -51,7 +51,7 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        ${{$product->subtotal}}
+                                        {{setting('site.currency')}}{{$product->subtotal}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -69,13 +69,13 @@
                                             <a class="view-cat-link">{{$product->name}}</a>
                                         </td>
                                         <td class="text-center">
-                                            ${{$price}}
+                                            {{setting('site.currency')}}{{$price}}
                                         </td>
                                         <td class="text-center">
 {{--                                            {{$product->qty}}--}}
                                         </td>
                                         <td class="text-center">
-                                            ${{$price}}
+                                            {{setting('site.currency')}}{{$price}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -100,7 +100,7 @@
                                         <input type="hidden" name="name" id="name" value="{{$product->name}}"/>
                                     </form>
                                 </td>
-                                <td><span class="txt-price">${{$price}}</span></td>
+                                <td><span class="txt-price">{{setting('site.currency')}}{{$price}}</span></td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -115,11 +115,11 @@
 
                         <tbody><tr>
                             <td class="text-left">Subtotal</td>
-                            <td>${{str_replace(',','',Cart::total()) + number_format($priceMandatory,2)}}</td>
+                            <td>{{setting('site.currency')}}{{str_replace(',','',Cart::total()) + number_format($priceMandatory,2)}}</td>
                         </tr>
                         <tr>
                             <td class="text-left">Total</td>
-                            <td>${{str_replace(',','',Cart::total()) + number_format($priceMandatory,2)}}</td>
+                            <td>{{setting('site.currency')}}{{str_replace(',','',Cart::total()) + number_format($priceMandatory,2)}}</td>
                         </tr>
                         </tbody></table>
                 </div>

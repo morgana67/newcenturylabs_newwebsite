@@ -29,6 +29,7 @@ Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/credits', 'HomeController@credits')->name('credits');
 Route::get('/page/{slug}', 'HomeController@page_detail')->name('page_detail');
 Route::get('/locations', 'HomeController@locations')->name('locations');
+Route::get('location/{id}', 'HomeController@location')->name('location');
 
 Route::get('/login', function () {return view('login');});
 Route::get('/forgot', function () {return view('forgot');});

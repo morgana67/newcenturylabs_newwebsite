@@ -1,7 +1,28 @@
 @extends('layouts.site')
+@section('css')
+    <link rel="stylesheet" href="{{asset('front/plugin/select2/css/select2.min.css')}}">
+    <style>
+        .select2-container--default .select2-selection--single {
+            border-radius: 0 !important;
+            border: 1px solid #ccc;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 40px !important;
+        }
+
+        span {
+            outline: none !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 36px !important;
+        }
+    </style>
+@endsection
 @section('content')
     <section class="bnr-area page-bnr-area bg-full bg-cntr valigner"
-             style="background-image:url('front/images/map-bnr.jpg');">
+             style="background-image:url('/front/images/map-bnr.jpg');">
         <div class="container">
             <div class="bnr__cont valign white text-center col-sm-12 text-uppercase anime-flipInX">
                 <h2>LOCATIONS</h2>
@@ -16,75 +37,25 @@
         <section class="location-area pt30 pb30">
             <div class="container">
                 <div class="map-area loc__fom col-sm-12 p0">
-                    <form method="get" class="search-fom rds mb30" action=""">
+                    <form method="get" class="search-fom rds mb30" action="{{route('locations')}}">
                         <div class="form-group col-sm-3">
                             <label for="search">City</label>
                             <input type="text" placeholder="City" class="form-control" name="city" id="city"
-                                   autocomplete="off" value="">
+                                   autocomplete="off" value="{{request()->get('city')}}">
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="search">State</label>
-                            <select class="form-control" name="state">
+                            <select id="state" class="form-control" name="state">
                                 <option value="" selected="selected">Select State</option>
-                                <option value="AK">AK</option>
-                                <option value="AL">AL</option>
-                                <option value="AR">AR</option>
-                                <option value="AZ">AZ</option>
-                                <option value="CA">CA</option>
-                                <option value="CO">CO</option>
-                                <option value="CT">CT</option>
-                                <option value="DC">DC</option>
-                                <option value="DE">DE</option>
-                                <option value="FL">FL</option>
-                                <option value="GA">GA</option>
-                                <option value="HI">HI</option>
-                                <option value="IA">IA</option>
-                                <option value="ID">ID</option>
-                                <option value="IL">IL</option>
-                                <option value="IN">IN</option>
-                                <option value="KS">KS</option>
-                                <option value="KY">KY</option>
-                                <option value="LA">LA</option>
-                                <option value="MA">MA</option>
-                                <option value="MD">MD</option>
-                                <option value="ME">ME</option>
-                                <option value="MI">MI</option>
-                                <option value="MN">MN</option>
-                                <option value="MO">MO</option>
-                                <option value="MS">MS</option>
-                                <option value="MT">MT</option>
-                                <option value="NC">NC</option>
-                                <option value="ND">ND</option>
-                                <option value="NE">NE</option>
-                                <option value="NH">NH</option>
-                                <option value="NJ">NJ</option>
-                                <option value="NM">NM</option>
-                                <option value="NV">NV</option>
-                                <option value="NY">NY</option>
-                                <option value="OH">OH</option>
-                                <option value="OK">OK</option>
-                                <option value="OR">OR</option>
-                                <option value="PA">PA</option>
-                                <option value="RI">RI</option>
-                                <option value="SC">SC</option>
-                                <option value="SD">SD</option>
-                                <option value="TN">TN</option>
-                                <option value="TX">TX</option>
-                                <option value="UT">UT</option>
-                                <option value="VA">VA</option>
-                                <option value="VT">VT</option>
-                                <option value="WA">WA</option>
-                                <option value="WI">WI</option>
-                                <option value="WV">WV</option>
-                                <option value="WY">WY</option>
+                                @foreach(\App\Models\State::get() as $state)
+                                    <option {{request()->get('state') == $state->code ? 'selected' : ''}} value="{{$state->code}}">{{$state->title}}</option>
+                                @endforeach
                             </select>
-
                         </div>
                         <div class="form-group col-sm-3">
                             <label for="search">Zip</label>
                             <input type="text" placeholder="zip" class="form-control" name="zip" id="zip"
-                                   autocomplete="off" value="">
-
+                                   autocomplete="off" value="{{request()->get('zip')}}">
                         </div>
                         <div class="form-group  col-sm-3">
                             <input type="hidden" name="search" id="search" value="1">
@@ -95,9 +66,46 @@
                     <div id="suggested_locations" style="display:none;" class="form-group has-feedback"></div>
                 </div>
                 <div class="map-area loc__list col-sm-12 p0">
+                    @if(count($locations) > 0)
+                        <table id="example" class="table table-area0 table-striped table-bordered" cellspacing="0"
+                               width="100%">
+                            <thead>
+                            <tr>
+                                <th class="clrhm p20"><h3>Locations</h3></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($locations as $location)
+                                <?php
+                                if (isset($location->distance) && $location->distance >= 50) {
+                                    break;
+                                }
+                                ?>
+                                <tr>
+                                    <td>
+                                        <div id="BDV1" class="clrhm">
+                                            <a tabindex="1" href="{{url('location')}}/<?php echo $location->id ?>"><i
+                                                    class="fa fa-map-marker fa-2x"></i>
+                                                <h3>
+                                                    {{$location->name}} {{$location->city}} {{$location->address2}}</h3>
+                                                <span>
+                                                {{$location->address}}, {{$location->city}}
+                                                    {{$location->state}}
+                                                    {{$location->zipCode}}
+                                                    @if(isset($location->distance))
+                                                         Distance : {{round($location->distance, 1)}} mi,
+                                                   @endif
+											</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            <tbody>
+                        </table>
+                    @endif
 
                 </div>
-
             </div>
         </section>
 
@@ -137,3 +145,9 @@
         </div>
     </section>
 @endsection
+@section('script')
+    <script src="{{asset('front/plugin/select2/js/select2.min.js')}}"></script>
+    <script>
+        $('#state').select2({});
+    </script>
+@stop

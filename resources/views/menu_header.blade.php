@@ -20,7 +20,11 @@
                 @else
                  href="{{ $menu_item->link() }}"
                 @endif
-            >{{ $menu_item->title }} </a>
+            >{{ $menu_item->title }}
+                @if(!$menu_item->children->isEmpty())
+                    <span class="caret"></span>
+                @endif
+            </a>
             @if(!$menu_item->children->isEmpty())
                 <ul class="dropdown-menu">
                     @foreach($menu_item->children as $children)

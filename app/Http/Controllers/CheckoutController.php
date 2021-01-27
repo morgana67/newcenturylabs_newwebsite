@@ -147,6 +147,7 @@ class CheckoutController extends Controller
 
 
     public function orderSuccess($id = null){
+
         return view('front.cart.checkout-success',compact('id'));
     }
 

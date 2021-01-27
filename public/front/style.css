@@ -6,7 +6,16 @@
 @import url("css/bs_modal_transition.css");
 */
 
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700);
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700');
+
+/*@font-face {*/
+/*    font-family: 'Raleway';*/
+/*    src: url('https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700');*/
+/*    font-weight: normal;*/
+/*    font-style: normal;*/
+/*}*/
+
+
 /*
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
 @import url(https://fonts.googleapis.com/css?family=Exo+2:400,100,200,300,500,600,700);
@@ -48,7 +57,7 @@ section[class*="-area"] {position: relative; clear:both; }
 
 
 /*======== CONTENT ========*/
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{font-family:Raleway, Arial,sans-serif;}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{font-family: Raleway, Arial,sans-serif;}
 .strong {font-weight: bold;}
 .strike {text-decoration: line-through;}
 .inline-block {display: inline-block;}
@@ -1183,7 +1192,7 @@ body.modal-open { overflow: hidden; }
 .fa-flickr { color:#0062dc; }
 .fa-dribbble { color:#ea4b88; }
 
-.icon-boxed i { width: 32px; color: #fff; height: 32px; margin: 0 2px; line-height: 1.7em; text-align: center; background-color: #ccc; font-size: 1.15em; }
+.icon-boxed i { width: 32px; color: #fff; height: 32px; margin: 0 2px; line-height: 32px; text-align: center; background-color: #ccc; font-size: 1.15em; }
 
 .icon-rounded i { border-radius: 50%; }
 
@@ -4305,7 +4314,7 @@ section.box-area.text-center.pt20.pb50 {
 @media only screen and (max-width : 240px) {	}
 
 .listview ul li{
-    font-size: 1.3em;
+    font-size: 1em;
 }
 
 /*Css custom for all page*/
