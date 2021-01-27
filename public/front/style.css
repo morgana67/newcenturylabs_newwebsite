@@ -3380,7 +3380,7 @@ body .page-bnr-area {
     .page-bnr-area {
         height: 480px;
     }
-
+    body #slide-nav #slidemenu {position:fixed; width: 0 ;top: 0;right: -50px;height: 100%}
 }
 
 
