@@ -26,6 +26,21 @@
     <link rel="stylesheet" href="{{asset('front/css/app.css')}}">
 
     @yield('css')
+    <style>
+        .menu_mobile{
+            display: block !important;
+            position: fixed;
+            width: 250px !important;
+            top: 0;
+            right: 0 !important;
+            background-color: #333 !important;
+            overflow-x: hidden;
+            border: 1px solid #ececec;
+            height: 100%;
+            z-index: 99;
+            box-shadow: 0 0 5px black;
+        }
+    </style>
 </head>
 <body class="transition nav-plusminus slide-navbar slide-navbar--left">
     @include('layouts.header')
@@ -41,5 +56,24 @@
 {{--    <script src="{{asset('front/js/main.js')}}"></script>--}}
     <script src="{{asset('front/js/app.js')}}"></script>
     @yield('script')
+
+    <script>
+        $('.navbar-toggle').on('click',function(){
+            if($(this).hasClass('show_menu')){
+                $(this).removeClass('show_menu');
+                $(this).addClass('collapsed');
+                $('#slidemenu').removeClass('menu_mobile');
+                $('.navbar-header').css('transform','none');
+                $('main#page-content').css('transform','none');
+
+            }else{
+                $(this).removeClass('collapsed');
+                $(this).addClass('show_menu');
+                $('#slidemenu').addClass('menu_mobile');
+                $('.navbar-header').css('transform','translateX(-245px)');
+                $('main#page-content').css('transform','translateX(-245px)');
+            }
+        })
+    </script>
 </body>
 </html>

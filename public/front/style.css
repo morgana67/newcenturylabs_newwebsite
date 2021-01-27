@@ -940,9 +940,8 @@ input[type="checkbox"]:checked ~ .checkylbl label::after{
 
 /*transition*/
 .transition, .transition *, .transition *:after,  .transition *:before,.transition *:hover{
-    transition:all 0.3s ease 0s !important;
-    -webkit-transition:all 0.3s ease 0s !important;
-    /*transition: all 500ms ease 0s; */
+    transition:all 0.4s ease !important;
+    -webkit-transition:all 0.4s ease !important;
 }
 
 .no-transition, .no-transition *, .no-transition *:after,  .no-transition *:before,.no-transition *:hover{
@@ -1003,6 +1002,7 @@ body #slide-nav #slidemenu {background-color: transparent;}
     .nav-lbl button.navbar-toggle .sr-only { position: static; width: auto; clip: inherit; overflow: visible; color: #aaa; font-size: 1.2em; font-weight: 600; text-transform: uppercase; float:right;}
     .nav-lbl #slide-nav .navbar-toggle > .icon-bar { width: 30px;}
 
+    body #slide-nav #slidemenu {position:fixed; width: 0 ;top: 0;right: -50px;height: 100%}
 }
 
 
