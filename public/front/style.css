@@ -4345,3 +4345,15 @@ button{
 .align-item-center{
     align-items: center;
 }
+.menu_mobile{
+    display: block !important;
+    position: fixed;
+    width: 250px !important;
+    top: 0;
+    right: 0 !important;
+    background-color: #333 !important;
+    overflow-x: hidden;
+    height: 100%;
+    z-index: 99;
+    box-shadow: 0 0 5px black;
+}
