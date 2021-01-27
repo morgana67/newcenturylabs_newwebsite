@@ -13,6 +13,22 @@ class CartController extends Controller
         return redirect()->route('cart.view');
     }
 
+    public function addMultiple(Request $request){
+        $products = Product::whereIn('id',$request->product_id)->get();
+        $arrayCart = array();
+        foreach ($products as $product){
+            $arrayCart[] = [
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => !empty($product->sale_price) ? $product->sale_price : $product->price,
+                'qty' => 1,
+                'weight' => 0
+            ];
+        }
+        Cart::add($arrayCart);
+        return redirect()->route('cart.view');
+    }
+
     public function view(){
         $cart = Cart::content();
         $mandatoryProducts = Product::active()->additionalType()->where('mandatory',1)->get();

@@ -43,8 +43,8 @@ jQuery(document).ready(function() {
 jQuery(function() {
   var loc = window.location.pathname; // returns the full URL
 	var split_loc = loc.split('/');
-	active_locLast = split_loc[split_loc.length-1]; 
-	active_locLastParent = split_loc[split_loc.length-2]; 
+	active_locLast = split_loc[split_loc.length-1];
+	active_locLastParent = split_loc[split_loc.length-2];
 	jQuery('body').addClass(active_locLastParent + "-page");
 	jQuery('body').addClass(active_locLast + "-page");
 	jQuery('body nav').addClass(active_locLast + "-nav");
@@ -55,7 +55,7 @@ jQuery(function() {
 	urlParametersLast2= split_urlParameters[split_urlParameters.length-2];
 	jQuery('body').addClass(urlParametersLast + "-parameter");
 	jQuery('body').addClass(urlParametersLast2 + "-parameter");
-	
+
   var urlHash = window.location.hash;
     var urlHashSplit = urlHash.split("#");
     var urlHashAfterSplit = "NoHash";
@@ -64,7 +64,7 @@ jQuery(function() {
 		}
 	jQuery('body').addClass(urlHashAfterSplit + "-hash");
 
-	
+
 });
 
 
@@ -83,72 +83,72 @@ jQuery(function() {
             jQuery('.anime-in').addClass("hidden2").viewportChecker({
                 classToAdd: 'visible animated fadeIn', // Class to add to the elements when they are visible
                 offset: 100
-				
-               });   
+
+               });
 
             jQuery('.anime-left').addClass("hidden2").viewportChecker({
                 classToAdd: 'visible animated fadeInLeft', // Class to add to the elements when they are visible
-                offset: 100    
+                offset: 100
                });
-		   
+
             jQuery('.anime-right').addClass("hidden2").viewportChecker({
                 classToAdd: 'visible animated fadeInRight', // Class to add to the elements when they are visible
-                offset: 100    
-               });   
-			   
+                offset: 100
+               });
+
 			jQuery('.anime-up').addClass("hidden2").viewportChecker({
                 classToAdd: 'visible animated fadeInUp', // Class to add to the elements when they are visible
-                offset: 100    
+                offset: 100
                });
-			   
+
 			jQuery('.anime-down').addClass("hidden2").viewportChecker({
                 classToAdd: 'visible animated fadeInDown', // Class to add to the elements when they are visible
-                offset: 100    
+                offset: 100
                });
 
 
   			jQuery('.anime-zoomIn').addClass("hidden2").viewportChecker({
                 classToAdd: 'visible animated zoomIn', // Class to add to the elements when they are visible
-                offset: 100    
-               });   
-		
+                offset: 100
+               });
 
-	   
+
+
 			jQuery('.anime-pulse').addClass("hidden2").viewportChecker({
                 classToAdd: 'visible animated pulse', // Class to add to the elements when they are visible
-                offset: 100    
-               });   
-			      
+                offset: 100
+               });
+
 			jQuery('.anime-flipInY').addClass("hidden2").viewportChecker({
                 classToAdd: 'visible animated flipInY', // Class to add to the elements when they are visible
-                offset: 100    
-               });   
-			   
+                offset: 100
+               });
+
 			jQuery('.anime-flipInX').addClass("hidden2").viewportChecker({
                 classToAdd: 'visible animated flipInX', // Class to add to the elements when they are visible
-                offset: 100    
-               }); 
-			   
+                offset: 100
+               });
+
 			jQuery('.anime-hinge').addClass("hidden2").viewportChecker({
                 classToAdd: 'visible animated hinge', // Class to add to the elements when they are visible
-                offset: 100    
-               });   
-			   
+                offset: 100
+               });
+
 
 			jQuery('.anime-bounceInDown').addClass("hidden2").viewportChecker({
                 classToAdd: 'visible animated bounceInDown', // Class to add to the elements when they are visible
-                offset: 100    
-               });  
+                offset: 100
+               });
 
             jQuery('.anime-flash').addClass("hidden2").viewportChecker({
                 classToAdd: 'visible animated flash', // Class to add to the elements when they are visible
-                offset: 100    
-               });   
+                offset: 100
+               });
 
             jQuery('.bounceInDown').addClass("hidden2").viewportChecker({
                 classToAdd: 'visible animated bounceInDown', // Class to add to the elements when they are visible
-                offset: 100    
-               }); 
+                offset: 100
+               });
 		});
 
 
@@ -185,7 +185,7 @@ jQuery(".form-control").blur(function() {
 
 /*section-centralized
 - highlight unique section when it is center of window */
-jQuery(document).ready(function() {      
+jQuery(document).ready(function() {
   var window_height = jQuery(window).height();
  jQuery(window).scroll(function() {
     var scrollMiddle = jQuery(window).scrollTop() + (window_height/2);
@@ -218,14 +218,14 @@ $('.testimoCarousel .item').each(function(){
     next = $(this).siblings(':first');
   }
   next.children(':first-child').clone().appendTo($(this));
-  
+
   if (next.next().length>0) {
     next.next().children(':first-child').clone().appendTo($(this));
   }
   else {
   	$(this).siblings(':first').children(':first-child').clone().appendTo($(this));
   }
-  
+
 });
 
 
@@ -240,13 +240,13 @@ $('.carousel[data-type="multi"] .item').each(function(){
     next = $(this).siblings(':first');
   }
   next.children(':first-child').clone().appendTo($(this));
-  
+
   for (var i=0;i<2;i++) {
     next=next.next();
     if (!next.length) {
     	next = $(this).siblings(':first');
   	}
-    
+
     next.children(':first-child').clone().appendTo($(this));
   }
 });
@@ -270,10 +270,10 @@ function scroll() {
 */
 
 
-	
+
 //Sticky Header
 jQuery(window).scroll(function() {
-if (jQuery(this).scrollTop() > 1){  
+if (jQuery(this).scrollTop() > 1){
     jQuery('.hdr--sticky').addClass("hdr--sticky-active");
 	jQuery('body').addClass("scrollized");
   }
@@ -332,8 +332,8 @@ jQuery(".tab-animate li").click(function() {
         $active.insertBefore($lis.eq(Math.floor($lis.length / 2)));
       });
     });
-	
-	
+
+
 /*
 //MOVING WIDE-DIV BACKGROUND IMAGES
 jQuery(document).ready(function(){
@@ -341,8 +341,8 @@ jQuery(document).ready(function(){
         var x = e.pageX - this.offsetLeft;
       if (x <= 600) {
 		  x = x - 700;
-       jQuery(this).children('div.section-bg').css({'right': x }); 
-//	    jQuery('div.section-bg').css({'right': x }); 
+       jQuery(this).children('div.section-bg').css({'right': x });
+//	    jQuery('div.section-bg').css({'right': x });
       }
   });
 });
@@ -361,7 +361,7 @@ jQuery(document).ready(function(){
 			jQuery('.scrollToTop').fadeOut();
 		}
 	});
-	
+
 	//Click event to scroll to top
 	jQuery('.scrollToTop').click(function(){
 		jQuery('html, body').animate({scrollTop : 0},800);
@@ -388,11 +388,11 @@ jQuery(document).ready(function(){
 *//*
 (function( $ ) {
 
-	//Function to animate slider captions 
+	//Function to animate slider captions
 	function doAnimations( elems ) {
 		//Cache the animationend event in a variable
 		var animEndEv = 'webkitAnimationEnd animationend';
-		
+
 		elems.each(function () {
 			var $this = $(this),
 				$animationType = $this.data('animation');
@@ -401,26 +401,26 @@ jQuery(document).ready(function(){
 			});
 		});
 	}
-	
-	//Variables on page load 
+
+	//Variables on page load
 	var $myCarousel = $('#carousel-example-generic'),
 		$firstAnimatingElems = $myCarousel.find('.item:first').find("[data-animation ^= 'animated']");
-		
-	//Initialize carousel 
-	$myCarousel.carousel();
-	
-	//Animate captions in first slide on page load 
-	doAnimations($firstAnimatingElems);
-	
-	//Pause carousel  
-	$myCarousel.carousel('pause');
-	
 
-	//Other slides to be animated on carousel slide event 
+	//Initialize carousel
+	$myCarousel.carousel();
+
+	//Animate captions in first slide on page load
+	doAnimations($firstAnimatingElems);
+
+	//Pause carousel
+	$myCarousel.carousel('pause');
+
+
+	//Other slides to be animated on carousel slide event
 	$myCarousel.on('slide.bs.carousel', function (e) {
 		var $animatingElems = $(e.relatedTarget).find("[data-animation ^= 'animated']");
 		doAnimations($animatingElems);
-	});  
+	});
 })(jQuery);
 
 */
@@ -486,14 +486,14 @@ jQuery(document).ready(function(){
 
 /**broken images fix*
 // Replace source
-jQuery(window).ready(function() { 
-   jQuery("img").each(function(){ 
-      var image = jQuery(this); 
-      if(image.context.naturalWidth == 0 || 
-      image.readyState == 'uninitialized'){  
+jQuery(window).ready(function() {
+   jQuery("img").each(function(){
+      var image = jQuery(this);
+      if(image.context.naturalWidth == 0 ||
+      image.readyState == 'uninitialized'){
          jQuery(image).unbind("error").addClass("broken-image");
-      } 
-   }); 
+      }
+   });
 });
 
 */
@@ -501,7 +501,7 @@ jQuery(window).ready(function() {
 
 
 /////////TOOL TIP///////
-jQuery('body').tooltip({    
+jQuery('body').tooltip({
     selector: "a[rel=tooltip]"
 })
 
@@ -513,7 +513,7 @@ jQuery(function(){
 
     // Enabling Popover Example 2 - JS (hidden content and title capturing)
     jQuery("#popoverExampleTwo").popover({
-        html : true, 
+        html : true,
         content: function() {
           return $('#popoverExampleTwoHiddenContent').html();
         },
@@ -523,27 +523,6 @@ jQuery(function(){
     });
 
 });
-
-
-
-
-
-
-/***TABLE TH TEXT ADD ON TDs for mobile reponsive****/
-jQuery('table th').each(function (i) {
-	//adding 0 to 1
-	i=i+1;
-	tableTitle = jQuery( "table th:nth-child("+i+")" ).html();
-	//alert(ttl);
-	//alert(i);
-	jQuery( "table td:nth-child("+i+")" ).attr("for", tableTitle);
-	//i=i+1;
-});
-
-
-
-
-
 
 /***More Navbar Item Limitation***/
 jQuery( document ).ready(function() {
@@ -556,7 +535,7 @@ jQuery(".navbar-main > li").each(function (i) {
 	if(i > moreNavLimit){
     jQuery(this).addClass("moreMover");
   }
-	
+
   //Adding SubMenu for Extra ILs
   if(i == moreNavLimit){
   nv = "<li class='dropdown' id='moreMenu'><a href='#' class='dropdown-toggle' data-toggle='dropdown'>More... <span class='new badge'>" + moreNavLimit + "</span></a><ul id='moreSubMenu' class='dropdown-menu'></ul></li>";
@@ -564,11 +543,11 @@ jQuery(".navbar-main > li").each(function (i) {
   	jQuery( nv ).insertAfter( this );
   	//jQuery( this ).append( "<li>d</li>" );
   }
-  
+
   jQuery("li.moreMover").appendTo("#moreSubMenu");
-  
+
   jQuery(this).addClass("KNav" +i+"");
-});  
+});
 });
 /***./More Navbar Item Limitation***/
 
@@ -606,7 +585,7 @@ jQuery(document).ready(function() {
 		if (last >= moreTabLimit) {
 			jQuery("li.moreTabMover").appendTo("#moreTabSubMenu");
 		}
-	  
+
   });
 });
 
@@ -629,7 +608,7 @@ jQuery('.moreless-area .moreless-btn').click(function() {
     jQuery(this).parent().children(".moreless").removeClass("on");
   }
     jQuery('html, body').animate({	scrollTop: jQuery(this).parent(".moreless-area").offset().top	}, 800);
-	
+
 });
 /**./read more read less content**/
 /**https://jsfiddle.net/gmkhussain/kcr80c24/**/
@@ -666,7 +645,7 @@ jQuery( document ).ready(function() {
 		  //var offset = jQuery( this ).offset();
 		  //var corlft = offset.left;
 	  var corwid =  jQuery( this ).outerWidth();
-	 
+
 	  jQuery("#mark").css( "left", position.left);
 	  jQuery("#mark").css( "top", position.top);
 	  jQuery("#mark").css("width", corwid);
@@ -682,7 +661,7 @@ jQuery( document ).ready(function() {
 		  //var offset = jQuery( acti ).offset();
 		  //var corlft = offset.left;
 	  var corwid =  jQuery( acti ).outerWidth();
-	  
+
 	  jQuery("#mark").css( "left", position.left);
 	  jQuery("#mark").css( "top", position.top);
 	  jQuery("#mark").css("width", corwid);
@@ -726,7 +705,7 @@ jQuery('p:empty').remove();
 /***Live Detect Browser Size****/
 var windowTitle = jQuery(document).prop('title'); // Original Title
 if (jQuery('html').hasClass("livewindowsize")) {
-	
+
 	jQuery('body').mouseleave(function() {
 		function LiveDetectWindowSize(){
 			// Get the dimensions of the viewport
@@ -737,7 +716,7 @@ if (jQuery('html').hasClass("livewindowsize")) {
 	  jQuery(document).ready(LiveDetectWindowSize);    // When the page first loads
 	  jQuery(window).resize(LiveDetectWindowSize);     // When the browser changes size
 	});
-	
+
 	jQuery('body').mouseenter(function() {
 		jQuery(document).prop('title', windowTitle ); // When mouse enter display Original Title
 	});
@@ -754,4 +733,4 @@ if (jQuery('html').hasClass("livewindowsize")) {
 		jQuery(this).find('iframe').attr('src', '');
 		jQuery(this).find('iframe').attr('src', src);
 	});
-/*./Video stop when Modal Close*/	
+/*./Video stop when Modal Close*/

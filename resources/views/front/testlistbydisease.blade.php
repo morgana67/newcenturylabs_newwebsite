@@ -29,11 +29,10 @@
                     </div>
                     <div class="col-sm-2" style="padding-left: 65px;">
                         <button id="btn_add_to_cart_all" class="out-btn btn btn-default"
-                                style="margin-top: 12px;background-color: #0076c4;color: white;">CHECKOUT
+                                style="margin-top: 12px;background-color: #0076c4;color: white;" disabled>CHECKOUT
                         </button>
                     </div>
-                    <!-- <input type="hidden" name="_token" value="eXCobM3GVbblofigprE2vU9ciECwU3OdyOd2obbV"> -->
-                    <input type="hidden" name="disease_type_id" id="disease_type_id" value="5"/>
+
 
 
                 </div>
@@ -48,31 +47,62 @@
                     <tr>
                         <th class="col-sm-2">Quest Test Codes</th>
                         <th class="col-sm-8">Tests Names</th>
-                        <th class="col-sm-2">Select All<input type="checkbox" name="" id="checkAll" value="0"
-                                                              style="margin-left: 10px;"></th>
+                        <th class="col-sm-2">Select All
+                            <input type="checkbox" name="" id="checkAll" value="0" style="margin-left: 10px;">
+                        </th>
                     </tr>
                     </thead>
-                    <tfoot>
-                    <tr>
-                        <th class="col-sm-2">Quest Test Codes</th>
-                        <th class="col-sm-8">Tests Names</th>
-                        <th class="col-sm-2">Select All</th>
-                    </tr>
-                    </tfoot>
+
                     <tbody>
 
-
-                    @foreach($products as $product)
-                        <tr>
-                            <td>{{ $product->code}}</td>
-                            <td><a href="{{ route('product_detail',['slug' => $product->slug])}}">{{$product->name}}</a>
-                                <a class="btn btn-view pul-rgt" href="{{ route('product_detail',['slug' => $product->slug])}}">View</a></td>
-                            <td><input type="checkbox" name="product_cart[]" value="{{$product->id}}" style="margin-left: 85px;"></td>
-                        </tr>
-                    @endforeach
+                    <form action="{{route('cart.addMultiple')}}" method="POST" id="addMultiple">
+                        @csrf
+                        @foreach($products as $product)
+                            <tr>
+                                <td>{{ $product->code}}</td>
+                                <td>
+                                    <a href="{{ route('product_detail',['slug' => $product->slug]) }}">{{$product->name}}</a>
+                                    <a class="btn btn-view pul-rgt" href="{{ route('product_detail',['slug' => $product->slug])}}">View</a>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="product_id[]" value="{{$product->id}}" style="margin-left: 85px;"/>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </form>
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
+@endsection
+@section('script')
+    <script>
+        var btn = $('#btn_add_to_cart_all');
+        $('#checkAll').on('click',function () {
+            if($(this).is(":checked")){
+                $('[name="product_id[]"]').prop('checked', true);
+                btn.prop('disabled', false);
+            }else{
+                $('[name="product_id[]"]').prop('checked', false);
+                btn.prop('disabled', true);
+            }
+        })
+
+        $('[name="product_id[]"]').on('click',function () {
+            if($('[name="product_id[]"]:checked').length > 0){
+                btn.prop('disabled', false);
+            }else{
+                btn.prop('disabled', true);
+            }
+        })
+
+        $('#btn_add_to_cart_all').on('click',function () {
+            if($('[name="product_id[]"]:checked').length > 0){
+                $('form#addMultiple').submit();
+            }else{
+                btn.prop('disabled', true);
+            }
+        })
+    </script>
 @endsection

@@ -52,6 +52,7 @@ Route::group(['middleware' => 'customer'],function (){
 
     Route::group(['prefix' => 'cart','as' => 'cart.'],function (){
         Route::post('add','CartController@add')->name('add');
+        Route::post('addMultiple','CartController@addMultiple')->name('addMultiple');
         Route::get('view','CartController@view')->name('view');
         Route::post('update','CartController@update')->name('update');
         Route::post('delete','CartController@delete')->name('delete');
