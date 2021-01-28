@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Catalog;
 use App\Models\CatalogProduct;
 use App\Models\Product;
+use App\Models\SuggestProduct;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -75,7 +76,7 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
             ? app($dataType->model_name)->findOrFail($id)
             : DB::table($dataType->name)->where('id', $id)->first(); // If Model doest exist, get data from table name
         $catalogsSelected = Arr::pluck(CatalogProduct::where('product_id',$id)->get()->toArray(),'catalog_id');
-
+        $productsSuggested = Arr::pluck(SuggestProduct::where('product_id',$id)->get()->toArray(),'suggest_product_id');
         foreach ($dataType->editRows as $key => $row) {
             $dataType->editRows[$key]['col_width'] = isset($row->details->width) ? $row->details->width : 100;
         }
@@ -94,8 +95,9 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
         }
+        $products = Product::notIsAdditionalType()->select('id','name')->get();
         $catalogs = Catalog::select('id','name')->onlyParent()->with('children_catalogs')->get();
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','catalogs','catalogsSelected'));
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','catalogs','catalogsSelected','products','productsSuggested'));
     }
 
     // POST BR(E)AD
@@ -124,6 +126,8 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
         if (!$request->ajax()) {
             $this->insertUpdateData($request, $slug, $dataType->editRows, $data);
             CatalogProduct::where('product_id',$id)->delete();
+            SuggestProduct::where('product_id',$id)->delete();
+
             if ($request->type == 'bundle' && isset($request->catalogs) && count($request->catalogs) > 0){
                 $catalogData = array();
                 foreach ($request->catalogs as $catalogId){
@@ -133,6 +137,17 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
                     ];
                 }
                 CatalogProduct::insert($catalogData);
+            }
+
+            if (isset($request->products) && count($request->products) > 0){
+                $productSuggestData = array();
+                foreach ($request->products as $productId){
+                    $productSuggestData[] = [
+                        'product_id' => $data->id,
+                        'suggest_product_id' => $productId,
+                    ];
+                }
+                SuggestProduct::insert($productSuggestData);
             }
 
             event(new BreadDataUpdated($dataType, $data));
@@ -188,7 +203,10 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
             $view = "voyager::$slug.edit-add";
         }
         $catalogs = Catalog::select('id','name')->onlyParent()->with('children_catalogs')->get();
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','catalogs'));
+
+        $products = Product::notIsAdditionalType()->select('id','name')->get();
+
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','catalogs','products'));
     }
 
     /**
@@ -228,6 +246,16 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
                     ];
                 }
                 CatalogProduct::insert($catalogData);
+            }
+            if (isset($request->products) && count($request->products) > 0){
+                $productSuggestData = array();
+                foreach ($request->products as $productId){
+                    $productSuggestData[] = [
+                        'product_id' => $data->id,
+                        'suggest_product_id' => $productId,
+                    ];
+                }
+                SuggestProduct::insert($productSuggestData);
             }
             event(new BreadDataAdded($dataType, $data));
 
@@ -293,6 +321,8 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
             ];
 
         if ($res) {
+            CatalogProduct::where('product_id',$id)->delete();
+            SuggestProduct::where('product_id',$id)->delete();
             event(new BreadDataDeleted($dataType, $data));
         }
 

@@ -122,7 +122,14 @@
                                         </div>
                                     @endif
                             @endforeach
-
+                            <div class="form-group col-md-12">
+                                <label class="control-label" for="name">Suggest Products</label>
+                                <select name="products[]" id="products" multiple class="form-control">
+                                    @foreach($products as $product)
+                                        <option value="{{$product->id}}" {{in_array($product->id,$productsSuggested) ? 'selected' : '' }}>{{$product->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div><!-- panel-body -->
 
                         <div class="panel-footer">
@@ -175,7 +182,7 @@
     <script>
         var params = {};
         var $file;
-
+        $('#products').select2({});
         function deleteHandler(tag, isMulti) {
             return function() {
                 $file = $(this).siblings(tag);

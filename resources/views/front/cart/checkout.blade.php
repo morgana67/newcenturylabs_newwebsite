@@ -144,14 +144,14 @@
                             @foreach(Cart::content() as $product)
                                 <tr>
                                     <td for="LAB TEST">{{$product->name}}</td>
-                                    <td for="TOTAL">{{setting('site.currency')}}{{$product->price}}</td>
+                                    <td for="TOTAL">{{setting('site.currency')}}{{format_price($product->price)}}</td>
                                 </tr>
                             @endforeach
 
                             @php $priceMandatory = 0 @endphp
                             @foreach($mandatoryProducts as $product)
                                 @php
-                                    $price = !empty($product->sale_price) ? floatval($product->sale_price) : floatval($product->price);
+                                    $price = format_price($product->sale_price ??  $product->price);
                                     $priceMandatory += $price;
                                 @endphp
                                 <tr>
@@ -161,8 +161,8 @@
                             @endforeach
                             <tr class="h4">
                                 <td for="LAB TEST">Total</td>
-                                <td for="TOTAL">{{setting('site.currency')}}{{str_replace(',','',Cart::total()) + $priceMandatory}}</td>
-                                <input type="hidden" name="totalAmount" value="{{str_replace(',','',Cart::total()) + $priceMandatory}}">
+                                <td for="TOTAL">{{setting('site.currency')}}{{format_price(str_replace(',','',Cart::total()) + $priceMandatory)}}</td>
+                                <input type="hidden" name="totalAmount" value="{{format_price(str_replace(',','',Cart::total()) + $priceMandatory)}}">
                             </tr>
                             </tbody>
                         </table>

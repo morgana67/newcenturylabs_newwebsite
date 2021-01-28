@@ -53,3 +53,10 @@ if (!function_exists('uploadFile')) {
         return Storage::disk(config('voyager.storage.disk'))->putFileAs($path,request()->file($name),$fileName);
     }
 }
+
+if (!function_exists('format_price')) {
+    function format_price($price): string
+    {
+        return number_format((float)$price, 2, '.', '');
+    }
+}

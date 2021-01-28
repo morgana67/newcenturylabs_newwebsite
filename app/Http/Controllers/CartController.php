@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\SuggestProduct;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -31,9 +32,18 @@ class CartController extends Controller
 
     public function view(){
         $cart = Cart::content();
+        $idProducts = array();
+        foreach ($cart as $item){
+            $idProducts[] = $item->id;
+        }
+        $suggestProducts = array();
+        if(count($idProducts) > 0 ){
+            $suggestProducts = SuggestProduct::whereIn('product_id',$idProducts)->with('product')->get();
+        }
+
         $mandatoryProducts = Product::active()->additionalType()->where('mandatory',1)->get();
         $additionalProducts = Product::active()->additionalType()->where('mandatory',0)->get();
-        return view('front.cart.view',compact('cart','mandatoryProducts','additionalProducts'));
+        return view('front.cart.view',compact('cart','mandatoryProducts','additionalProducts','suggestProducts'));
     }
 
     public function update(Request $request){

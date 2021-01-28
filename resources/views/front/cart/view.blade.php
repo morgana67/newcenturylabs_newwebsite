@@ -39,7 +39,7 @@
                                         </form>
                                     </td>
                                     <td class="text-center">
-                                        {{setting('site.currency')}}{{$product->price}}
+                                        {{setting('site.currency')}}{{format_price($product->price)}}
                                     </td>
                                     <td class="text-center">
                                         <div class="form-group d-flex justify-content-center">
@@ -51,7 +51,7 @@
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        {{setting('site.currency')}}{{$product->subtotal}}
+                                        {{setting('site.currency')}}{{format_price($product->subtotal)}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -61,7 +61,7 @@
                             @if($mandatoryProducts->isNotEmpty())
                                 @foreach($mandatoryProducts as $product)
                                     @php
-                                        $price = !empty($product->sale_price) ? floatval($product->sale_price) : floatval($product->price);
+                                        $price = format_price($product->sale_price ?? $product->price);
                                         $priceMandatory += $price;
                                     @endphp
                                     <tr>
@@ -83,12 +83,13 @@
                         </tbody>
                     </table>
                 </div>
-                @if($additionalProducts->isNotEmpty())
+
                 <div class="table-total-area col-sm-6 pul-lft">
+                    @if($additionalProducts->isNotEmpty())
                     <table class="table  table-bordered table-topbot">
                         <tbody>
                         @foreach($additionalProducts as $product)
-                            @php  $price = !empty($product->sale_price) ? floatval($product->sale_price) : floatval($product->price); @endphp
+                            @php  $price = format_price(!empty($product->sale_price) ? $product->sale_price : $product->price); @endphp
                             <tr>
                                 <td class="text-left">
                                     {{$product->name}} (Optional)  <button class="btn-xs btn-success add_cart" type="button">Add</button>
@@ -105,8 +106,39 @@
                         @endforeach
                         </tbody>
                     </table>
+                    @endif
+                    @if($suggestProducts->isNotEmpty())
+                        <table class="table  table-bordered table-topbot">
+                            <tbody>
+                            @foreach($suggestProducts as $suggestProduct)
+                                @php
+                                    $product = $suggestProduct->product;
+                                @endphp
+
+                                @if($product)
+                                    @php $price = format_price($product->sale_price ?? $product->price); @endphp
+                                    <tr>
+                                        <td class="text-left">
+                                            {{$product->name}} (Suggested) <button class="btn-xs btn-success add_cart" type="button">Add</button>
+                                            <form method="POST" action="{{route('cart.add')}}">
+                                                @csrf
+                                                <input type="hidden" value="1" name="quantity" id="quantity"/>
+                                                <input type="hidden" name="price" id="price" value="{{$price}}"/>
+                                                <input type="hidden" name="product_id" id="product_id" value="{{$product->id}}"/>
+                                                <input type="hidden" name="name" id="name" value="{{$product->name}}"/>
+                                            </form>
+                                        </td>
+                                        <td><span class="txt-price">{{setting('site.currency')}}{{$price}}</span></td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @endif
                 </div>
-                @endif
+
+
+
                 <div class="table-total-area col-sm-4 col-sm-offset-2 pul-rgt">
                     <table class="table  table-bordered table-topbot">
                         <thead>
@@ -115,11 +147,11 @@
 
                         <tbody><tr>
                             <td class="text-left">Subtotal</td>
-                            <td>{{setting('site.currency')}}{{str_replace(',','',Cart::total()) + number_format($priceMandatory,2)}}</td>
+                            <td>{{setting('site.currency')}}{{format_price(str_replace(',','',Cart::total()) + number_format($priceMandatory,2))}}</td>
                         </tr>
                         <tr>
                             <td class="text-left">Total</td>
-                            <td>{{setting('site.currency')}}{{str_replace(',','',Cart::total()) + number_format($priceMandatory,2)}}</td>
+                            <td>{{setting('site.currency')}}{{format_price(str_replace(',','',Cart::total()) + number_format($priceMandatory,2))}}</td>
                         </tr>
                         </tbody></table>
                 </div>

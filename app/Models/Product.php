@@ -29,4 +29,7 @@ class Product extends Model
         return $query->where('type','=','additional');
     }
 
+    public function scopeNotIsAdditionalType($query){
+        return $query->where('type','<>','additional');
+    }
 }
