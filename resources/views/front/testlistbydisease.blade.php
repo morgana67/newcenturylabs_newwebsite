@@ -79,6 +79,7 @@
 @section('script')
     <script>
         var btn = $('#btn_add_to_cart_all');
+
         $('#checkAll').on('click',function () {
             if($(this).is(":checked")){
                 $('[name="product_id[]"]').prop('checked', true);
@@ -97,7 +98,7 @@
             }
         })
 
-        $('#btn_add_to_cart_all').on('click',function () {
+        btn.on('click',function () {
             if($('[name="product_id[]"]:checked').length > 0){
                 $('form#addMultiple').submit();
             }else{

@@ -31,7 +31,7 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
             // If Model doest exist, get data from table name
             $dataTypeContent = DB::table($dataType->name)->where('id', $id)->first();
         }
-
+        $isSoftDeleted = false;
         // Replace relationships' keys for labels and create READ links if a slug is provided.
         $dataTypeContent = $this->resolveRelations($dataTypeContent, $dataType, true);
 
@@ -50,7 +50,7 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
             $view = "voyager::$slug.read";
         }
 
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','isSoftDeleted'));
     }
 
     //***************************************
