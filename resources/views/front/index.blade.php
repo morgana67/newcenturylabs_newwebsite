@@ -25,9 +25,9 @@
                             <h1>{!! $body->title_banner ?? null !!}</h1>
 
                             <p>{!! $body->desc_banner ?? null !!}</p>
-
-                            <div class="lnk-btn inline-block more-btn"><a href="{{route('register')}}">Sign Up With
-                                    Us</a></div>
+                            @if(!is_customer())
+                                <div class="lnk-btn inline-block more-btn"><a href="{{route('register')}}">Sign Up With Us</a></div>
+                            @endif
                         </div>
                     </div>
                 </div>

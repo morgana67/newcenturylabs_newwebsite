@@ -69,13 +69,13 @@
                                             <a class="view-cat-link">{{$product->name}}</a>
                                         </td>
                                         <td class="text-center">
-                                            {{setting('site.currency')}}{{$price}}
+                                            {{setting('site.currency')}}{{format_price($price)}}
                                         </td>
                                         <td class="text-center">
 {{--                                            {{$product->qty}}--}}
                                         </td>
                                         <td class="text-center">
-                                            {{setting('site.currency')}}{{$price}}
+                                            {{setting('site.currency')}}{{format_price($price)}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -101,7 +101,7 @@
                                         <input type="hidden" name="name" id="name" value="{{$product->name}}"/>
                                     </form>
                                 </td>
-                                <td><span class="txt-price">{{setting('site.currency')}}{{$price}}</span></td>
+                                <td><span class="txt-price">{{setting('site.currency')}}{{format_price($price)}}</span></td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -128,7 +128,7 @@
                                                 <input type="hidden" name="name" id="name" value="{{$product->name}}"/>
                                             </form>
                                         </td>
-                                        <td><span class="txt-price">{{setting('site.currency')}}{{$price}}</span></td>
+                                        <td><span class="txt-price">{{setting('site.currency')}}{{format_price($price)}}</span></td>
                                     </tr>
                                 @endif
                             @endforeach

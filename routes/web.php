@@ -49,6 +49,8 @@ Route::group(['middleware' => 'customer'],function (){
         Route::match(['get','post'],'/','ProfileController@profile')->name('profile');
         Route::match(['get','post'],'/change-password','ProfileController@changePassword')->name('changePassword');
     });
+    Route::get('my-orders','ProfileController@myOrder')->name('myOrder');
+    Route::get('order-detail/{id}','ProfileController@orderDetail')->name('orderDetail');
 
     Route::group(['prefix' => 'cart','as' => 'cart.'],function (){
         Route::post('add','CartController@add')->name('add');
@@ -67,7 +69,7 @@ Route::group(['middleware' => 'customer'],function (){
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
-Route::group(['prefix' => 'admin','namespace' => 'Admin','as' => 'admin.'], function () {
+Route::group(['prefix' => 'admin','namespace' => 'Admin','as' => 'admin.','middleware' => ['auth']], function () {
     Route::group(['prefix' => 'orders','as' => 'orders.',],function (){
         Route::get('/','OrderController@index')->name('index');
         Route::match(['get','post'],'detail/{id}','OrderController@detail')->name('detail');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Customer;
+use App\Models\Order;
 use App\User;
 use Illuminate\Http\Request;
 use Validator;
@@ -91,5 +92,14 @@ class ProfileController extends Controller
         return view('profile.change-password');
     }
 
+    public function myOrder(){
+        $orders = Order::orderBy('id','desc')->paginate(10);
+        return view('profile.my-order',compact('orders'));
+    }
+
+    public function orderDetail(Request $request,$id){
+        $order = Order::where([['id','=',$id],['customer_id','=',user()->getAuthIdentifier()]])->with('details','customer','country')->firstOrFail();
+        return view('profile.order-detail',compact('order'));
+    }
 
 }

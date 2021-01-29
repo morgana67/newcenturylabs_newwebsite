@@ -57,6 +57,18 @@ if (!function_exists('uploadFile')) {
 if (!function_exists('format_price')) {
     function format_price($price): string
     {
-        return number_format((float)$price, 2, '.', '');
+        if(is_numeric($price) && floor($price) != $price){
+            return number_format((float)$price, 2, '.', '');
+        }else{
+            return floatval($price);
+        }
+//        return number_format((float)$price, 2, '.', '');
+    }
+}
+
+if (!function_exists('is_decimal')) {
+    function is_decimal($val)
+    {
+        return is_numeric($val) && floor($val) != $val;
     }
 }

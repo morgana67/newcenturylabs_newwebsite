@@ -30,15 +30,15 @@
                             <h3>{{ $product->name }}</h3>
                             @php
                               if($product->sale_price != null){
-                                    $price = floatval($product->sale_price);
+                                    $price = $product->sale_price;
                                 }else{
-                                    $price = floatval($product->price);
+                                    $price = $product->price;
                                 }
                             @endphp
                             @if ($product->sale_price != null)
-                                <h2><sup>{{setting('site.currency')}}</sup>{{ $price }}</h2>
+                                <h2><sup>{{setting('site.currency')}}</sup>{{ format_price($price)}}</h2>
                                 <strong>Average competitors price</strong>
-                                <h4><sup>{{setting('site.currency')}}</sup>{{floatval($product->price)}}</h4>
+                                <h4><sup>{{setting('site.currency')}}</sup>{{  format_price($product->price) }}</h4>
                             @else
                                 <h2><sup>{{setting('site.currency')}}</sup>{{ $price }}</h2>
                                 <strong>Average competitors price</strong>
