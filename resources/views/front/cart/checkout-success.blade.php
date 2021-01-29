@@ -21,8 +21,8 @@
 
                 <div class="clrlist listview list-icon">
                     <ul>
-                        <li><i class="fa fa-phone"></i> Tel.: +1-800-519-2997</li>
-                        <li><i class="fa fa-envelope"></i> customerservice@newcenturylabs.com</li>
+                        <li><i class="fa fa-phone"></i><a href="tel:{{ setting('site.hotline') }}">Tel.: {{ setting('site.hotline') }}</a></li>
+                        <li><i class="fa fa-envelope"></i> {{ setting('site.email_receive_notification') }}</li>
                     </ul>
 
                     <h5>Thanks again and have a proactive day.</h5>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\SendMailProcessed;
+use App\Functions\Functions;
 use App\Models\Address;
 use App\Models\Customer;
 use App\Models\Order;
@@ -147,7 +149,10 @@ class CheckoutController extends Controller
 
 
     public function orderSuccess($id = null){
-
+        $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->with('details','customer','country')->firstOrFail();
+        $message = 'You have received an order from ' . $order->firtName. ' '.$order->lastName . '. Their order is as follows:';
+        $body = view('emails.mail-order',compact('order'))->render();
+        event(new SendMailProcessed(setting('site.email_receive_notification'),'New Order | '.setting('site.title'),$body));
         return view('front.cart.checkout-success',compact('id'));
     }
 
