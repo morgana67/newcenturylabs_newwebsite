@@ -93,7 +93,7 @@ class ProfileController extends Controller
     }
 
     public function myOrder(){
-        $orders = Order::orderBy('id','desc')->paginate(10);
+        $orders = Order::where('customer_id',user()->getAuthIdentifier())->orderBy('id','desc')->paginate(10);
         return view('profile.my-order',compact('orders'));
     }
 
