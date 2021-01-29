@@ -109,7 +109,7 @@
                                                            class="view-cat-link">{{$product->product->name}}</a>
                                                     </td>
                                                     <td class="text-center">
-                                                        ${{$product->price}}
+                                                        {{setting('site.currency')}}{{format_price($product->price)}}
                                                     </td>
                                                     <td class="text-center">
                                                         <div class="form-group d-flex justify-content-center">
@@ -117,7 +117,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="text-center">
-                                                        ${{$product->price * $product->quantity}}
+                                                        {{setting('site.currency')}}{{format_price($product->price * $product->quantity)}}
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -135,11 +135,11 @@
                                             <tbody>
                                             <tr>
                                                 <td class="text-left" for="LAB TEST">Subtotal</td>
-                                                <td for="PRICES">${{$order->totalAmount}}</td>
+                                                <td for="PRICES">{{setting('site.currency')}} {{format_price($order->totalAmount)}}</td>
                                             </tr>
                                             <tr>
                                                 <td class="text-left" for="LAB TEST">Total</td>
-                                                <td for="PRICES">${{$order->totalAmount}}</td>
+                                                <td for="PRICES">{{setting('site.currency')}} {{format_price($order->totalAmount)}}</td>
                                             </tr>
                                             </tbody>
                                         </table>

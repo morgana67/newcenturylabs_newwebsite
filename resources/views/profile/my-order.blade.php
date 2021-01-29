@@ -39,7 +39,7 @@
                                                 <td>{{$order->id}}</td>
                                                 <td>{{$order->firstName.' '.$order->lastName}}</td>
                                                 <td>{{$order->email}}</td>
-                                                <td>${{$order->totalAmount}}</td>
+                                                <td>{{setting('site.currency')}}{{format_price($order->totalAmount)}}</td>
                                                 <td>{{$order->paymentStatus}}</td>
                                                 <td>{{$order->orderStatus}}</td>
                                                 <td>{{$order->created_at}}</td>
