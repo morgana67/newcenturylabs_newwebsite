@@ -41,7 +41,7 @@
             <p>{!! $body->desc_section1 ?? null !!}</p>
         </div>
     </section>
-    <section class="slider-area no-ctrl fadeft">
+    <section class="slider-area no-ctrl fadeft  pb50">
         <div class="box-area text-center col-md-4">
             <div class="box col-sm-12 anime-left ">
                 <div class="box__img"><img alt="" src="{{image($body->img_icon_1_section1 ?? null)}}"/></div>
@@ -93,6 +93,19 @@
             </div>
         </div>
 
+    </section>
+    @php $bodyAboutUs = json_decode($about->body) @endphp
+    <section class="testlab-area text-center bg-full white p100 mt50 valigner"
+             style="background-image:url('{{image($bodyAboutUs->image_section2 ?? null)}}');">
+        <div class="container">
+            <div class="valign ">
+                <h4>{!! $bodyAboutUs->desc_section2 ?? null !!}</h4>
+
+                <div class="inline-btns mt40">
+                    <div class="lnk-btn inline-block def-btn hover"><a href="{{ $bodyAboutUs->link_section2 ?? null}}">View Tests</a></div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="most-area text-center bg-full pt50 pb50">

@@ -35,7 +35,8 @@ class HomeController extends Controller
     {
         $page = Page::withoutGlobalScopes()->where(['code_page' => 'home'])->first();
         $faq = Page::withoutGlobalScopes()->where(['code_page' => 'faq'])->first();
-        return view('front.index',compact('page','faq'));
+        $about = Page::withoutGlobalScopes()->where(['code_page' => 'about-us'])->first();
+        return view('front.index',compact('page','faq','about'));
     }
 
     public function shop(){
