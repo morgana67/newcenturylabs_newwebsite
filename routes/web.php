@@ -62,7 +62,7 @@ Route::group(['middleware' => 'customer'],function (){
         Route::post('/checkoutProceed', 'CheckoutController@checkoutProceed')->name('checkoutProceed');
     });
 
-    Route::get('/order-success/{id?}','CheckoutController@orderSuccess')->name('order-success');
+    Route::get('/order-success/{id?}/{sendMail?}','CheckoutController@orderSuccess')->name('order-success');
 
 });
 

@@ -61,7 +61,7 @@
                                 <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal"><b>Total:<u></u><u></u></b></p>
                                 </td>
-                                <td style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal">
                                         <span>{{ $currency}}</span><span>{{format_price($order->totalAmount)}}</span><u></u><u></u></p>
                                 </td>
@@ -71,7 +71,7 @@
                                 <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal"><b>Name:<u></u><u></u></b></p>
                                 </td>
-                                <td style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal">
                                         <span>{{$order->firstName.' '.$order->lastName}}</span><u></u><u></u></p>
                                 </td>
@@ -81,7 +81,7 @@
                                 <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal"><b>Email:<u></u><u></u></b></p>
                                 </td>
-                                <td style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal">
                                         <a href="mailto:{{$order->email}}"
                                            target="_blank">{{$order->email}}</a>
@@ -90,10 +90,10 @@
                             </tr>
 
                             <tr>
-                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td  colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal"><b>Phone:<u></u><u></u></b></p>
                                 </td>
-                                <td style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal">
                                         <a href="tel:{{$order->phone}}"
                                            value="+{{$order->phone}}"
@@ -106,7 +106,7 @@
                                 <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal"><b>Address:<u></u><u></u></b></p>
                                 </td>
-                                <td style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal">
                                         <span>{{$order->address}}</span><u></u><u></u></p>
                                 </td>
@@ -128,7 +128,7 @@
                                 <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal"><b>Country:<u></u><u></u></b></p>
                                 </td>
-                                <td style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal">
                                         <span>{{$order->country->name}}</span><u></u><u></u></p>
                                 </td>
@@ -137,7 +137,7 @@
                                 <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal"><b>State:<u></u><u></u></b></p>
                                 </td>
-                                <td style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal">
                                         <span>{{$order->state}}</span><u></u><u></u></p>
                                 </td>
@@ -146,7 +146,7 @@
                                 <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal"><b>City:<u></u><u></u></b></p>
                                 </td>
-                                <td style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal">
                                         <span>{{$order->city}}</span><u></u><u></u></p>
                                 </td>
@@ -155,7 +155,7 @@
                                 <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal"><b>Zip:<u></u><u></u></b></p>
                                 </td>
-                                <td style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal">
                                         <span>{{$order->zip}}</span><u></u><u></u></p>
                                 </td>
@@ -164,7 +164,7 @@
                                 <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal"><b>Message:<u></u><u></u></b></p>
                                 </td>
-                                <td style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal">
                                         <span>{{$order->message}}</span><u></u><u></u></p>
                                 </td>
@@ -173,7 +173,7 @@
                                 <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal"><b>Payment Type:<u></u><u></u></b></p>
                                 </td>
-                                <td style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal">
                                         <span>{{$order->paymentType}}</span><u></u><u></u></p>
                                 </td>
@@ -182,7 +182,7 @@
                                 <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal"><b>Order Status:<u></u><u></u></b></p>
                                 </td>
-                                <td style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal">
                                         <span>{{$order->orderStatus}}</span><u></u><u></u></p>
                                 </td>
@@ -192,7 +192,7 @@
                                 <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal"><b>Payment Status:<u></u><u></u></b></p>
                                 </td>
-                                <td style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                     <p class="MsoNormal">
                                         <span>{{$order->paymentStatus}}</span><u></u><u></u></p>
                                 </td>

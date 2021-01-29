@@ -6,6 +6,7 @@ use App\Events\SendMailProcessed;
 use App\Functions\Functions;
 use App\Models\Address;
 use App\Models\Customer;
+use App\Models\MailConfig;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
@@ -140,7 +141,7 @@ class CheckoutController extends Controller
             OrderDetail::insert($orderDetail);
             DB::commit();
             Cart::destroy();
-            return redirect()->route('order-success',['id' => $order->id]);
+            return redirect()->route('order-success',['id' => $order->id,'sendmail' => 1]);
         }catch(\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->withInput($request->all())->withErrors($exception->getMessage());
@@ -149,10 +150,17 @@ class CheckoutController extends Controller
 
 
     public function orderSuccess($id = null){
-        $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->with('details','customer','country')->firstOrFail();
-        $message = 'You have received an order from ' . $order->firtName. ' '.$order->lastName . '. Their order is as follows:';
-        $body = view('emails.mail-order',compact('order'))->render();
-        event(new SendMailProcessed(setting('site.email_receive_notification'),'New Order | '.setting('site.title'),$body));
+        if(!empty(request()->get('sendmail'))){
+            $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->with('details','customer','country')->firstOrFail();
+            $bodyRender = view('emails.mail-order',compact('order'))->render();
+            event(new SendMailProcessed(setting('site.email_receive_notification'),'New Order | '.setting('site.title'),$bodyRender));
+
+            $mailConfig = MailConfig::where('code','order_confirmation')->first();
+            $body =  Functions::replaceBodyEmail($mailConfig->body,user());
+            $body = str_replace("{{ID}}", $order->id , $body);
+            $body = str_replace("{{ORDERINFO}}", $bodyRender , $body);
+            event(new SendMailProcessed($order->email,$mailConfig->subject,$body));
+        }
         return view('front.cart.checkout-success',compact('id'));
     }
 

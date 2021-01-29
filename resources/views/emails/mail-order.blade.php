@@ -6,7 +6,7 @@ $orderPrefix = null;
     <tbody>
     <tr>
         <td style="padding:0in 0in 0in 0in" valign="top">
-            <p style="margin-top:0in;text-align:center" align="center"><img src="{{url('/')}}/{{setting('site.logo')}}" alt="{{ setting('site.title') }}" border="0" ><u></u><u></u></p>
+{{--            <p style="margin-top:0in;text-align:center" align="center"><img src="{{url('/')}}/{{setting('site.logo')}}" alt="{{ setting('site.title') }}" border="0" ><u></u><u></u></p>--}}
             <div align="center">
                 <table style="width:6.25in;background:#fdfdfd;border:solid gainsboro 1.0pt;border-radius:6px!important" border="1" cellpadding="0" cellspacing="0" width="600">
                     <tbody>
