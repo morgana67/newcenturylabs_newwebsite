@@ -169,7 +169,8 @@
              style="background-image: url('{{ image($body->image_section4 ?? null ) }}')">
         <div class="container">
             <div class="valign">
-                <h4>{!! $body->title_section4 ?? null !!}</h4>
+                <h4><i class="fa fa-quote-left" ></i>{!! $body->title_section4 ?? null !!}<i class="fa fa-quote-right" ></i>
+                </h4>
             </div>
         </div>
     </section>

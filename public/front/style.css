@@ -1564,11 +1564,19 @@ a.navbar-brand {
     line-height: 10px;
 }
 
-i.fa.fa-quote-right {
-    position: relative;
-    top: 15px;
+.testlab-area i{
+    font-size : 15px
 }
 
+i.fa.fa-quote-right {
+    position: relative;
+    top: 5px;
+}
+
+i.fa.fa-quote-left {
+    position: relative;
+    top: -10px;
+}
 
 section.testlab-area {
     float: left;
@@ -1581,7 +1589,7 @@ section.testlab-area h4 {
 }
 
 section.testlab-area h4 .fa {
-    margin: 0 15px;
+    margin: 0 10px;
 }
 section.testlab-area .valign {
     width: 100%;
