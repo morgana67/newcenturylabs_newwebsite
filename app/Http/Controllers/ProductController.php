@@ -205,8 +205,8 @@ class ProductController extends \TCG\Voyager\Http\Controllers\VoyagerBaseControl
         $catalogs = Catalog::select('id','name')->onlyParent()->with('children_catalogs')->get();
 
         $products = Product::notIsAdditionalType()->select('id','name')->get();
-
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','catalogs','products'));
+        $productsSuggested = array();
+        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable','catalogs','products','productsSuggested'));
     }
 
     /**
