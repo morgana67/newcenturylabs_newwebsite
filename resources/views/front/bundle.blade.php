@@ -238,7 +238,7 @@
                     $('.cart-sticky').removeClass('sticky');
                 }
 
-                if(scroll < parseInt(footer_cart)-1000){
+                if(scroll >= cartOffset && scroll < parseInt(footer_cart)-1000){
                     $('.footer_cart').addClass('sticky2');
                     $('.sticky2').css('width',$('tbody').width());
                 }else{
