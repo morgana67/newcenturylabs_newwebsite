@@ -155,7 +155,7 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
                 'firstName' => $request['firstName'],
                 'lastName' => $request['lastName'],
                 'gender' => $request['gender'],
-                'role_id' => 2,
+                'role_id' => $request['role_id'],
                 'dob' => $request['dob'],
                 'token' => Hash::make($request['email']. $request['password']),
             ];
@@ -280,7 +280,7 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
                 'gender' => $request['gender'],
-                'role_id' => 2,
+                'role_id' => $request['role_id'],
                 'dob' => $request['dob'],
                 'token' => Hash::make($request['email']. $request['password']),
             ];
