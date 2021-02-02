@@ -7,6 +7,12 @@
                 <tbody>
                 <tr>
                     <td style="padding:15.0pt 15.0pt 15.0pt 15.0pt" valign="top">
+                        @if($message!="")
+                            <p style="line-height:150%"><span style="font-size:10.5pt;line-height:150%;font-family:&quot;Arial&quot;,sans-serif;color:#737373"> {{ $message }} </span></p>
+                        @else
+                            Your lab order will be emailed to you within a 4 hour window of your order, during our hours of operation 8 AM PST to 10 PM PST. Please note if you have ordered a doctor consult, you must wait until your final results are complete before communication. We look forward to serving you! Tel.: <a href="tel:(800)%20519-2997" value="+18005192997" target="_blank">+1-800-519-2997</a> <a href="mailto:customerservice@newcenturylabs.com" target="_blank">customerservice@newcenturylabs.com</a>
+                            <p></p>
+                        @endif
                         <h2 style="margin-right:0in;margin-bottom:6.0pt;margin-left:0in;line-height:130%"><span
                                 style="font-size:13.5pt;line-height:130%;font-family:&quot;Helvetica&quot;,sans-serif;color:#557da1"><a
                                     href="{{$link ?? null}}" target="_blank"><span
@@ -126,3 +132,8 @@
     </tr>
     </tbody>
 </table>
+<div class="yj6qo"><strong>HIPAA Notice</strong>
+    <p>
+        The contents of this message, together with any attachments, are intended only for the use of the person(s) to which they are addressed and may contain confidential and/or privileged information. Further, any medical information herein is confidential and protected by law. It is unlawful for unauthorized persons to use, review, copy, disclose, or disseminate confidential medical information. If you are not the intended recipient, immediately advise the sender and delete this message and any attachments. Any distribution, or copying of this message, or any attachment, is prohibited.</p></div>
+
+
