@@ -51,6 +51,7 @@ Route::group(['middleware' => 'customer'],function (){
     });
     Route::get('my-orders','ProfileController@myOrder')->name('myOrder');
     Route::get('order-detail/{id}','ProfileController@orderDetail')->name('orderDetail');
+    Route::get('update-nickname/{id}','ProfileController@updateNickName')->name('updateNickName');
 
     Route::group(['prefix' => 'cart','as' => 'cart.'],function (){
         Route::post('add','CartController@add')->name('add');

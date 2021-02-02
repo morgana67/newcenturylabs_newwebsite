@@ -1597,9 +1597,9 @@ section.testlab-area .valign {
     float: left;
 }
 
-.panel-default>.panel-heading {
-    padding: 0;
-}
+/*.panel-default>.panel-heading {*/
+/*    padding: 0;*/
+/*}*/
 
 .accordion-arr .panel-title a:before {
     color: #5cc949;
@@ -1774,9 +1774,9 @@ table#example tr {
 }
 
 
-.panel-default>.panel-heading+.panel-collapse>.panel-body {
-    min-height: 114px;
-}
+/*.panel-default>.panel-heading+.panel-collapse>.panel-body {*/
+/*    min-height: 114px;*/
+/*}*/
 
 .accordion-arr .active .panel-title a:before {
     background-color: #5cc494;

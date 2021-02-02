@@ -51,8 +51,8 @@ class CheckoutController extends Controller
             'country_id' => 'required',
             'state' => 'required|max:191',
             'city' => 'required|max:191',
-            'zip' => 'required|max:191',
-            'phone' => 'required|max:191',
+            'zip' => 'required|numeric|max:191',
+            'phone' => 'required|numeric|max:191',
             'cc' => 'required|max:16',
             'cvc' => 'required|max:4',
             'expMonth' => 'required',
@@ -96,6 +96,7 @@ class CheckoutController extends Controller
             $order->email = $request->email;
             $order->address = $request->address;
             $order->address2 = $request->address2;
+            $order->city = $request->city;
             $order->country_id = $request->country_id;
             $order->state = $request->state;
             $order->phone = $request->phone;

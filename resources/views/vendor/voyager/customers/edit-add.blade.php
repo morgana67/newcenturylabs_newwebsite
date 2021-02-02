@@ -57,133 +57,115 @@
 
                             @foreach($dataTypeRows as $row)
                             <!-- GET THE DISPLAY OPTIONS -->
-                                @if($row->field == 'state')
 
-                                    @php
-                                        $display_options = $row->details->display ?? NULL;
-                                        if ($dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')}) {
-                                            $dataTypeContent->{$row->field} = $dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')};
-                                        }
-                                    @endphp
-                                    @if (isset($row->details->legend) && isset($row->details->legend->text))
-                                        <legend class="text-{{ $row->details->legend->align ?? 'center' }}"
-                                                style="background-color: {{ $row->details->legend->bgcolor ?? '#f0f0f0' }};padding: 5px;">{{ $row->details->legend->text }}</legend>
+                                @php
+                                    $display_options = $row->details->display ?? NULL;
+                                    if ($dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')}) {
+                                        $dataTypeContent->{$row->field} = $dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')};
+                                    }
+                                @endphp
+                                @if (isset($row->details->legend) && isset($row->details->legend->text))
+                                    <legend class="text-{{ $row->details->legend->align ?? 'center' }}"
+                                            style="background-color: {{ $row->details->legend->bgcolor ?? '#f0f0f0' }};padding: 5px;">{{ $row->details->legend->text }}</legend>
+                                @endif
+
+                                <div
+                                    class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width ?? 12 }} {{ $errors->has($row->field) ? 'has-error' : '' }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                    {{ $row->slugify }}
+                                    <label class="control-label"
+                                           for="name">{{ $row->getTranslatedAttribute('display_name') }}</label>
+                                    @include('voyager::multilingual.input-hidden-bread-edit-add')
+                                    @if (isset($row->details->view))
+                                        @include($row->details->view, ['row' => $row, 'dataType' => $dataType, 'dataTypeContent' => $dataTypeContent, 'content' => $dataTypeContent->{$row->field}, 'action' => ($edit ? 'edit' : 'add'), 'view' => ($edit ? 'edit' : 'add'), 'options' => $row->details])
+                                    @elseif ($row->type == 'relationship')
+                                        @include('voyager::formfields.relationship', ['options' => $row->details])
+                                    @else
+                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
                                     @endif
 
-                                    <div
-                                        class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width ?? 12 }} {{ $errors->has($row->field) ? 'has-error' : '' }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                        {{ $row->slugify }}
-                                        <label class="control-label"
-                                               for="name">{{ $row->getTranslatedAttribute('display_name') }}</label>
-                                        @include('voyager::multilingual.input-hidden-bread-edit-add')
-                                        @if (isset($row->details->view))
-                                            @include($row->details->view, ['row' => $row, 'dataType' => $dataType, 'dataTypeContent' => $dataTypeContent, 'content' => $dataTypeContent->{$row->field}, 'action' => ($edit ? 'edit' : 'add'), 'view' => ($edit ? 'edit' : 'add'), 'options' => $row->details])
-                                        @elseif ($row->type == 'relationship')
-                                            @include('voyager::formfields.relationship', ['options' => $row->details])
-                                        @else
-                                            <select name="state" id="state" required class="form-control">
-                                                <option value="">State *</option>
-                                                @foreach(\App\Models\State::get() as $state)
-                                                    <option
-                                                        {{old('state',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->state : null) == $state->code ? 'selected' : ''}} value="{{$state->code}}">{{$state->title}}</option>
-                                                @endforeach
-                                            </select>
-                                        @endif
-
-                                        @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
-                                            {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                    @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                                        {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                    @endforeach
+                                    @if ($errors->has($row->field))
+                                        @foreach ($errors->get($row->field) as $error)
+                                            <span class="help-block">{{ $error }}</span>
                                         @endforeach
-                                        @if ($errors->has($row->field))
-                                            @foreach ($errors->get($row->field) as $error)
-                                                <span class="help-block">{{ $error }}</span>
-                                            @endforeach
-                                        @endif
-                                        @else
-                                            @php
-                                                $display_options = $row->details->display ?? NULL;
-                                                if ($dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')}) {
-                                                    $dataTypeContent->{$row->field} = $dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')};
-                                                }
-                                            @endphp
-                                            @if (isset($row->details->legend) && isset($row->details->legend->text))
-                                                <legend class="text-{{ $row->details->legend->align ?? 'center' }}"
-                                                        style="background-color: {{ $row->details->legend->bgcolor ?? '#f0f0f0' }};padding: 5px;">{{ $row->details->legend->text }}</legend>
-                                            @endif
+                                    @endif
+                                </div>
+                            @endforeach
+                            <div class="form-group col-sm-12 {{ $errors->has('state') ? 'has-error' : '' }}">
+                                <label class="control-label" for="phone">State</label>
+                                <select name="state" id="state" required class="form-control">
+                                    <option value="">State *</option>
+                                    @foreach(\App\Models\State::get() as $state)
+                                        <option
+                                            {{old('state',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->state : null) == $state->code ? 'selected' : ''}} value="{{$state->code}}">{{$state->title}}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('state'))
+                                    @foreach ($errors->get('state') as $error)
+                                        <span class="help-block">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
 
-                                            <div
-                                                class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width ?? 12 }} {{ $errors->has($row->field) ? 'has-error' : '' }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
-                                                {{ $row->slugify }}
-                                                <label class="control-label"
-                                                       for="name">{{ $row->getTranslatedAttribute('display_name') }}</label>
-                                                @include('voyager::multilingual.input-hidden-bread-edit-add')
-                                                @if (isset($row->details->view))
-                                                    @include($row->details->view, ['row' => $row, 'dataType' => $dataType, 'dataTypeContent' => $dataTypeContent, 'content' => $dataTypeContent->{$row->field}, 'action' => ($edit ? 'edit' : 'add'), 'view' => ($edit ? 'edit' : 'add'), 'options' => $row->details])
-                                                @elseif ($row->type == 'relationship')
-                                                    @include('voyager::formfields.relationship', ['options' => $row->details])
-                                                @else
-                                                    {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
-                                                @endif
+                            <div
+                                class="form-group col-sm-12 {{ $errors->has('city') ? 'has-error' : '' }}">
+                                <label class="control-label" for="City">City</label>
+                                <input placeholder="City" class="form-control" name="city" type="text"
+                                       value="{{old('city',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->city : null)}}">
+                                @if ($errors->has('city'))
+                                    @foreach ($errors->get('city') as $error)
+                                        <span class="help-block">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div
+                                class="form-group col-sm-12 {{ $errors->has('address') ? 'has-error' : '' }}">
+                                <label class="control-label" for="address">Address</label>
+                                <input placeholder="Address" class="form-control" name="address"
+                                       type="text"
+                                       value="{{old('address',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->address : null)}}">
+                                @if ($errors->has('address'))
+                                    @foreach ($errors->get('address') as $error)
+                                        <span class="help-block">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div
+                                class="form-group col-sm-12 {{ $errors->has('zip') ? 'has-error' : '' }}">
+                                <label class="control-label" for="zip">Zip</label>
+                                <input placeholder="Postal Code / Zipcode" class="form-control"
+                                       name="zip"
+                                       type="text"
+                                       value="{{old('zip',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->zip : null)}}">
+                                @if ($errors->has('zip'))
+                                    @foreach ($errors->get('zip') as $error)
+                                        <span class="help-block">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
 
-                                                @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
-                                                    {!! $after->handle($row, $dataType, $dataTypeContent) !!}
-                                                @endforeach
-                                                @if ($errors->has($row->field))
-                                                    @foreach ($errors->get($row->field) as $error)
-                                                        <span class="help-block">{{ $error }}</span>
-                                                    @endforeach
-                                                @endif
-                                                @endif
-                                            </div>
-                                            @endforeach
-                                            <div class="form-group col-sm-12 {{ $errors->has('city') ? 'has-error' : '' }}">
-                                                <label class="control-label" for="City">City</label>
-                                                <input placeholder="City" class="form-control"  name="city" type="text" value="{{old('city',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->city : null)}}">
-                                                @if ($errors->has('city'))
-                                                    @foreach ($errors->get('city') as $error)
-                                                        <span class="help-block">{{ $error }}</span>
-                                                    @endforeach
-                                                @endif
-                                            </div>
-                                            <div class="form-group col-sm-12 {{ $errors->has('address') ? 'has-error' : '' }}">
-                                                <label class="control-label" for="address">Address</label>
-                                                <input placeholder="Address" class="form-control"  name="address"
-                                                       type="text" value="{{old('address',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->address : null)}}">
-                                                @if ($errors->has('address'))
-                                                    @foreach ($errors->get('address') as $error)
-                                                        <span class="help-block">{{ $error }}</span>
-                                                    @endforeach
-                                                @endif
-                                            </div>
-                                            <div class="form-group col-sm-12 {{ $errors->has('zip') ? 'has-error' : '' }}">
-                                                <label class="control-label" for="zip">Zip</label>
-                                                <input placeholder="Postal Code / Zipcode" class="form-control"  name="zip"
-                                                       type="text" value="{{old('zip',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->zip : null)}}">
-                                                @if ($errors->has('zip'))
-                                                    @foreach ($errors->get('zip') as $error)
-                                                        <span class="help-block">{{ $error }}</span>
-                                                    @endforeach
-                                                @endif
-                                            </div>
+                            <div
+                                class="form-group col-sm-12 {{ $errors->has('phone') ? 'has-error' : '' }}">
+                                <label class="control-label" for="phone">Phone</label>
+                                <input placeholder="Phone" class="form-control" name="phone" type="text"
+                                       value="{{old('phone',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->phone : null)}}">
+                                @if ($errors->has('phone'))
+                                    @foreach ($errors->get('phone') as $error)
+                                        <span class="help-block">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
 
-                                            <div class="form-group col-sm-12 {{ $errors->has('phone') ? 'has-error' : '' }}">
-                                                <label class="control-label" for="phone">Phone</label>
-                                                <input placeholder="Phone" class="form-control" name="phone" type="text"
-                                                       value="{{old('phone',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->phone : null)}}" >
-                                                @if ($errors->has('phone'))
-                                                    @foreach ($errors->get('phone') as $error)
-                                                        <span class="help-block">{{ $error }}</span>
-                                                    @endforeach
-                                                @endif
-                                            </div>
-                                    </div><!-- panel-body -->
 
-                                    <div class="panel-footer">
-                                        @section('submit-buttons')
-                                            <button type="submit"
-                                                    class="btn btn-primary save">{{ __('voyager::generic.save') }}</button>
-                                        @stop
-                                        @yield('submit-buttons')
-                                    </div>
+                            <div class="panel-footer">
+                                @section('submit-buttons')
+                                    <button type="submit"
+                                            class="btn btn-primary save">{{ __('voyager::generic.save') }}</button>
+                                @stop
+                                @yield('submit-buttons')
+                            </div>
                     </form>
 
                     <iframe id="form_target" name="form_target" style="display:none"></iframe>
@@ -234,6 +216,7 @@
         var params = {};
         var $file;
         $('#state').select2({});
+
         function deleteHandler(tag, isMulti) {
             return function () {
                 $file = $(this).siblings(tag);

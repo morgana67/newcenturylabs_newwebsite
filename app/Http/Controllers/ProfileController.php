@@ -102,4 +102,11 @@ class ProfileController extends Controller
         return view('profile.order-detail',compact('order'));
     }
 
+    public function updateNickName(Request $request,$id){
+        $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->update([
+            'nick_name' => $request->nick_name
+        ]);
+        return response()->json(['status' => 'success'],200);
+    }
+
 }
