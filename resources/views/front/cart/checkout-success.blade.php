@@ -21,7 +21,7 @@
 
                 <div class="clrlist listview list-icon">
                     <ul>
-                        <li><i class="fa fa-phone"></i><a href="tel:{{ setting('site.hotline') }}">Tel.: {{ setting('site.hotline') }}</a></li>
+                        <li><i class="fa fa-phone"></i><a href="tel:{{ setting('site.hotline')}}">Tel.: {{ setting('site.hotline') }}</a></li>
                         <li><i class="fa fa-envelope"></i> {{ setting('site.email_receive_notification') }}</li>
                     </ul>
 
