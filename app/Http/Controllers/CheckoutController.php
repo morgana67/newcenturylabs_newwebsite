@@ -51,8 +51,8 @@ class CheckoutController extends Controller
             'country_id' => 'required',
             'state' => 'required|max:191',
             'city' => 'required|max:191',
-            'zip' => 'required|numeric|max:191',
-            'phone' => 'required|numeric|max:191',
+            'zip' => 'required|numeric',
+            'phone' => 'required|numeric',
             'cc' => 'required|max:16',
             'cvc' => 'required|max:4',
             'expMonth' => 'required',
@@ -103,6 +103,8 @@ class CheckoutController extends Controller
             $order->message = $request->message;
             $order->zip = $request->zip;
             $order->totalAmount = $request->totalAmount;
+            $order->nick_name = $request->nick_name;
+            $order->gender = $request->gender;
             $order->save();
 
             $charge = \Stripe\Charge::create([
@@ -167,6 +169,18 @@ class CheckoutController extends Controller
             event(new SendMailProcessed($order->email,$mailConfig->subject,$body));
         }
         return view('front.cart.checkout-success',compact('id'));
+    }
+
+
+
+    public function findOldInfoByNickname(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $order = Order::where('nick_name',$request->nick_name)->where('customer_id',user()->getAuthIdentifier())->latest()->first();
+        if($order){
+            return response()->json(['status' => 'success','data' => $order],200);
+        }else{
+            return response()->json(['status' => 'fail'],200);
+        }
     }
 
 }

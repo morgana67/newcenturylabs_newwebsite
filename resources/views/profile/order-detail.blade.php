@@ -26,12 +26,6 @@
                                 <div class="col-md-6" style="font-size: 15px">
                                     <table class="table ">
                                         <tbody>
-                                        @if(user()->role_id == 1)
-                                            <tr>
-                                                <td>Nick Name:</td>
-                                                <td><input type="text" name="nick_name" value="{{$order->nick_name}}"></td>
-                                            </tr>
-                                        @endif
                                         <tr>
                                             <td>Order ID:</td>
                                             <td>#{{$order->id}}</td>
@@ -156,76 +150,8 @@
                             </div>
                         </div>
                     </div>
-                    @if(user()->role_id == 1)
-                        <div class="col-md-12 pb50">
-                            <div class="panel-group" id="accordion">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                                                Collapsible Group 1</a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse1" class="panel-collapse collapse in">
-                                        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                            commodo consequat.</div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                                                Collapsible Group 2</a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse2" class="panel-collapse collapse">
-                                        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                            commodo consequat.</div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                                                Collapsible Group 3</a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse3" class="panel-collapse collapse">
-                                        <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                            minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                            commodo consequat.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
                 </div>
             </div>
         </div>
     </section>
-@endsection
-@section('script')
-<script !src="">
-    $('[name=nick_name]').on('change',function (){
-        let nickname = $(this).val();
-        $.ajax({
-            url: "{{route('updateNickName',['id' => $order->id])}}",
-            data : {
-                '_token' : '{{csrf_token()}}',
-                'nick_name' : nickname,
-            },
-            success: function(result){
-                if (result.status == 'success'){
-                    $('.panel-heading').first().html(`<div class="alert alert-success" role="alert">
-                      Successfully update nick name order !
-                    </div>`);
-                }
-            }});
-    });
-</script>
 @endsection

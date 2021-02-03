@@ -48,6 +48,7 @@
                 <div style="display: none;" class="payment-errors alert alert-danger"></div>
                 <div class="address col-sm-6">
                     <div class="patient col-sm-12  fom-shad">
+                        <div class="div_msg" style="padding-top: 20px;"></div>
                         <h3>
                             <mark>1</mark>
                             Patient's Information
@@ -56,6 +57,18 @@
                             <input type="checkbox" name="is_different" id="is_different" value="1" {{old('is_different') ? 'checked' : ''}}>
                             <label for="is_different">Patient information different from my information.</label>
                         </div>
+                        @if(user()->role_id == 1)
+                            <div class="form-group">
+                                <div class="col-sm-8">
+                                    <h5><label for="nickname">Nick name</label></h5>
+                                    <input class="form-control" placeholder="Nick name" id="nickname"
+                                           name="nick_name" type="text" value="{{old('nick_name','')}}">
+                                </div>
+                                <div class="col-sm-4" style="padding-top: 45px;">
+                                    <a class="btn btn-info find_info">Find Info</a>
+                                </div>
+                            </div>
+                        @endif
                         <div class="form-group col-sm-6">
                             <h5><label for="firstName">First Name *</label></h5>
                             <input class="form-control" placeholder="First Name *" id="firstName" required="required"
@@ -333,6 +346,44 @@
                 $("[name=country_id]").val('{{$address['billing']->country_id }}').trigger('change');
                 $('#gender[value="{{ $user->gender }}"]').prop("checked",true);
             }
+        });
+
+        $('.find_info').on('click',function (){
+            let nickname = $('#nickname').val();
+            if(nickname.length == 0){
+                $('#nickname').css('border','1px solid red');
+            }else{
+                $.ajax({
+                    url: "{{route('findOldInfoByNickname')}}",
+                    data : {
+                        '_token' : '{{csrf_token()}}',
+                        'nick_name' : nickname,
+                    },
+                    success: function(result){
+                        if (result.status == 'success'){
+                            let data = result.data;
+                            $('.div_msg').html(``);
+                            $("#firstName").val(data.firstName);
+                            $("#lastName").val(data.lastName);
+                            $("#email").val(data.email);
+                            $("#address").val(data.address);
+                            $("#address2").val(data.address2);
+                            $("#state").val(data.state);
+                            $("#city").val(data.city);
+                            $("#zip").val(data.zip);
+                            $("#phone").val(data.phone);
+                            $("[name=country_id]").val(data.country_id).trigger('change');
+                            $('#gender[value="'+data.gender+'"]').prop("checked",true);
+
+                            $('#nickname').css('border','1px solid #ccc');
+                        }else{
+                            $('.div_msg').html(`<div class="alert alert-danger" role="alert">
+                              Could not find information related to nick name!
+                            </div>`);
+                        }
+                }});
+            }
+
         });
     </script>
 @endsection
