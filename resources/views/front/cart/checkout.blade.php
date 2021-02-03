@@ -51,13 +51,13 @@
                         <div class="div_msg" style="padding-top: 20px;"></div>
                         <h3>
                             <mark>1</mark>
-                            Patient's Information
+                            @if(user()->role_id == 1) Patient's @endif Information
                         </h3>
+                        @if(user()->role_id == 1)
                         <div class="patient col-sm-12">
                             <input type="checkbox" name="is_different" id="is_different" value="1" {{old('is_different') ? 'checked' : ''}}>
                             <label for="is_different">Patient information different from my information.</label>
                         </div>
-                        @if(user()->role_id == 1)
                             <div class="form-group">
                                 <div class="col-sm-8">
                                     <h5><label for="nickname">Nick name</label></h5>
