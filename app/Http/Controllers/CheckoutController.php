@@ -156,12 +156,14 @@ class CheckoutController extends Controller
         if(!empty(request()->get('sendmail'))){
             $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->with('details','customer','country')->firstOrFail();
             $message = 'You have received an order from ' . $order->firstName.' '.$order->lastName . '. Their order is as follows:';
-            $bodyRender = view('emails.mail-order',compact('order','message'))->render();
+            $sendAdmin = true;
+            $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
             event(new SendMailProcessed(setting('site.email_receive_notification'),'New Order | '.setting('site.title'),$bodyRender));
 
             $mailConfig = MailConfig::where('code','order_confirmation')->first();
             $message = '';
-            $bodyRender = view('emails.mail-order',compact('order','message'))->render();
+            $sendAdmin = false;
+            $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
             $body =  Functions::replaceBodyEmail($mailConfig->body,user());
             $body = str_replace("{{ID}}", $order->id , $body);
             $body = str_replace("{{ORDERINFO}}", $bodyRender , $body);
