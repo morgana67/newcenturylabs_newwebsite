@@ -10,6 +10,7 @@ class Functions {
     public static function replaceBodyEmail($body,$customer) {
         $body = str_replace("{{NAME}}", $customer->firstName.' '.$customer->lastName, $body);
         $body = str_replace("{{LINK}}", route('changePassword').'?token='.$customer->token, $body);
+        $body = str_replace("{{LOGO}}", '<img src="'.url('/').'/'.setting('site.logo').'" alt="'.setting('site.title').'" border="0" >', $body);
         return $body;
     }
 
