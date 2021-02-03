@@ -8,7 +8,7 @@ $orderPrefix = null;
         <td style="padding:0in 0in 0in 0in" valign="top">
             @if($sendAdmin)
                 <p style="margin-top:0in;text-align:center" align="center">
-                    <img src="{{asset(setting('site.logo'))}}" alt="{{ setting('site.title') }}" border="0" ><u></u><u></u>
+                    <img src="{{image(setting('site.logo'))}}" alt="{{ setting('site.title') }}" border="0" ><u></u><u></u>
                 </p>
             @endif
             <div align="center">
