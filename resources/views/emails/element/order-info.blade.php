@@ -11,8 +11,8 @@
                             <p style="line-height:150%"><span style="font-size:10.5pt;line-height:150%;font-family:&quot;Arial&quot;,sans-serif;color:#737373"> {{ $message }} </span></p>
                         @else
                             Your lab order will be emailed to you within a 4 hour window of your order, during our hours of operation 8 AM PST to 10 PM PST. Please note if you have ordered a doctor consult, you must wait until your final results are complete before communication. We look forward to serving you!
-                            Tel: <p href="tel:{{ str_replace('-','',setting('site.hotline'))}}" value="{{ setting('site.hotline')}}" target="_blank">{{ setting('site.hotline')}}</p>
-                            Email: <p href="mailto:{{ setting('site.email_receive_notification') }}" target="_blank">{{ setting('site.email_receive_notification') }}</p>
+                            <p href="tel:{{ str_replace('-','',setting('site.hotline'))}}" value="{{ setting('site.hotline')}}" target="_blank">Tel: {{ setting('site.hotline')}}</p>
+                            <p href="mailto:{{ setting('site.email_receive_notification') }}" target="_blank">Email: {{ setting('site.email_receive_notification') }}</p>
                         @endif
                         <h2 style="margin-right:0in;margin-bottom:6.0pt;margin-left:0in;line-height:130%"><span
                                 style="font-size:13.5pt;line-height:130%;font-family:&quot;Helvetica&quot;,sans-serif;color:#557da1"><a
