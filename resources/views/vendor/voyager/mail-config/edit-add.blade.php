@@ -40,7 +40,11 @@
                             <?= "<div style='font-weight: bold;margin-left: 15px'><p> NOTE: Parameters can be used to define body mail </p>
                                     <p style='font-weight: 500;margin-left: 40px'>{{NAME}} = First Name + Last Name</p>
                                     <p style='font-weight: 500;margin-left: 40px'>{{PASSWORD}} = Password</p>
-                                    <p style='font-weight: 500;margin-left: 40px'>{{LINK}} = Link Reset Password </p></div>"?>
+                                    <p style='font-weight: 500;margin-left: 40px'>{{LINK}} = Link Reset Password (Only apply for reset order)</p>
+                                    <p style='font-weight: 500;margin-left: 40px'>{{ORDERINFO}} = Order detail (Only apply for email order) </p>
+                                    <p style='font-weight: 500;margin-left: 40px'>{{ORDER_ID}} = ID of order (Only apply for email order) </p></div>
+                            "
+                            ?>
                             @if (count($errors) > 0)
                                 <div class="alert alert-danger">
                                     <ul>

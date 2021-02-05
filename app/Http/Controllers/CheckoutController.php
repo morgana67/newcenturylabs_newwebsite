@@ -158,17 +158,17 @@ class CheckoutController extends Controller
             $message = 'You have received an order from ' . $order->firstName.' '.$order->lastName . '. Their order is as follows:';
             $sendAdmin = true;
             $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
-            event(new SendMailProcessed(setting('site.email_receive_notification'),'New Order | '.setting('site.title'),$bodyRender));
+            event(new SendMailProcessed(setting('site.email_receive_notification'),'New Order #'.$order->id.'| '.setting('site.title'),$bodyRender));
 
             $mailConfig = MailConfig::where('code','order_confirmation')->first();
             $message = '';
             $sendAdmin = false;
             $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
             $body =  Functions::replaceBodyEmail($mailConfig->body,user());
-            $body = str_replace("{{ID}}", $order->id , $body);
+            $body = str_replace("{{ID_ORDER}}", $order->id , $body);
             $body = str_replace("{{ORDERINFO}}", $bodyRender , $body);
 
-            event(new SendMailProcessed($order->email,$mailConfig->subject,$body));
+            event(new SendMailProcessed($order->email,str_replace("{{ID_ORDER}}", $order->id , $mailConfig->subject),$body));
         }
         return view('front.cart.checkout-success',compact('id'));
     }

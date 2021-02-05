@@ -10,14 +10,15 @@
                         @if($message!="")
                             <p style="line-height:150%"><span style="font-size:10.5pt;line-height:150%;font-family:&quot;Arial&quot;,sans-serif;color:#737373"> {{ $message }} </span></p>
                         @else
-                            Your lab order will be emailed to you within a 4 hour window of your order, during our hours of operation 8 AM PST to 10 PM PST. Please note if you have ordered a doctor consult, you must wait until your final results are complete before communication. We look forward to serving you! Tel.: <a href="tel:{{ str_replace('-','',setting('site.hotline'))}}" value="{{ setting('site.hotline')}}" target="_blank">{{ setting('site.hotline')}}</a> <a href="mailto:{{ setting('site.email_receive_notification') }}" target="_blank">{{ setting('site.email_receive_notification') }}</a>
-                            <p></p>
+                            Your lab order will be emailed to you within a 4 hour window of your order, during our hours of operation 8 AM PST to 10 PM PST. Please note if you have ordered a doctor consult, you must wait until your final results are complete before communication. We look forward to serving you!
+                            Tel: <p href="tel:{{ str_replace('-','',setting('site.hotline'))}}" value="{{ setting('site.hotline')}}" target="_blank">{{ setting('site.hotline')}}</p>
+                            Email: <p href="mailto:{{ setting('site.email_receive_notification') }}" target="_blank">{{ setting('site.email_receive_notification') }}</p>
                         @endif
                         <h2 style="margin-right:0in;margin-bottom:6.0pt;margin-left:0in;line-height:130%"><span
                                 style="font-size:13.5pt;line-height:130%;font-family:&quot;Helvetica&quot;,sans-serif;color:#557da1"><a
                                     href="{{$link ?? null}}" target="_blank"><span
                                         style="color:#557da1;font-weight:normal">Order: {{$order->id}}</span></a>
-                                                                                ({{date('F d Y',strtotime($order->created_at))}})</span>
+                                                                                ({{date('F d,Y',strtotime($order->created_at))}})</span>
                         </h2>
                         <table style="width:100.0%;border:solid #eeeeee 1.0pt" border="1" cellpadding="0"
                                cellspacing="0" width="100%">
