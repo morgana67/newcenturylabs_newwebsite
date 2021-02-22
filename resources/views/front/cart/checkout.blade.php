@@ -313,7 +313,7 @@
         @if(user()->role_id == 1)
             $('#place_order').on('click',function (e){
                 e.preventDefault();
-            $('#exampleModalCenter').modal('show');
+                $('#exampleModalCenter').modal('show');
             });
             $('.confirm_test').on('click',function (e){
                 let totalItem = $('.confirm_test').length;
