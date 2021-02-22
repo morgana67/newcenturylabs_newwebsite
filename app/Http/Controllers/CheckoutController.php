@@ -31,6 +31,16 @@ class CheckoutController extends Controller
 
         $address['billing'] = array();
         $address['patient'] = array();
+
+        $productIds = array();
+        foreach (Cart::content() as $item){
+            $productIds[] = $item->id;
+        }
+
+        $productsAvailable = array();
+        if(count($productIds) > 0){
+            $productsAvailable = Product::whereIn('id',$productIds)->get();
+        };
         foreach($addressTable as $e){
             if ($e->addressType == 'billing'){
                 $address['billing'] = $e;
@@ -39,7 +49,7 @@ class CheckoutController extends Controller
             }
         }
 
-        return view('front.cart.checkout',compact('user','address','mandatoryProducts'));
+        return view('front.cart.checkout',compact('user','address','mandatoryProducts','productsAvailable'));
     }
 
     public function checkoutProceed(Request $request){

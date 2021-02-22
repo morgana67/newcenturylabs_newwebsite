@@ -54,11 +54,11 @@
                             @if(user()->role_id == 1) Patient's @endif Information
                         </h3>
                         @if(user()->role_id == 1)
-                        <div class="patient col-sm-12">
-                            <input type="checkbox" name="is_different" id="is_different" value="1" {{old('is_different') ? 'checked' : ''}}>
-                            <label for="is_different">Patient information different from my information.</label>
-                        </div>
-                            <div class="form-group">
+                            <div class="patient col-sm-12">
+                                <input type="checkbox" name="is_different" id="is_different" value="1" {{old('is_different') ? 'checked' : ''}}>
+                                <label for="is_different">Patient information different from my information.</label>
+                            </div>
+                            <div class="form-group container_nickname hide">
                                 <div class="col-sm-8">
                                     <h5><label for="nickname">Nick name</label></h5>
                                     <input class="form-control" placeholder="Nick name" id="nickname"
@@ -243,13 +243,54 @@
                             I accept the <a target="_black" href="https://newcenturylabs.com/terms">Terms of Service</a>.
                         </div>
                         <div class="form-group col-sm-12 p0 mb30">
-                            <button id="place_order" class="form-control btn-primary w100">PLACE ORDER</button>
+                            @if(user()->role_id == 1)
+                                <button id="place_order" class="form-control btn-primary w100">PLACE ORDER</button>
+                            @else
+                                <button id="place_order" class="form-control btn-primary w100">PLACE ORDER</button>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </form>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Check off order items <span style="color: red"> ( * Please mark them all )</span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-dark">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Test Code</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($productsAvailable as $productAvailable)
+                            <tr>
+                                <th><input type="checkbox" class="confirm_test" value="1"></th>
+                                <td>{{$productAvailable->name}}</td>
+                                <td>{{$productAvailable->code}}</td>
+                            </tr>
+                        @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submit_order" disabled>PLACE ORDER</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('script')
     <script src="https://js.stripe.com/v2/"></script>
@@ -269,6 +310,31 @@
             }
 
         }
+        @if(user()->role_id == 1)
+            $('#place_order').on('click',function (e){
+                e.preventDefault();
+            $('#exampleModalCenter').modal('show');
+            });
+            $('.confirm_test').on('click',function (e){
+                let totalItem = $('.confirm_test').length;
+                if($('.confirm_test:checked').length >= totalItem){
+                    $("#submit_order").prop('disabled',false);
+                }else{
+                    $("#submit_order").prop('disabled',true);
+                }
+            })
+            $('#submit_order').on('click',function (e){
+                e.preventDefault();
+                $('#exampleModalCenter').modal('hide');
+                var $form = $('#payment-form');
+                let totalItem = $('.confirm_test').length;
+                if($('.confirm_test:checked').length < totalItem){
+                    $("#submit_order").prop('disabled',true);
+                }else{
+                    $form.submit();
+                }
+            });
+        @endif
         $('#payment-form').submit(function (event) {
             $('.terms-errors').hide();
             $('.payment-errors').hide();
@@ -322,6 +388,7 @@
         $('#gender[value="{{ old('gender',$user->gender ?? 'm')  }}"]').prop("checked",true);
         $("#is_different").on("change", function () {
             if ($("#is_different").is(':checked')) {
+                $('.container_nickname').removeClass('hide');
                 $("#firstName").val('');
                 $("#lastName").val('');
                 $("#email").val('');
@@ -334,6 +401,7 @@
                 $("[name=country_id]").val('').trigger('change');
                 $('#gender[value="m"]').prop("checked",true);
             } else {
+                $('.container_nickname').addClass('hide');
                 $("#firstName").val('{{ $user->firstName ?? '' }}');
                 $("#lastName").val('{{ $user->lastName ?? '' }}');
                 $("#email").val('{{ $user->email ?? '' }}');
