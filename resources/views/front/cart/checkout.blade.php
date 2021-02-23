@@ -149,7 +149,7 @@
                             <span>Order Summary</span>
                             @if(user()->role_id == 1)
                                 <button type="button" class="btn btn-primary" style="margin-left: 140px" data-toggle="modal" data-target="#exampleModalScrollable">
-                                    Tests Available
+                                    Choose Tests
                                 </button>
                             @endif
                         </h3>
@@ -296,7 +296,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="submit_order" disabled>CHECK OFF</button>
+                    <button type="button" class="btn btn-primary" id="submit_order" disabled>Add to Order</button>
                 </div>
             </div>
         </div>
