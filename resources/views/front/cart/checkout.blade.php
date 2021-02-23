@@ -1,3 +1,6 @@
+@php
+    $productsInCart = array();
+@endphp
 @extends('layouts.site')
 @section('css')
     <style>
@@ -143,7 +146,12 @@
 
                         <h3>
                             <mark>2</mark>
-                            Order Summary
+                            <span>Order Summary</span>
+                            @if(user()->role_id == 1)
+                                <button type="button" class="btn btn-primary" style="margin-left: 140px" data-toggle="modal" data-target="#exampleModalScrollable">
+                                    Tests Available
+                                </button>
+                            @endif
                         </h3>
                         <table class="table table-bordered">
                             <thead>
@@ -155,9 +163,10 @@
 
                             <tbody>
                             @foreach(Cart::content() as $product)
+                                @php $productsInCart[] = $product->id @endphp
                                 <tr>
-                                    <td for="LAB TEST">{{$product->name}}</td>
-                                    <td for="TOTAL">{{setting('site.currency')}}{{format_price($product->price)}}</td>
+                                    <td>{{$product->name}}</td>
+                                    <td>{{setting('site.currency')}}{{format_price($product->price)}}</td>
                                 </tr>
                             @endforeach
 
@@ -168,16 +177,17 @@
                                     $priceMandatory += $price;
                                 @endphp
                                 <tr>
-                                    <td for="LAB TEST">{{$product->name}}</td>
-                                    <td for="TOTAL">{{setting('site.currency')}}{{$price}}</td>
+                                    <td>{{$product->name}}</td>
+                                    <td>{{setting('site.currency')}}{{$price}}</td>
                                 </tr>
                             @endforeach
                             <tr class="h4">
-                                <td for="LAB TEST">Total</td>
-                                <td for="TOTAL">{{setting('site.currency')}}{{format_price(str_replace(',','',Cart::total()) + $priceMandatory)}}</td>
+                                <td>Total</td>
+                                <td>{{setting('site.currency')}}{{format_price(str_replace(',','',Cart::total()) + $priceMandatory)}}</td>
                                 <input type="hidden" name="totalAmount" value="{{format_price(str_replace(',','',Cart::total()) + $priceMandatory)}}">
                             </tr>
                             </tbody>
+
                         </table>
                     </div>
                     <div class="payment-info col-sm-12  fom-shad mb30">
@@ -254,16 +264,17 @@
             </div>
         </section>
     </form>
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+
+    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document" style="top: 10% !important;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Check off order items <span style="color: red"> ( * Please mark them all )</span></h5>
+                    <h5 class="modal-title"  id="exampleModalScrollableTitle">Check off order items </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="max-height: 600px;overflow-x: hidden;overflow-y: scroll">
                     <table class="table table-bordered table-dark">
                         <thead>
                         <tr>
@@ -275,7 +286,7 @@
                         <tbody>
                         @foreach($productsAvailable as $productAvailable)
                             <tr>
-                                <th><input type="checkbox" class="confirm_test" value="1"></th>
+                                <th><input type="checkbox" name="ids" @if(in_array($productAvailable->id,$productsInCart)) checked @endif class="confirm_test" value="{{$productAvailable->id}}"></th>
                                 <td>{{$productAvailable->name}}</td>
                                 <td>{{$productAvailable->code}}</td>
                             </tr>
@@ -285,8 +296,7 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="submit_order" disabled>PLACE ORDER</button>
+                    <button type="button" class="btn btn-primary" id="submit_order" disabled>CHECK OFF</button>
                 </div>
             </div>
         </div>
@@ -297,7 +307,20 @@
     <link href="{{asset('front\plugin\select2\css\select2.min.css')}}" rel="stylesheet" />
     <script src="{{asset('front\plugin\select2\js\select2.min.js')}}"></script>
     <script>
+        var mandatoryProducts = `<?php echo json_encode($mandatoryProducts) ?>`.toString();
         $("[name=country_id]").select2({});
+        var turnOnLoading =  function (){
+            $('.loader').removeClass('hidden');
+            $('main').addClass('isLoading');
+            $('.hdr-nav').addClass('isLoading');
+        }
+
+        var turnOffLoading = function (){
+            $('.loader').addClass('hidden');
+            $('main').removeClass('isLoading');
+            $('.hdr-nav').removeClass('isLoading');
+        }
+
         Stripe.setPublishableKey('{{env('STRIPE_SECRET_PK')}}');
         function check_terms_services() {
             var terms = jQuery("#terms").prop("checked");
@@ -311,13 +334,10 @@
 
         }
         @if(user()->role_id == 1)
-            $('#place_order').on('click',function (e){
-                e.preventDefault();
-                $('#exampleModalCenter').modal('show');
-            });
+            let priceMandatory = parseInt(`{{$priceMandatory}}`);
             $('.confirm_test').on('click',function (e){
                 let totalItem = $('.confirm_test').length;
-                if($('.confirm_test:checked').length >= totalItem){
+                if($('.confirm_test:checked').length > 0){
                     $("#submit_order").prop('disabled',false);
                 }else{
                     $("#submit_order").prop('disabled',true);
@@ -325,14 +345,48 @@
             })
             $('#submit_order').on('click',function (e){
                 e.preventDefault();
-                $('#exampleModalCenter').modal('hide');
-                var $form = $('#payment-form');
-                let totalItem = $('.confirm_test').length;
-                if($('.confirm_test:checked').length < totalItem){
-                    $("#submit_order").prop('disabled',true);
-                }else{
-                    $form.submit();
-                }
+                $('#exampleModalScrollable').modal('hide');
+                turnOnLoading();
+                let ids = [];
+                $('[name=ids]:checked').each(function () {
+                    ids.push($(this).val());
+                });
+                $.ajax({
+                    url: "{{route('drAddTests')}}",
+                    data : {
+                        '_token' : '{{csrf_token()}}',
+                        'ids' : ids,
+                    },
+                    success: function(result){
+                        let html = "";
+                        $.each(result.cart, function (key, val) {
+                            html += `<tr>
+                                        <td>${val.name}</td>
+                                        <td>$${Number.isInteger(val.price) ? val.price : val.price.toFixed(2)}</td>
+                                    </tr>`;
+                        });
+
+                        $.each(JSON.parse(mandatoryProducts.toString()),function (key,val){
+                            let price = 0;
+                            if(val.sale_price != null){
+                                price = parseFloat(val.sale_price);
+                            }else{
+                                price = parseFloat(val.price);
+                            }
+                            html += `<tr>
+                                        <td>${val.name}</td>
+                                        <td>$${Number.isInteger(price) ? Number(price) : Number(price).toFixed(2)}</td>
+                                    </tr>`;
+                        })
+
+                        var totalCart = Number(result.cart_total) + Number(priceMandatory);
+                        html += `<tr class="h4">
+                                        <td>Total</td>
+                                        <td>$${Number.isInteger(parseFloat(totalCart)) ? parseFloat(totalCart) : totalCart.toFixed(2)}</td>
+                                    </tr>`;
+                        $('.order-summary').find('tbody').html(html);
+                        turnOffLoading();
+                    }});
             });
         @endif
         $('#payment-form').submit(function (event) {

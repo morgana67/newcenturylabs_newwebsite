@@ -21,6 +21,10 @@ class CheckoutController extends Controller
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_SK'));
     }
 
+    function base64url_encode($data) {
+        return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+    }
+
     public function view(){
         $user = Customer::where('id',user()->id)->first();
         if ($user == null) return redirect()->route('login');
@@ -32,15 +36,8 @@ class CheckoutController extends Controller
         $address['billing'] = array();
         $address['patient'] = array();
 
-        $productIds = array();
-        foreach (Cart::content() as $item){
-            $productIds[] = $item->id;
-        }
 
-        $productsAvailable = array();
-        if(count($productIds) > 0){
-            $productsAvailable = Product::whereIn('id',$productIds)->get();
-        };
+        $productsAvailable = Product::where('type','NOT LIKE','%additional%')->where('status',1)->where('mandatory',0)->get();
         foreach($addressTable as $e){
             if ($e->addressType == 'billing'){
                 $address['billing'] = $e;
@@ -57,12 +54,12 @@ class CheckoutController extends Controller
             'firstName' => ['required', 'string', 'max:191'],
             'lastName' => ['required', 'string', 'max:191'],
             'email' => ['required', 'string', 'email', 'max:191'],
-            'address' => 'required|max:191',
+            'address' => 'required|string|max:191',
             'country_id' => 'required',
-            'state' => 'required|max:191',
-            'city' => 'required|max:191',
+            'state' => 'required',
+            'city' => 'required',
             'zip' => 'required|numeric',
-            'phone' => 'required|numeric',
+            'phone' => 'required|regex:/^[01]?[- .]?([2-9]\d{2})?[- .]?\d{3}[- .]?\d{4}$/',
             'cc' => 'required|max:16',
             'cvc' => 'required|max:4',
             'expMonth' => 'required',
@@ -131,6 +128,7 @@ class CheckoutController extends Controller
             $order->save();
 
 
+            $ids = array();
             $orderDetail = array();
             foreach (Cart::content() as $product){
                 $orderDetail[] = [
@@ -139,6 +137,7 @@ class CheckoutController extends Controller
                     'price' => $product->price,
                     'quantity' => $product->qty,
                 ];
+                $ids[] = $product->id;
             }
 
             foreach ($mandatoryProducts as $mandatoryProduct){
@@ -151,7 +150,44 @@ class CheckoutController extends Controller
                 ];
             }
 
+
             OrderDetail::insert($orderDetail);
+
+            if($ids > 0) {
+                $tests = Product::select('code')->whereIn('id', $ids)->get()->toArray();
+                $dataPwn = (object)[
+                    'order' => [
+                        'tests' => \Arr::pluck($tests,'code'),
+                        'account_number' => "97513297",
+                        'customer' => [
+                            'first_name' => $request->firstName,
+                            'last_name' => $request->lastName,
+                            'gender' => ($request->gender == 'm' ? 'Male' : 'Female'),
+                            'phone' => $request->phone,
+                            'email' => $request->email,
+                            'birth_date' => user()->dob,
+                            'address' => [
+                                'line' => $request->address,
+                                'line2' => $request->address2,
+                                'city' => $request->city,
+                                'state' => $request->state,
+                                'zip' => $request->zip,
+                            ]
+
+                        ]
+                    ]
+                ];
+                $response = $this->curl(json_encode($dataPwn));
+                if(!empty($response->errors)){
+                    DB::rollBack();
+                    $msg = "";
+                    foreach($response->errors as $error){
+                        $msg .= "{$error->field} {$error->messages[0]} <br>";
+                    }
+                    message_set($msg,'danger');
+                    return redirect()->back()->withInput($request->all());
+                }
+            }
             DB::commit();
             Cart::destroy();
             return redirect()->route('order-success',['id' => $order->id,'sendmail' => 1]);
@@ -161,9 +197,29 @@ class CheckoutController extends Controller
         }
     }
 
+    public function curl($field = array()){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,"https://api-staging.pwnhealth.com/v2/labs/orders");
+        if ($field && !empty($field)) {
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $field);
+        } //Post Fields
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $token = $this->generateToken();
+        $headers = [
+            'Accept: application/json',
+            'Content-Type: application/json',
+            "Authorization:Bearer {$token}"
+        ];
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $server_output = curl_exec ($ch);
+        curl_close ($ch);
+        return json_decode($server_output);
+    }
 
     public function orderSuccess($id = null){
-        if(!empty(request()->get('sendmail'))){
+        if(!empty(request()->get("sendmail"))){
             $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->with('details','customer','country')->firstOrFail();
             $message = 'You have received an order from ' . $order->firstName.' '.$order->lastName . '. Their order is as follows:';
             $sendAdmin = true;
@@ -195,4 +251,43 @@ class CheckoutController extends Controller
         }
     }
 
+
+    public function drAddTests(Request $request){
+        $products = Product::whereIn('id',$request->ids)->get();
+        $arrayCart = array();
+        Cart::destroy();
+        foreach ($products as $product){
+            $arrayCart[] = [
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => !empty($product->sale_price) ? $product->sale_price : $product->price,
+                'qty' => 1,
+                'weight' => 0
+            ];
+        }
+        Cart::add($arrayCart);
+        return response()->json([
+            'cart' => Cart::content(),
+            'cart_total' => Cart::total(),
+        ],200);
+    }
+
+    public function generateToken(){
+        $header = (object) [
+            'alg' => "HS256",
+            'typ' => 'JWT'
+        ];
+        $payLoad = (object) [
+            'iss' => '37d1639bf8fed9c7811a9eff402d2833',
+            'iat' => strtotime(now()),
+            'exp' => strtotime(now()) + 5000,
+            'ver' => 1
+        ];
+        $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode(json_encode($header)));
+        $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode(json_encode($payLoad)));
+        $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, '51eee551ad0a440608e4a379f7bfa52f', true);
+        $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
+        $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
+        return $jwt;
+    }
 }

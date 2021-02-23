@@ -55,7 +55,7 @@
                     class="badge"></sup></span> </a>
 
         <ul class="dropdown-menu">
-            @if(Cart::count() == 0)
+            @if(Cart::count() == 0 && user()->role_id == 2)
                  <li><a href="javascript:void(0);" class="pagelinkcolor">No items</a></li>
             @else
                 @foreach(Cart::content() as $product)
