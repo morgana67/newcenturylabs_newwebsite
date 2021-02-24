@@ -31,13 +31,13 @@ class CheckoutController extends Controller
 
         $addressTable = Address::where('customer_id',user()->id)->get();
 
-        $mandatoryProducts = Product::active()->additionalType()->where('mandatory',1)->get();
+        $mandatoryProducts = Product::active()->additionalType()->where('mandatory',1)->orderBy('name','ASC')->get();
 
         $address['billing'] = array();
         $address['patient'] = array();
 
 
-        $productsAvailable = Product::where('type','NOT LIKE','%additional%')->where('status',1)->where('mandatory',0)->get();
+        $productsAvailable = Product::where('type','NOT LIKE','%additional%')->where('status',1)->where('mandatory',0)->orderBy('name','ASC')->get();
         foreach($addressTable as $e){
             if ($e->addressType == 'billing'){
                 $address['billing'] = $e;
@@ -186,6 +186,10 @@ class CheckoutController extends Controller
                     }
                     message_set($msg,'danger');
                     return redirect()->back()->withInput($request->all());
+                }else{
+                    $order->pwh_order_id = $response->order->id ?? null;
+                    $order->pwh_order_link = $response->order->links->ui_customer ?? null;
+                    $order->save();
                 }
             }
             DB::commit();
@@ -205,7 +209,7 @@ class CheckoutController extends Controller
             curl_setopt($ch, CURLOPT_POSTFIELDS, $field);
         } //Post Fields
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $token = $this->generateToken();
+        $token = generateToken();
         $headers = [
             'Accept: application/json',
             'Content-Type: application/json',
@@ -233,8 +237,10 @@ class CheckoutController extends Controller
             $body =  Functions::replaceBodyEmail($mailConfig->body,user());
             $body = str_replace("{{ID_ORDER}}", $order->id , $body);
             $body = str_replace("{{ORDERINFO}}", $bodyRender , $body);
-
             event(new SendMailProcessed($order->email,str_replace("{{ID_ORDER}}", $order->id , $mailConfig->subject),$body));
+            if($order->email != user()->email){
+                event(new SendMailProcessed(user()->email,str_replace("{{ID_ORDER}}", $order->id , $mailConfig->subject),$body));
+            }
         }
         return view('front.cart.checkout-success',compact('id'));
     }
@@ -272,22 +278,4 @@ class CheckoutController extends Controller
         ],200);
     }
 
-    public function generateToken(){
-        $header = (object) [
-            'alg' => "HS256",
-            'typ' => 'JWT'
-        ];
-        $payLoad = (object) [
-            'iss' => '37d1639bf8fed9c7811a9eff402d2833',
-            'iat' => strtotime(now()),
-            'exp' => strtotime(now()) + 5000,
-            'ver' => 1
-        ];
-        $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode(json_encode($header)));
-        $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode(json_encode($payLoad)));
-        $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, '51eee551ad0a440608e4a379f7bfa52f', true);
-        $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
-        $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
-        return $jwt;
-    }
 }

@@ -122,7 +122,7 @@
                             </div>
                             <div class="sidebar__latest">
                                 <h5>{{$latestPost->title}}</h5>
-                                <p>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$latestPost->created_at)->format('g:i A')}}</p>
+                                <p><span style="margin-right: 10px;"><i class="fa fa-clock-o" aria-hidden="true"></i> {{$latestPost->created_at->format('g:i A')}}</span> <i class="fa fa-calendar" aria-hidden="true"></i> {{$latestPost->created_at->format('F d, Y')}}
                                 <a href="{{route('post_detail',['slug' => $latestPost->slug])}}">Read More >> </a>
                             </div>
                         </div>

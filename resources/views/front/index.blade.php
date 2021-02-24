@@ -86,9 +86,9 @@
                     parse_str( parse_url( $url, PHP_URL_QUERY ), $my_array_of_vars );
                 @endphp
                 <iframe width="100%"
-                        {{$Agent->isMobile() ? '' :'height=550' }}  src="https://www.youtube.com/embed/{{ $my_array_of_vars['v'] ?? null}}"
+                        {{$Agent->isMobile() ? '' :'height=550' }}  src="https://www.youtube.com/embed/{{ $my_array_of_vars['v'] ?? null}}?rel=0"
                         frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allow=" autoplay; clipboard-write; encrypted-media; gyroscope"
                         allowfullscreen></iframe>
             </div>
         </div>

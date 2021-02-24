@@ -72,3 +72,25 @@ if (!function_exists('is_decimal')) {
         return is_numeric($val) && floor($val) != $val;
     }
 }
+
+if (!function_exists('generateToken')) {
+    function generateToken()
+    {
+        $header = (object)[
+            'alg' => "HS256",
+            'typ' => 'JWT'
+        ];
+        $payLoad = (object)[
+            'iss' => '37d1639bf8fed9c7811a9eff402d2833',
+            'iat' => strtotime(now()),
+            'exp' => strtotime(now()) + 5000,
+            'ver' => 1
+        ];
+        $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode(json_encode($header)));
+        $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode(json_encode($payLoad)));
+        $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, '51eee551ad0a440608e4a379f7bfa52f', true);
+        $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
+        $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
+        return $jwt;
+    }
+}
