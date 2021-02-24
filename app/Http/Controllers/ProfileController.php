@@ -24,7 +24,7 @@ class ProfileController extends Controller
                 'city' => 'required|max:191',
                 'address' => 'required|max:191',
                 'zip' => 'required|max:191',
-                'phone' => 'required|numeric',
+                'phone' => 'required|regex:/^[01]?[- .]?([2-9]\d{2})?[- .]?\d{3}[- .]?\d{4}$/',
                 'facebook' => 'nullable|url',
                 'twitter' => 'nullable|url',
                 'instagram' => 'nullable|url',
