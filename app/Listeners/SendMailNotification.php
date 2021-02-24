@@ -9,16 +9,16 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Mail;
 
-class SendMailNotification
+class SendMailNotification implements ShouldQueue
 {
     /**
      * Create the event listener.
      *
      * @return void
      */
-//    public $connection = 'database';
-//    public $queue = 'listeners';
-//    public $delay = 1;
+    public $connection = 'database';
+    public $queue = 'listeners';
+    public $delay = 1;
     public function __construct()
     {
         //
