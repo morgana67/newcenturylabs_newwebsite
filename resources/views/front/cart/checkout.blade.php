@@ -383,6 +383,7 @@
                         html += `<tr class="h4">
                                         <td>Total</td>
                                         <td>$${Number.isInteger(parseFloat(totalCart)) ? parseFloat(totalCart) : totalCart.toFixed(2)}</td>
+                                        <input type="hidden" name="totalAmount" value="${Number.isInteger(parseFloat(totalCart)) ? parseFloat(totalCart) : totalCart.toFixed(2)}">
                                     </tr>`;
                         $('.order-summary').find('tbody').html(html);
                         turnOffLoading();
