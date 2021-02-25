@@ -114,19 +114,6 @@ class CheckoutController extends Controller
             $order->gender = $request->gender;
             $order->save();
 
-            $charge = \Stripe\Charge::create([
-                'amount' => $request->totalAmount * 100,
-                'currency' => 'usd',
-                'customer' => $stripeCustomerId,
-                'source' => $defaultSource,
-                'metadata' => [
-                    "Order ID" => $order->id,
-//                    "Link" => url('admin/order/' . $order_id)
-                ],
-                'capture' => true]);
-            $order->paymentStatus = $charge->status;
-            $order->save();
-
 
             $ids = array();
             $orderDetail = array();
@@ -187,6 +174,18 @@ class CheckoutController extends Controller
                     message_set($msg,'danger');
                     return redirect()->back()->withInput($request->all());
                 }else{
+                    $charge = \Stripe\Charge::create([
+                        'amount' => $request->totalAmount * 100,
+                        'currency' => 'usd',
+                        'customer' => $stripeCustomerId,
+                        'source' => $defaultSource,
+                        'metadata' => [
+                            "Order ID" => $order->id,
+//                    "Link" => url('admin/order/' . $order_id)
+                        ],
+                        'capture' => true]);
+
+                    $order->paymentStatus = $charge->status;
                     $order->pwh_order_id = $response->order->id ?? null;
                     $order->pwh_order_link = $response->order->links->ui_customer ?? null;
                     $order->save();
