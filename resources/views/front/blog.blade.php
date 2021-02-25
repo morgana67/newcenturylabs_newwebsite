@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="blogs__cont col-sm-8">
-                                <h3>{{$post->title}}</h3>
+                                <h3><a href="{{route('post_detail',['slug' => $post->slug])}}">{{$post->title}}</a></h3>
                                 <div class="dtl__postDay">
                                     <ul>
                                         <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{$date->format('g:i A')}}
@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="blogs__cont col-sm-8">
-                                <h3>{{$post->title}}</h3>
+                                <h3><a href="{{route('post_detail',['slug' => $post->slug])}}">{{$post->title}}</a></h3>
                                 <div class="dtl__postDay">
                                     <ul>
                                         <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{$date->format('g:i A')}}
@@ -121,9 +121,9 @@
                                      alt="{{$latestPost->title}}">
                             </div>
                             <div class="sidebar__latest">
-                                <h5>{{$latestPost->title}}</h5>
-                                <p><i class="fa fa-calendar" aria-hidden="true"></i> {{$latestPost->created_at->format('M. jS, Y')}}.</p>
-                                <a href="{{route('post_detail',['slug' => $latestPost->slug])}}">Read More >> </a>
+                                <h5><a href="{{route('post_detail',['slug' => $latestPost->slug])}}">{{$latestPost->title}}</a></h5>
+                                <p style="color: #595959"><i class="fa fa-calendar" aria-hidden="true"></i> {{$latestPost->created_at->format('M. jS, Y')}}.</p>
+                                <a style="color: #428bca" href="{{route('post_detail',['slug' => $latestPost->slug])}}">Read More >> </a>
                             </div>
                         </div>
                         <div class="clearfix"></div>
