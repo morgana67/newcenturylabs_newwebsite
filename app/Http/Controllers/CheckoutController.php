@@ -140,7 +140,7 @@ class CheckoutController extends Controller
 
             OrderDetail::insert($orderDetail);
 
-            if($ids > 0) {
+            if(count($ids) > 0) {
                 $tests = Product::select('code')->whereIn('id', $ids)->get()->toArray();
                 $dataPwn = (object)[
                     'order' => [
