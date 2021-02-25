@@ -112,7 +112,7 @@ class HomeController extends Controller
             $where[] = ['title','LIKE','%'.$request->get('q').'%'];
         }
         $posts = Post::published()->where($where)->orderBy('featured', 'DESC')->orderBy('created_at', 'DESC')->paginate(9);
-        $latestPosts = Post::published()->orderBy('updated_at', 'DESC')->take(5)->get();
+        $latestPosts = Post::published()->orderBy('created_at', 'DESC')->take(5)->get();
         $categories = Category::all();
         return view('front.blog',compact('posts','categories','latestPosts','category'));
     }
