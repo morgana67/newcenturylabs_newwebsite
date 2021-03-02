@@ -202,7 +202,7 @@ class CheckoutController extends Controller
 
     public function curl($field = array()){
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,"https://api-staging.pwnhealth.com/v2/labs/orders");
+        curl_setopt($ch, CURLOPT_URL,env('PWN_END_POINT_ORDER'));
         if ($field && !empty($field)) {
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $field);
