@@ -92,6 +92,24 @@
                                             Card<u></u><u></u></p>
                                     </td>
                                 </tr>
+                                @if(!$sendAdmin && !empty($order->pwh_order_id))
+                                    <tr>
+                                        <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                            <p class="MsoNormal"><b>Pwnhealth Requisition Order:<u></u><u></u></b></p>
+                                        </td>
+                                        <td  colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                            <p class="MsoNormal"><a href="{{route('downloadRequisitionOrder',$order->pwh_order_id)}}">Download</a><u></u><u></u></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                            <p class="MsoNormal"><b>Pwnhealth Order Link:<u></u><u></u></b></p>
+                                        </td>
+                                        <td  colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
+                                            <p class="MsoNormal"><a href="{{$order->pwh_order_link}}">{{$order->pwh_order_link}}</a><u></u><u></u></p>
+                                        </td>
+                                    </tr>
+                                @endif
                                 <tr>
 
                                 <tr>
