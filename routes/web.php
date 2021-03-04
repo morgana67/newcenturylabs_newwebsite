@@ -65,7 +65,7 @@ Route::group(['middleware' => 'customer'],function (){
     Route::get('/order-success/{id?}/{sendMail?}','CheckoutController@orderSuccess')->name('order-success');
     Route::get('findOldInfoByNickname','CheckoutController@findOldInfoByNickname')->name('findOldInfoByNickname');
     Route::get('drAddTests','CheckoutController@drAddTests')->name('drAddTests');
-    Route::post('downloadRequisitionOrder/{id}','ProfileController@downloadRequisitionOrder')->name('downloadRequisitionOrder');
+    Route::get('downloadRequisitionOrder/{id}','ProfileController@downloadRequisitionOrder')->name('downloadRequisitionOrder');
 
 });
 
