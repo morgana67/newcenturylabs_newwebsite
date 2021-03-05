@@ -112,7 +112,7 @@
                         @endforeach
                     </ul>
                 </div>
-                <div class="sidebar__posts">
+                <div class="sidebar__posts mb-4" style="margin-bottom: 40px">
                     <h3>Latest Posts</h3>
                     @foreach($latestPosts as $latestPost)
                         <div class="sidebar__postLinks">
