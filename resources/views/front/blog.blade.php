@@ -117,7 +117,7 @@
                     @foreach($latestPosts as $latestPost)
                         <div class="sidebar__postLinks">
                             <div class="sidebar__imgs">
-                                <img src="{{image($latestPost->image)}}"
+                                <img src="{{image($latestPost->image,'-cropped')}}"
                                      alt="{{$latestPost->title}}">
                             </div>
                             <div class="sidebar__latest">
