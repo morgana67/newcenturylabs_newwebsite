@@ -2348,7 +2348,7 @@ filter: blur(0px);
     width: 24%;
 }
 .sidebar__imgs img{
-    width: 100%;
+    width: auto;
     height:100%;
 }
 .sidebar__latest {
