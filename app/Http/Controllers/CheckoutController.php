@@ -234,11 +234,11 @@ class CheckoutController extends Controller
             $sendAdmin = false;
             $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
             $body =  Functions::replaceBodyEmail($mailConfig->body,user());
-            $body = str_replace("{{ID_ORDER}}", $order->id , $body);
+            $body = str_replace("{{ORDER_ID}}", $order->id , $body);
             $body = str_replace("{{ORDERINFO}}", $bodyRender , $body);
-            event(new SendMailProcessed($order->email,str_replace("{{ID_ORDER}}", $order->id , $mailConfig->subject),$body));
+            event(new SendMailProcessed($order->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
             if($order->email != user()->email){
-                event(new SendMailProcessed(user()->email,str_replace("{{ID_ORDER}}", $order->id , $mailConfig->subject),$body));
+                event(new SendMailProcessed(user()->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
             }
         }
         return view('front.cart.checkout-success',compact('id'));
