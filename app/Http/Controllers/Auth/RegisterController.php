@@ -128,7 +128,7 @@ class RegisterController extends Controller
             ];
             Address::insert($dataAddress);
 
-            $token = bcrypt($request['email'].$request['password']);
+            $token = bcrypt($request['email'].$request['lastName']);
             PasswordReset::insert([
                 'email' => $request['email'],
                 'token' => $token,
@@ -137,18 +137,18 @@ class RegisterController extends Controller
 
             $replaces['NAME'] =  $request['firstName'] . ' ' .  $request['lastName'];
             $mailConfig = MailConfig::where('code','=','registration')->first();
-
-            $customer = Customer::find($customerId);
-            $body =  Functions::replaceBodyEmail($mailConfig->body,$customer);
-            $paramGet = [
-                'email' => $customer->email,
-                'token' => $token,
-            ];
-            $body = str_replace("{{LINK}}", route('verifyAccount').'?'.http_build_query($paramGet), $body);
-            event(new SendMailProcessed($request->email,$mailConfig->subject,$body));
-
+            if ($mailConfig){
+                $customer = Customer::find($customerId);
+                $body =  Functions::replaceBodyEmail($mailConfig->body,$customer);
+                $paramGet = [
+                    'email' => $customer->email,
+                    'token' => $token,
+                ];
+                $body = str_replace("{{LINK_VERIFY}}", route('verifyAccount').'?'.http_build_query($paramGet), $body);
+                event(new SendMailProcessed($request->email,$mailConfig->subject,$body));
+            }
             DB::commit();
-            return redirect()->route('login')->with('success', 'Account registration is successful');
+            return redirect()->route('login')->with('success', 'We have sent you a verification email. Please check your mail !');
         }catch (\Exception $exception){
             DB::rollback();
             return redirect()->back()->withInput($request->all())->withErrors($exception->getMessage());
@@ -156,14 +156,14 @@ class RegisterController extends Controller
     }
 
     public function verifyAccount(Request $request){
-        $passwordPassword = PasswordReset::where(['email','=',$request->email])->first();
+        $passwordPassword = PasswordReset::where('email','=',$request->email)->first();
         if (!$passwordPassword) return abort(404);
-        $customer = Customer::where(['email','=',$request->email])->first();
-        if (password_verify($request['email']. $request['password'],$passwordPassword->token)){
-            Customer::where(['email','=',$request->email])->update([
+        $customer = Customer::where('email','=',$request->email)->first();
+        if (password_verify($customer['email']. $customer['lastName'],$passwordPassword->token)){
+            Customer::where('email','=',$request->email)->update([
                 'isVerified' => 1
             ]);
-            PasswordReset::where(['email','=',$request->email])->delete();
+            PasswordReset::where('email','=',$request->email)->delete();
             return redirect()->route('login')->with('success', 'Account verification is successful');
         }
 

@@ -42,6 +42,7 @@ Auth::routes();
 Route::post('/post-register','Auth\RegisterController@postRegister')->name('postRegister');
 Route::post('/reset-password','Auth\ResetPasswordController@reset_password')->name('resetPassword');
 Route::match(['get','post'],'/change-password','Auth\ResetPasswordController@change_password')->name('changePassword');
+
 Route::get('/verify-account','Auth\RegisterController@verifyAccount')->name('verifyAccount');
 
 Route::group(['middleware' => 'customer'],function (){
