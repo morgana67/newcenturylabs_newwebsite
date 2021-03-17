@@ -26,9 +26,15 @@
                         <input placeholder="First Name *" class="form-control" required="required" name="firstName"
                                type="text" value="{{old('firstName',$user->firstName)}}">
                     </div>
+
                     <div class="form-group col-sm-6">
                         <input placeholder="Last Name *" class="form-control" required="required" name="lastName"
                                type="text" maxlength="191" value="{{old('lastName',$user->lastName)}}">
+                    </div>
+
+                    <div class="form-group col-sm-12">
+                        <input placeholder="Email *" class="form-control" required="required" name="email"
+                               type="text" value="{{old('email',$user->email)}}">
                     </div>
 
                     <div class="form-group col-sm-6 clrhm">

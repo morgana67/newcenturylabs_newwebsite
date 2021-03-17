@@ -20,6 +20,7 @@ class ProfileController extends Controller
             $validator = Validator::make($request->all(), [
                 'firstName' => ['required', 'string', 'max:191'],
                 'lastName' => ['required', 'string', 'max:191'],
+                'email' => 'required|unique:customers,email,'.user()->getAuthIdentifier(),
                 'state' => 'required|max:191',
                 'city' => 'required|max:191',
                 'address' => 'required|max:191',
@@ -39,6 +40,7 @@ class ProfileController extends Controller
                 $dataCustomer = [
                     'firstName' => $request['firstName'],
                     'lastName' => $request['lastName'],
+                    'email' => $request['email'],
                     'gender' => $request['gender'],
                     'dob' => $request['year'] . "-" . $request['month'] . "-" . $request['date'],
                     'facebook' => $request['facebook'],
