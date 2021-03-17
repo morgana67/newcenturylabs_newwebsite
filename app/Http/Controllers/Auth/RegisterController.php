@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\SendMailProcessed;
+use App\Functions\Functions;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\MailConfig;
+use App\Models\PasswordReset;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -69,7 +73,7 @@ class RegisterController extends Controller
             'city' => 'required|max:191',
             'address' => 'required|max:191',
             'zip' => 'required|max:191',
-            'phone' => 'required|max:191',
+            'phone' => 'required|regex:/^[01]?[- .]?([2-9]\d{2})?[- .]?\d{3}[- .]?\d{4}$/',
         ]);
     }
 
@@ -90,7 +94,7 @@ class RegisterController extends Controller
             'city' => 'required|max:191',
             'address' => 'required|max:191',
             'zip' => 'required|max:191',
-            'phone' => 'required|numeric',
+            'phone' => 'required|regex:/^[01]?[- .]?([2-9]\d{2})?[- .]?\d{3}[- .]?\d{4}$/',
         ]);
 
         if ($validator->fails()) {
@@ -106,6 +110,7 @@ class RegisterController extends Controller
                 'password' => Hash::make($request['password']),
                 'gender' => $request['gender'],
                 'role_id' => 2,
+                'isVerified' => 0,
                 'dob' => $request['year'] . "-" . $request['month'] . "-" . $request['date'],
                 'token' => Hash::make($request['email']. $request['password']),
 
@@ -122,6 +127,26 @@ class RegisterController extends Controller
                 'zip' => $request['zip']
             ];
             Address::insert($dataAddress);
+
+            $token = bcrypt($request['email'].$request['password']);
+            PasswordReset::insert([
+                'email' => $request['email'],
+                'token' => $token,
+                'created_at' => now(),
+            ]);
+
+            $replaces['NAME'] =  $request['firstName'] . ' ' .  $request['lastName'];
+            $mailConfig = MailConfig::where('code','=','registration')->first();
+
+            $customer = Customer::find($customerId);
+            $body =  Functions::replaceBodyEmail($mailConfig->body,$customer);
+            $paramGet = [
+                'email' => $customer->email,
+                'token' => $token,
+            ];
+            $body = str_replace("{{LINK}}", route('verifyAccount').'?'.http_build_query($paramGet), $body);
+            event(new SendMailProcessed($request->email,$mailConfig->subject,$body));
+
             DB::commit();
             return redirect()->route('login')->with('success', 'Account registration is successful');
         }catch (\Exception $exception){
@@ -130,4 +155,18 @@ class RegisterController extends Controller
         }
     }
 
+    public function verifyAccount(Request $request){
+        $passwordPassword = PasswordReset::where(['email','=',$request->email])->first();
+        if (!$passwordPassword) return abort(404);
+        $customer = Customer::where(['email','=',$request->email])->first();
+        if (password_verify($request['email']. $request['password'],$passwordPassword->token)){
+            Customer::where(['email','=',$request->email])->update([
+                'isVerified' => 1
+            ]);
+            PasswordReset::where(['email','=',$request->email])->delete();
+            return redirect()->route('login')->with('success', 'Account verification is successful');
+        }
+
+        return abort(404);
+    }
 }

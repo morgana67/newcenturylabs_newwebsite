@@ -65,6 +65,7 @@ class LoginController extends Controller
         return Auth::guard('customer')->attempt([
             'email' => $request->email,
             'password' => $request->password,
+            'isVerified' => 1
         ], true);
 
     }

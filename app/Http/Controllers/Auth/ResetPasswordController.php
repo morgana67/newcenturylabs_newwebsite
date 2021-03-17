@@ -63,7 +63,7 @@ class ResetPasswordController extends Controller
 
                 $mailConfig = MailConfig::where('code','=','forgot_password')->first();
                 $body =  Functions::replaceBodyEmail($mailConfig->body,$customer);
-                $body = $body = str_replace("{{PASSWORD}}", $password, $body);
+                $body = str_replace("{{PASSWORD}}", $password, $body);
                 event(new SendMailProcessed($request->email,$mailConfig->subject,$body));
                 \Session::flash('success', 'Your new password has been emailed.');
                 return redirect()->route('login');
