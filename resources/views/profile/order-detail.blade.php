@@ -92,7 +92,7 @@
                                             <td>Pwnhealth Requisition Order:</td>
                                             <td>
                                                 @if(!empty($order->pwh_order_id))
-                                                    <form action="{{route('downloadRequisitionOrder',$order->pwh_order_id)}}" method="POST">
+                                                    <form action="{{route('downloadRequisitionOrder',$order->pwh_order_id)}}" method="GET">
                                                         @csrf
                                                         <button type="submit" class="btn btn-primary">Download Requisition Order</button>
                                                     </form>
