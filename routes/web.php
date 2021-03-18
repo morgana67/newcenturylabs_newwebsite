@@ -81,6 +81,7 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin','as' => 'admin.','middl
         Route::delete('destroy/{id}','OrderController@destroy')->name('destroy');
         Route::post('updateOrderStatus/{id}','OrderController@updateOrderStatus')->name('updateOrderStatus');
         Route::post('updatePaymentStatus/{id}','OrderController@updatePaymentStatus')->name('updatePaymentStatus');
+        Route::post('publicPwhResult/{id}','OrderController@publicPwhResult')->name('publicPwhResult');
     });
 
     Route::group(['prefix' => 'page-static','as' => 'page-static.',],function (){

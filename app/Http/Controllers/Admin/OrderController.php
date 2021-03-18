@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\SendMailProcessed;
+use App\Functions\Functions;
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Models\MailConfig;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
@@ -61,5 +65,40 @@ class OrderController extends Controller
                 'alert-type' => 'error',
             ];
         return redirect()->back()->with($data);
+    }
+
+    public function publicPwhResult(Request $request,$id){
+        \DB::beginTransaction();
+        try {
+            $order = Order::find($id);
+            $order->public_pwh_result = 1;
+            $order->save();
+
+            $mailConfig = MailConfig::where('code','=','notice_pwh_result')->first();
+            if ($mailConfig){
+                $body =  Functions::replaceBodyEmail($mailConfig->body,$order->customer);
+                $body = str_replace("{{LINK_LOGIN}}", route('login'), $body);
+                event(new SendMailProcessed($order->customer->email,$mailConfig->subject,$body));
+            }
+
+            $data = $order
+                ? [
+                    'message'    => "Send email to notify customers of success",
+                    'alert-type' => 'success',
+                ]
+                : [
+                    'message'    => "Send email to notify customers of failure",
+                    'alert-type' => 'error',
+                ];
+            \DB::commit();
+        }catch (\Exception $exception){
+            \DB::rollBack();
+            $data = [
+                'message'    => "Server error",
+                'alert-type' => 'error',
+            ];
+        }
+        return redirect()->back()->with($data);
+
     }
 }

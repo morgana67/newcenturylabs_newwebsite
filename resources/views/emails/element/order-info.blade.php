@@ -92,7 +92,8 @@
                                             Card<u></u><u></u></p>
                                     </td>
                                 </tr>
-                                @if(!$sendAdmin && !empty($order->pwh_order_id))
+{{--                                @if(!$sendAdmin && !empty($order->pwh_order_id))--}}
+                                @if(false)
                                     <tr>
                                         <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
                                             <p class="MsoNormal"><b>Requisition Order:<u></u><u></u></b></p>
