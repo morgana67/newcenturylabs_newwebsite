@@ -34,12 +34,13 @@
                                                 <label for="">Last Name Or First Name</label>
                                                 <input type="text" class="form-control" name="name" value="{{request()->get('name')}}">
                                             </div>
-                                            <div class="col-md-4 col-sm-12">
+                                            <div class="col-md-3 col-sm-12">
                                                 <label for="">Nick Name</label>
                                                 <input type="text" class="form-control" name="nick_name" value="{{request()->get('nick_name')}}">
                                             </div>
-                                            <div class="col-md-1 col-sm-12" style="margin-top: 30px">
+                                            <div class="col-md-2 col-sm-12" style="margin-top: 30px;display: flex">
                                                 <button type="submit" class="btn btn-success"> Search </button>
+                                                <button type="submit" class="btn btn-default" style="margin-left: 10px"> Cancel </button>
                                             </div>
                                         </div>
                                     </form>
