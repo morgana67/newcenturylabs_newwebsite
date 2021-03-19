@@ -91,21 +91,23 @@
                                                {{$order->paymentStatus}}
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>Pwnhealth Requisition Order:</td>
-                                            <td>
-                                                @if(!empty($order->pwh_order_id))
-                                                    <form action="{{route('downloadRequisitionOrder',$order->pwh_order_id)}}" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-primary">Download Requisition Order</button>
-                                                    </form>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Pwnhealth Order Link:</td>
-                                            <td style="word-break: break-all;"><a href="{{$order->pwh_order_link}}">{{$order->pwh_order_link}}</a></td>
-                                        </tr>
+                                        @if($order->public_pwh_result == 1)
+                                            <tr>
+                                                <td>Pwnhealth Requisition Order:</td>
+                                                <td>
+                                                    @if(!empty($order->pwh_order_id))
+                                                        <form action="{{route('downloadRequisitionOrder',$order->pwh_order_id)}}" method="GET">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-primary">Download Requisition Order</button>
+                                                        </form>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pwnhealth Order Link:</td>
+                                                <td style="word-break: break-all;"><a href="{{$order->pwh_order_link}}">{{$order->pwh_order_link}}</a></td>
+                                            </tr>
+                                        @endif
                                         </tbody>
                                     </table>
 
