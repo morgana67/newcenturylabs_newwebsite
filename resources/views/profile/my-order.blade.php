@@ -40,7 +40,7 @@
                                             </div>
                                             <div class="col-md-2 col-sm-12" style="margin-top: 30px;display: flex">
                                                 <button type="submit" class="btn btn-success"> Search </button>
-                                                <button type="submit" class="btn btn-default" style="margin-left: 10px"> Cancel </button>
+                                                <a class="btn btn-default" style="margin-left: 10px" onclick="location.href = '{{route('myOrder')}}'"> Cancel </a>
                                             </div>
                                         </div>
                                     </form>
