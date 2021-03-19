@@ -2,6 +2,9 @@
     use Carbon\Carbon as Carbon
 @endphp
 @extends('layouts.site')
+@section('title')
+    Order Detail
+@endsection
 @section('content')
     <section class="bnr-area page-bnr-area bg-full bg-cntr valigner"
              style="background-image:url('/front/images/bnr-signup.jpg');">

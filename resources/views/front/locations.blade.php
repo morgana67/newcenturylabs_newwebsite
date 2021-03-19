@@ -1,4 +1,5 @@
 @extends('layouts.site')
+@section('title')Locations@endsection
 @section('css')
     <link rel="stylesheet" href="{{asset('front/plugin/select2/css/select2.min.css')}}">
     <style>

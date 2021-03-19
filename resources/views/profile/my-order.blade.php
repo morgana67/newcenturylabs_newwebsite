@@ -2,6 +2,9 @@
     use Carbon\Carbon as Carbon;
 @endphp
 @extends('layouts.site')
+@section('title')
+    My Orders
+@endsection
 @section('content')
     <section class="bnr-area page-bnr-area bg-full bg-cntr valigner"
              style="background-image:url('/front/images/bnr-signup.jpg');">
@@ -21,22 +24,42 @@
                         <div class="panel panel-bordered">
                             <div class="panel-body">
                                 @if(user()->role_id == 1)
-                                    <div class="col-md-12 pb50 pt50">
+                                    <form action="" method="GET">
+                                        <div class="row col-md-12">
+                                            <div class="col-md-3 col-sm-12">
+                                                <label for="">Order ID</label>
+                                                <input type="text" class="form-control" name="order_id" value="{{request()->get('order_id')}}">
+                                            </div>
+                                            <div class="col-md-4 col-sm-12">
+                                                <label for="">Last Name Or First Name</label>
+                                                <input type="text" class="form-control" name="name" value="{{request()->get('name')}}">
+                                            </div>
+                                            <div class="col-md-4 col-sm-12">
+                                                <label for="">Nick Name</label>
+                                                <input type="text" class="form-control" name="nick_name" value="{{request()->get('nick_name')}}">
+                                            </div>
+                                            <div class="col-md-1 col-sm-12" style="margin-top: 30px">
+                                                <button type="submit" class="btn btn-success"> Search </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="col-md-12 col-sm-12 pb50 pt50">
+                                        @if(count($orders) > 0)
                                         <div class="panel-group" id="accordion">
                                             @foreach($orders as $order)
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading">
-                                                        <h4 class="panel-title">
+                                                        <h3 class="panel-title" style="line-height: 30px">
                                                             <a data-toggle="collapse" data-parent="#accordion"
                                                                href="#collapse{{$order->id}}">
-                                                                {{$order->nick_name .' #'.$order->id}}</a>
-                                                        </h4>
+                                                                {{$order->nick_name .' #'.$order->id}} {{$order->lastName .','.$order->firstName}} - {{\Carbon\Carbon::createFromFormat('Y-m-d',$order->customer->dob)->format('M. jS, Y')}}</a>
+                                                        </h3>
                                                     </div>
                                                     <div id="collapse{{$order->id}}" class="panel-collapse collapse">
-                                                        <div class="panel-body">
+                                                        <div class="panel-body table-responsive">
                                                             <div class="panel-body" style="padding-top:0;">
-                                                            <div class="col-md-6" style="font-size: 15px">
-                                                                <table class="table ">
+                                                            <div class="col-md-6 col-sm-12" style="font-size: 15px" >
+                                                                <table class="table">
                                                                     <tbody>
                                                                     <tr>
                                                                         <td>Order ID:</td>
@@ -117,7 +140,7 @@
                                                                 </table>
 
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-6 col-sm-12">
                                                                 <div class="col-md-12">
                                                                     <table
                                                                         class="table cart-item-table table-bordered table-topbot table-valign">
@@ -181,9 +204,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                        </div>
+                                                </div>
                                         @endforeach
-
+                                        @else
+                                            <div style="text-align: center " class="alert alert-danger">There is no result</div>
+                                        @endif
                                     </div>
                             </div>
                             @else

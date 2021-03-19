@@ -95,7 +95,20 @@ class ProfileController extends Controller
     }
 
     public function myOrder(){
-        $orders = Order::where('customer_id',user()->getAuthIdentifier())->orderBy('id','desc')->with('details','customer','country')->paginate(20);
+        $orders = Order::where(function ($query){
+            if(!empty(\request()->get('order_id'))){
+                $query->where('id','LIKE','%' .\request()->get('order_id'). '%');
+            }
+            if(!empty(\request()->get('name'))){
+                $query->where(function ($query){
+                    $query->where('lastName','LIKE','%' .\request()->get('name'). '%');
+                    $query->orWhere('firstName','LIKE','%' .\request()->get('name'). '%');
+                });
+            }
+            if(!empty(\request()->get('nick_name'))){
+                $query->where('nick_name','LIKE','%' .\request()->get('nick_name'). '%');
+            }
+        })->where('customer_id',user()->getAuthIdentifier())->orderBy('id','desc')->with('details','customer','country')->paginate(20);
         return view('profile.my-order',compact('orders'));
     }
 
