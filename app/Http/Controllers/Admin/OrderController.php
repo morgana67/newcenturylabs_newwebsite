@@ -68,37 +68,38 @@ class OrderController extends Controller
     }
 
     public function publicPwhResult(Request $request,$id){
-        \DB::beginTransaction();
-        try {
-            $order = Order::find($id);
-            $order->public_pwh_result = 1;
-            $order->save();
-
-            $mailConfig = MailConfig::where('code','=','notice_pwh_result')->first();
-            if ($mailConfig){
-                $body =  Functions::replaceBodyEmail($mailConfig->body,$order->customer);
-                $body = str_replace("{{LINK_LOGIN}}", route('login'), $body);
-                event(new SendMailProcessed($order->customer->email,$mailConfig->subject,$body));
-            }
-
-            $data = $order
-                ? [
-                    'message'    => "Send email to notify customers of success",
-                    'alert-type' => 'success',
-                ]
-                : [
-                    'message'    => "Send email to notify customers of failure",
-                    'alert-type' => 'error',
-                ];
-            \DB::commit();
-        }catch (\Exception $exception){
-            \DB::rollBack();
-            $data = [
-                'message'    => "Server error",
-                'alert-type' => 'error',
-            ];
-        }
-        return redirect()->back()->with($data);
+        return true;
+//        \DB::beginTransaction();
+//        try {
+//            $order = Order::find($id);
+//            $order->public_pwh_result = 1;
+//            $order->save();
+//
+//            $mailConfig = MailConfig::where('code','=','notice_pwh_result')->first();
+//            if ($mailConfig){
+//                $body =  Functions::replaceBodyEmail($mailConfig->body,$order->customer);
+//                $body = str_replace("{{LINK_LOGIN}}", route('login'), $body);
+//                event(new SendMailProcessed($order->customer->email,$mailConfig->subject,$body));
+//            }
+//
+//            $data = $order
+//                ? [
+//                    'message'    => "Send email to notify customers of success",
+//                    'alert-type' => 'success',
+//                ]
+//                : [
+//                    'message'    => "Send email to notify customers of failure",
+//                    'alert-type' => 'error',
+//                ];
+//            \DB::commit();
+//        }catch (\Exception $exception){
+//            \DB::rollBack();
+//            $data = [
+//                'message'    => "Server error",
+//                'alert-type' => 'error',
+//            ];
+//        }
+//        return redirect()->back()->with($data);
 
     }
 }

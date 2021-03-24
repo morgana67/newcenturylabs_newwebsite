@@ -25,13 +25,7 @@
 
                     <div class="panel-body" style="padding-top:0;">
                         <div class="col-md-6" style="font-size: 15px">
-                            <form id="publicPwhResult" action="{{route('admin.orders.publicPwhResult',['id' => $order->id])}}" method="POST">
-                                @csrf
-                                <span style="font-weight: bold;color: red">Notice for customer that the order has been accepted
-                                    <a class="submit_form" style="text-decoration: underline;cursor: pointer">
-                                        Click here</a>
-                                </span>
-                            </form>
+
                             <table class="table" style="margin-top: 30px">
                                 <tbody>
                                     <tr>
