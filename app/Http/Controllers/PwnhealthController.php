@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 class PwnhealthController extends Controller
 {
     public function status(Request $request){
+        Log::debug('-- Call ---');
         return response()->json([
             'response' => $request->all(),
         ]);
