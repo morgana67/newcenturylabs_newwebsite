@@ -96,7 +96,7 @@ class PwnhealthController extends Controller
 //    Route::match(['GET','POST'],'/results_released','PwnhealthController@results_released')->name('results_released');
 //    Route::match(['GET','POST'],'/results_on_hold','PwnhealthController@results_on_hold')->name('results_on_hold')
 
-    public function result_released(Request $request): bool
+    public function result_released(Request $request)
     {
         try {
             if(!empty($request->id)){
@@ -121,7 +121,7 @@ class PwnhealthController extends Controller
         }
     }
 
-    public function result_on_hold(Request $request): bool
+    public function result_on_hold(Request $request)
     {
         try {
             if(!empty($request->id)){
