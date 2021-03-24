@@ -8,7 +8,7 @@ use Log;
 class PwnhealthController extends Controller
 {
     public function status(Request $request){
-        Log::debug('-- Call ---');
+        Log::debug('-- Call ---',json_encode($request->all()));
         return response()->json([
             'response' => $request->all(),
         ]);
