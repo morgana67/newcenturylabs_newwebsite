@@ -187,6 +187,7 @@ class CheckoutController extends Controller
 
                     $order->paymentStatus = $charge->status;
                     $order->pwh_order_id = $response->order->id ?? null;
+                    $order->pwh_order_link = $response->order->links->ui_customer ?? null;
                     $order->save();
                 }
             }
