@@ -35,6 +35,7 @@ Route::get('/forgot', function () {return view('forgot');});
 Route::get('/register', function () {return view('register');});
 Route::get('/signup', function () {return view('signup');});
 
+Route::get('/results','PwnhealthController@status')->name('webhooks_status');
 
 
 Auth::routes();
