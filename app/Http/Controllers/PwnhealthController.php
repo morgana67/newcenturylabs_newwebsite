@@ -102,6 +102,7 @@ class PwnhealthController extends Controller
             if(!empty($request->id)){
                 $order = Order::where(['pwh_order_id' => $request->id])->firstOrFail();
                 $status = 'available';
+                $isDr = false;
                 $name = $order->lastName. ' '.$order->firstName;
                 $order->update(['pwh_status' => 'Result released: '.$request->result]);
                 $bodyRender = view('emails.pwh_mail_result',compact('name','isDr','order','status'))->render();
@@ -126,6 +127,7 @@ class PwnhealthController extends Controller
         try {
             if(!empty($request->id)){
                 $status = 'on hold';
+                $isDr = false;
                 $order = Order::where(['pwh_order_id' => $request->id])->firstOrFail();
                 $name = $order->lastName. ' '.$order->firstName;
                 $order->update(['pwh_status' => 'Result on Hold: '.$request->result]);
