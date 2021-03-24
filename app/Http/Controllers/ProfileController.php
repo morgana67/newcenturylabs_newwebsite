@@ -119,7 +119,7 @@ class ProfileController extends Controller
 
     public function downloadRequisitionOrder(Request $request,$id){
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,"https://api-staging.pwnhealth.com/v2/labs/orders/{$id}/pdfs/requisition");
+        curl_setopt($ch, CURLOPT_URL,env(PWN_END_POINT_ORDER)."/{$id}/pdfs/requisition");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $token = generateToken();
         $headers = [
@@ -135,6 +135,29 @@ class ProfileController extends Controller
         header('Cache-Control: public');
         header('Content-type: application/pdf');
         header('Content-Disposition: attachment; filename="RequisitionOrder'.$id.'.pdf"');
+        header('Content-Length: '.strlen($server_output));
+        echo $server_output;
+        exit();
+    }
+
+    public function downloadResultTest(Request $request,$id){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,env(PWN_END_POINT_ORDER)."/{$id}/pdfs/results");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $token = generateToken();
+        $headers = [
+            'Accept: application/json',
+            'Content-Type: application/json',
+            "Authorization:Bearer {$token}"
+        ];
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $server_output = curl_exec ($ch);
+        curl_close ($ch);
+
+        header('Cache-Control: public');
+        header('Content-type: application/pdf');
+        header('Content-Disposition: attachment; filename="Order Result'.$id.'.pdf"');
         header('Content-Length: '.strlen($server_output));
         echo $server_output;
         exit();
