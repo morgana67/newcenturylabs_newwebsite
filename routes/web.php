@@ -35,12 +35,12 @@ Route::get('/forgot', function () {return view('forgot');});
 Route::get('/register', function () {return view('register');});
 Route::get('/signup', function () {return view('signup');});
 
-Route::match(['POST'],'/order_approved','PwnhealthController@order_approved')->name('order_approved');
-Route::match(['POST'],'/order_rejected','PwnhealthController@order_rejected')->name('order_rejected');
-Route::match(['POST'],'/order_canceled','PwnhealthController@order_canceled')->name('order_canceled');
-Route::match(['POST'],'/order_deferred','PwnhealthController@order_deferred')->name('order_deferred');
-Route::match(['POST'],'/result_released','PwnhealthController@result_released')->name('result_released');
-Route::match(['POST'],'/result_on_hold','PwnhealthController@result_on_hold')->name('result_on_hold');
+Route::match(['GET'],'/order_approved','PwnhealthController@order_approved')->name('order_approved');
+Route::match(['GET'],'/order_rejected','PwnhealthController@order_rejected')->name('order_rejected');
+Route::match(['GET'],'/order_canceled','PwnhealthController@order_canceled')->name('order_canceled');
+Route::match(['GET'],'/order_deferred','PwnhealthController@order_deferred')->name('order_deferred');
+Route::match(['GET'],'/result_released','PwnhealthController@result_released')->name('result_released');
+Route::match(['GET'],'/result_on_hold','PwnhealthController@result_on_hold')->name('result_on_hold');
 
 Route::match(['GET','POST'],'/order_approval','PwnhealthController@status')->name('webhooks_status');
 Route::get('/results','PwnhealthController@status')->name('webhooks_status');
