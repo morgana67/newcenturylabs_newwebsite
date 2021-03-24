@@ -42,7 +42,6 @@ Route::match(['GET'],'/order_deferred','PwnhealthController@order_deferred')->na
 Route::match(['GET'],'/result_released','PwnhealthController@result_released')->name('result_released');
 Route::match(['GET'],'/result_on_hold','PwnhealthController@result_on_hold')->name('result_on_hold');
 
-Route::match(['GET','POST'],'/order_approval','PwnhealthController@status')->name('webhooks_status');
 Route::get('/results','PwnhealthController@status')->name('webhooks_status');
 
 
