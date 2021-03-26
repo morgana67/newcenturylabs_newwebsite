@@ -12,7 +12,7 @@
             @endif
 
             <p>Click here to securely login and view them.</p>
-            <p><a class="btn" style="border-radius: 4px; background-color: #39c; color: #fff; display: inline-block; padding: 5px 10px; text-decoration: none;" href="{{route('login')}}" target="_blank" rel="noopener">Click here</a></p>
+            <p><a class="btn" style="border-radius: 4px; background-color: #39c; color: #fff; display: inline-block; padding: 5px 10px; text-decoration: none;" href="{{$url}}" target="_blank" rel="noopener">Click here</a></p>
         </td>
     </tr>
     <tr>

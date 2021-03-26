@@ -71,6 +71,9 @@ class LoginController extends Controller
     }
     protected function sendLoginResponse(Request $request)
     {
+        if($request->get('redirect')){
+            return redirect()->to($request->get('redirect'));
+        }
         return redirect()->route('home');
     }
     public function logout()

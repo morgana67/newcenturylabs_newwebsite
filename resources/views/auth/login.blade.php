@@ -18,7 +18,7 @@
                     <div class="col-md-12">
                         @include('layouts.alert')
                     </div>
-                    <form method="POST" class="form" action="{{ route('login') }}">
+                    <form method="POST" class="form" action="{{ !empty(request()->get('redirect')) ? route('login',['redirect' => request()->get('redirect')]) : route('login') }}">
                         @csrf
                         <div class="form-group">
                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email Address" value="{{old('email')}}" required/>
