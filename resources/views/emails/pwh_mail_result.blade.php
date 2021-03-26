@@ -5,10 +5,8 @@
             <p>Hi {{$name}}!</p>
             @if(!$isDr)
                 <p>Your Test Results are now {{$status}}.</p>
-                <p>Order Link : {{route('orderDetail',['id' => $order->id])}}</p>
             @else
                 <p>Test of the patient are now {{$status}}.</p>
-                <p>Order Link : {{route('myOrder')}}</p>
             @endif
 
             <p>Click here to securely login and view them.</p>
