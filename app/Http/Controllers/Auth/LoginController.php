@@ -48,6 +48,9 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
+        Auth::guard('customer')->logout();
+        session()->flush();
+        session()->regenerate();
         return view('auth.login');
     }
 
