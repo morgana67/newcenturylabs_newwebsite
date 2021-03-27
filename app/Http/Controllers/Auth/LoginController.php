@@ -37,7 +37,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        Auth::guard('customer')->logout();
+        Auth::logout();
+        session()->flush();
         $this->middleware('guest');
     }
 
