@@ -37,6 +37,9 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        Auth::guard('customer')->logout();
+        session()->flush();
+        session()->regenerate();
         $this->middleware('guest')->except('logout');
     }
 
@@ -48,9 +51,6 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        Auth::guard('customer')->logout();
-        session()->flush();
-        session()->regenerate();
         return view('auth.login');
     }
 
