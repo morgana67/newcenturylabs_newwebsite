@@ -18,10 +18,10 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (is_customer()) {
-            return redirect(RouteServiceProvider::HOME);
-        }
-
+//        if (is_customer()) {
+//            return redirect(RouteServiceProvider::HOME);
+//        }
+        Auth::guard('customer')->logout();
         return $next($request);
     }
 }
