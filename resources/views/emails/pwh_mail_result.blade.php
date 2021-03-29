@@ -4,9 +4,9 @@
         <td colspan="2">
             <p>Hi {{$name}}!</p>
             @if(!$isDr)
-                <p>Your Test Results are now {{$status}}.</p>
+                <p>Your Order Results are now {{$status}}.</p>
             @else
-                <p>Test of the patient are now {{$status}}.</p>
+                <p>Order of the patient are now {{$status}}.</p>
             @endif
 
             <p>Click here to securely login and view them.</p>

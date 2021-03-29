@@ -26,13 +26,13 @@ class PwnhealthController extends Controller
                 $name = $order->firstName. ' '.$order->lastName;
                 $order->update(['pwh_status' => 'Order Approved']);
                 $bodyRender = view('emails.pwh_mail',compact('name','status','isDr','order','url'))->render();
-                event(new SendMailProcessed($order->email,'Your Test was Approved',$bodyRender));
+                event(new SendMailProcessed($order->email,'Your Order was Approved',$bodyRender));
                 if($order->email != $order->customer->email && $order->customer->role_id == 1){
                     $isDr = true;
                     $name = $order->customer->firstName. ' '.$order->customer->lastName;
                     $url = route('login',['redirect' => route('myOrder')]);
                     $bodyRender = view('emails.pwh_mail',compact('name','status','isDr','order','url'))->render();
-                    event(new SendMailProcessed($order->customer->email,'Test of the patient was Approved',$bodyRender));
+                    event(new SendMailProcessed($order->customer->email,'Order of the patient was Approved',$bodyRender));
                 }
                 Log::debug('--- order_approved success---'.json_encode($request->all()));
                 return true;
@@ -53,13 +53,13 @@ class PwnhealthController extends Controller
                 $name = $order->firstName. ' '.$order->lastName;
                 $order->update(['pwh_status' => 'Order Rejected']);
                 $bodyRender = view('emails.pwh_mail',compact('name','status','isDr','order','url'))->render();
-                event(new SendMailProcessed($order->email,'Your Test was Rejected',$bodyRender));
+                event(new SendMailProcessed($order->email,'Your Order was Rejected',$bodyRender));
                 if($order->email != $order->customer->email && $order->customer->role_id == 1){
                     $isDr = true;
                     $url = route('login',['redirect' => route('myOrder')]);
                     $name = $order->customer->firstName. ' '.$order->customer->lastName;
                     $bodyRender = view('emails.pwh_mail',compact('name','status','isDr','order','url'))->render();
-                    event(new SendMailProcessed($order->customer->email,'Test of the patient was Rejected',$bodyRender));
+                    event(new SendMailProcessed($order->customer->email,'Order of the patient was Rejected',$bodyRender));
                 }
                 Log::debug('--- order_rejected rejected---'.json_encode($request->all()));
                 return true;
@@ -79,14 +79,14 @@ class PwnhealthController extends Controller
                 $order->update(['pwh_status' => 'Order Canceled']);
                 $url = route('login',['redirect' => route('orderDetail',['id' => $order->id])]);
                 $bodyRender = view('emails.pwh_mail',compact('name','status','isDr','order','url'))->render();
-                event(new SendMailProcessed($order->email,'Your Test was Canceled',$bodyRender));
+                event(new SendMailProcessed($order->email,'Your Order was Canceled',$bodyRender));
 
                 if($order->email != $order->customer->email && $order->customer->role_id == 1){
                     $isDr = true;
                     $url = route('login',['redirect' => route('myOrder')]);
                     $name = $order->customer->firstName. ' '.$order->customer->lastName;
                     $bodyRender = view('emails.pwh_mail',compact('name','status','isDr','order','url'))->render();
-                    event(new SendMailProcessed($order->customer->email,'Test of the patient was Canceled',$bodyRender));
+                    event(new SendMailProcessed($order->customer->email,'Order of the patient was Canceled',$bodyRender));
                 }
 
                 Log::debug('--- order_canceled success---'.json_encode($request->all()));
@@ -116,14 +116,14 @@ class PwnhealthController extends Controller
                 $order->update(['pwh_status' => 'Result released: '.$request->result]);
                 $url = route('login',['redirect' => route('orderDetail',['id' => $order->id])]);
                 $bodyRender = view('emails.pwh_mail_result',compact('name','isDr','order','status','url'))->render();
-                event(new SendMailProcessed($order->email,'Your Test Results are now Available',$bodyRender));
+                event(new SendMailProcessed($order->email,'Your Order Results are now Available',$bodyRender));
 
                 if($order->email != $order->customer->email && $order->customer->role_id == 1){
                     $isDr = true;
                     $url = route('login',['redirect' => route('myOrder')]);
                     $name = $order->customer->firstName. ' '.$order->customer->lastName;
                     $bodyRender = view('emails.pwh_mail_result',compact('name','isDr','order','status','url'))->render();
-                    event(new SendMailProcessed($order->customer->email,'Test of the patient are now Available',$bodyRender));
+                    event(new SendMailProcessed($order->customer->email,'Order of the patient are now Available',$bodyRender));
                 }
 
                 Log::debug('--- result_released success---'.json_encode($request->all()));
@@ -145,14 +145,14 @@ class PwnhealthController extends Controller
                 $order->update(['pwh_status' => 'Result on Hold: '.$request->result]);
                 $url = route('login',['redirect' => route('orderDetail',['id' => $order->id])]);
                 $bodyRender = view('emails.pwh_mail_result',compact('name','isDr','order','status','url'))->render();
-                event(new SendMailProcessed($order->email,'Your Test Results are now On Hold',$bodyRender));
+                event(new SendMailProcessed($order->email,'Your Order Results are now On Hold',$bodyRender));
 
                 if($order->email != $order->customer->email && $order->customer->role_id == 1){
                     $isDr = true;
                     $url = route('login',['redirect' => route('myOrder')]);
                     $name = $order->customer->firstName. ' '.$order->customer->lastName;
                     $bodyRender = view('emails.pwh_mail_result',compact('name','isDr','order','status','url'))->render();
-                    event(new SendMailProcessed($order->customer->email,'Test of the patient now On Hold',$bodyRender));
+                    event(new SendMailProcessed($order->customer->email,'Order of the patient now On Hold',$bodyRender));
                 }
 
                 Log::debug('--- result_on_hold success---'.json_encode($request->all()));
