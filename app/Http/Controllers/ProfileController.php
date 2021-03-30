@@ -114,8 +114,8 @@ class ProfileController extends Controller
 
     public function orderDetail(Request $request,$id){
         $order = Order::where('id',$id)->where(function ($query){
-            $query->where('customer_id','=',user()->getAuthIdentifier());
-            $query->orWhere('email','=',user()->email);
+            return $query->where('customer_id','=',user()->getAuthIdentifier())
+                         ->orWhere('email','=',user()->email);
         })->with('details','customer','country')->first();
         if(empty($order)) return abort(404,'You do not have permission to view this Order');
         return view('profile.order-detail',compact('order'));
