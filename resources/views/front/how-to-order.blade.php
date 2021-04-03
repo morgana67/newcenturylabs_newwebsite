@@ -9,7 +9,7 @@
     <section class="page-bnr-area bg-full valigner" style="background-image:url('{{image($body->banner ?? null)}}');">
         <div class="container">
             <div class="bnr__cont valign white text-center col-sm-12 anime-flipInX">
-                <h2>{!! $body->title_banner ?? null !!}</h2>
+                
 
                 <p>{!! $body->desc_banner  ?? null !!}</p>
             </div>
