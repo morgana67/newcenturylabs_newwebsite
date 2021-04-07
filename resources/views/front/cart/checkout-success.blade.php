@@ -16,9 +16,23 @@
                 <div class="page__title">
                     <h2><p>Your Order number is <strong><a>{{'#'.$id}}</a></strong></p></h2>
                 </div>
-
-                <p>Your lab order will be emailed to you within a 4 hour window of your order, during our hours of operation 8 AM PST to 10 PM PST. Please note if you have scheduled for a MD consult, your results must be complete before communication. We look forward to serving you!</p>
-
+                <p><strong>Next Steps:</strong><span style="font-weight: 400;"><br></span><span
+                        style="font-weight: 400;">Please print your lab order and take it with you to your local Quest Diagnostics draw center, you will need to present your ID card at the front desk. You do&nbsp;</span><strong>NOT</strong><strong>&nbsp;</strong><span
+                        style="font-weight: 400;">need to present your insurance card, and you do&nbsp;</span><strong>NOT</strong><strong>&nbsp;</strong><span
+                        style="font-weight: 400;">need to make an appointment-- walk-ins are always welcome.</span><span
+                        style="font-weight: 400;"><br></span></p>
+                <br>
+                <p><strong>Test prep Info:</strong><span
+                        style="font-weight: 400;"> see laboratory information below:</span><span
+                        style="font-weight: 400;"><br></span><a
+                        href="https://testdirectory.questdiagnostics.com/test/home"><strong>TEST
+                            INFORMATION</strong><span style="font-weight: 400;"><br></span><span
+                            style="font-weight: 400;"><br></span></a><span style="font-weight: 400;">Please use this link below to access your local Quest Draw Center:</span>
+                </p>
+                <br>
+                <p>
+                    <a href="https://secure.questdiagnostics.com/hcp/psc/jsp/SearchLocation.do?newSearch=FindLocation"><strong>FIND
+                            A DRAW CENTER NEARBY</strong></a></p>
                 <div class="clrlist listview list-icon">
                     <ul>
                         <li><i class="fa fa-phone"></i><a href="tel:{{ setting('site.hotline')}}">Tel.: {{ setting('site.hotline') }}</a></li>
