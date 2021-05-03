@@ -76,7 +76,7 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Date of Birth:</td>
-                                                                        <td>{{date('F jS, Y')}}</td>
+                                                                        <td>{{\Carbon\Carbon::createFromFormat('Y-m-d',$order->customer->dob)->format('M. jS, Y')}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Email:</td>
