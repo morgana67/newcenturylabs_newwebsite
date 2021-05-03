@@ -14,13 +14,15 @@
         <div class="container">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="page__title">
-                    <h2><p>Your Order number is <strong><a>{{'#'.$id}}</a></strong></p></h2>
+                    <h2><p>Your Order number is <strong><a href="{{route('myOrder')}}?order_id={{$order->id}}">{{'#'.$order->id}}</a></strong></p></h2>
                 </div>
                 <p><strong>Next Steps:</strong><span style="font-weight: 400;"><br></span><span
                         style="font-weight: 400;">Please print your lab order and take it with you to your local Quest Diagnostics draw center, you will need to present your ID card at the front desk. You do&nbsp;</span><strong>NOT</strong><strong>&nbsp;</strong><span
                         style="font-weight: 400;">need to present your insurance card, and you do&nbsp;</span><strong>NOT</strong><strong>&nbsp;</strong><span
                         style="font-weight: 400;">need to make an appointment-- walk-ins are always welcome.</span><span
                         style="font-weight: 400;"><br></span></p>
+                <br>
+                <p><a href="{{route('downloadRequisitionOrder', $order->pwh_order_id)}}" style="padding: 6px 12px; border: 1px solid #357ebd;  border-radius: 4px; background: #428bca; color: #fff;">Download Requisition Order</a></p>
                 <br>
                 <p><strong>Test prep Info:</strong><span
                         style="font-weight: 400;"> see laboratory information below:</span><span

@@ -67,8 +67,16 @@
                                                                         <td>#{{$order->id}}</td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>Name:</td>
-                                                                        <td>{{$order->firstName.' '.$order->lastName}}</td>
+                                                                        <td>First Name:</td>
+                                                                        <td>{{$order->firstName}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Last Name:</td>
+                                                                        <td>{{$order->lastName}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Date of Birth:</td>
+                                                                        <td>{{date('F jS, Y')}}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Email:</td>
@@ -286,4 +294,27 @@
         </div>
         </div>
     </section>
+@endsection
+@section('script')
+    <script type="text/javascript">
+        function getParameter(parameterName) {
+            var result = null,
+                tmp = [];
+            location.search
+                .substr(1)
+                .split("&")
+                .forEach(function (item) {
+                    tmp = item.split("=");
+                    if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+                });
+            return result;
+        }
+
+        $(document).ready(function () {
+            var orderId = getParameter('order_id');
+            if(orderId) {
+                $('a[href="#collapse56"]').trigger('click');
+            }
+        })
+    </script>
 @endsection

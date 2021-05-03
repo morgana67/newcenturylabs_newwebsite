@@ -221,9 +221,9 @@ class CheckoutController extends Controller
         return json_decode($server_output);
     }
 
-    public function orderSuccess($id = null){
+    public function orderSuccess($id) {
+        $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->with('details','customer','country')->firstOrFail();
         if(!empty(request()->get("sendmail"))){
-            $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->with('details','customer','country')->firstOrFail();
             $message = 'You have received an order from ' . $order->firstName.' '.$order->lastName . '. Their order is as follows:';
             $sendAdmin = true;
             $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
@@ -241,7 +241,7 @@ class CheckoutController extends Controller
                 event(new SendMailProcessed(user()->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
             }
         }
-        return view('front.cart.checkout-success',compact('id'));
+        return view('front.cart.checkout-success',compact('order'));
     }
 
 
