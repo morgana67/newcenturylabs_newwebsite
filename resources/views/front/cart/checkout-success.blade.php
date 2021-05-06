@@ -14,7 +14,7 @@
         <div class="container">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="page__title">
-                    <h2><p>Your Order number is <strong><a href="{{route('myOrder')}}?order_id={{$order->id}}">{{'#'.$order->id}}</a></strong></p></h2>
+                    <h2><p>Your Order number is <strong><a href="{{route('orderDetail', $order->id)}}">{{'#'.$order->id}}</a></strong></p></h2>
                 </div>
                 <p><strong>Next Steps:</strong><span style="font-weight: 400;"><br></span><span
                         style="font-weight: 400;">Please print your lab order and take it with you to your local Quest Diagnostics draw center, you will need to present your ID card at the front desk. You do&nbsp;</span><strong>NOT</strong><strong>&nbsp;</strong><span
