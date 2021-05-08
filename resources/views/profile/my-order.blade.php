@@ -132,7 +132,7 @@
                                                                             </div>
                                                                             @if(strpos($order->pwh_status, 'Result') !== false)
                                                                                 <div class="order-info-item">
-                                                                                    <div>Pwnhealth Order Result</div>
+                                                                                    <div>PWH Order Result</div>
                                                                                     <div>
                                                                                         @if(!empty($order->pwh_order_id))
                                                                                             <form action="{{route('downloadResultTest',$order->pwh_order_id)}}" method="GET">
