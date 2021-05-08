@@ -8,7 +8,7 @@ class Functions {
 
 
     public static function replaceBodyEmail($body,$customer) {
-        $body = str_replace("{{NAME}}", $customer->firstName.' '.$customer->lastName, $body);
+        $body = str_replace("{{NAME}}", "<strong>".$customer->firstName.' '.$customer->lastName."</strong>", $body);
         $body = str_replace("{{LINK}}", route('changePassword').'?token='.$customer->token, $body);
         $body = str_replace("{{LOGO}}", '<p style="margin-top:0in;text-align:center" align="center"><img src="'.asset('front/images/email_logo.png').'" alt="'.setting('site.title').'" border="0" ></p>', $body);
         return $body;
