@@ -62,10 +62,6 @@
                                     <div>{{$order->email}}</div>
                                 </div>
                                 <div class="order-info-item">
-                                    <div>Payment Type</div>
-                                    <div>{{$order->paymentType}}</div>
-                                </div>
-                                <div class="order-info-item">
                                     <div>Payment Status</div>
                                     <div>
                                         {{$order->paymentStatus}}
