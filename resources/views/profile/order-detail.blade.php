@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="order-info-item">
                                     <div>PWH Order Link</div>
-                                    <div style="word-break: break-all;"><a href="{{$order->pwh_order_link}}">{{$order->pwh_order_link}}</a></div>
+                                    <div style="word-break: break-all;"><a href="{{$order->pwh_order_link}}" class="btn btn-primary">Order Link</a></div>
                                 </div>
                                 <div class="order-info-item">
                                     <div>PWH Status</div>
