@@ -12,32 +12,27 @@
     <section class="inr-intro-area " style="padding: 50px 0">
         <div class="container">
             <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="page__title">
-                    <p>
-                        <strong>
-                            Thank you for your order, it has been added to our queue to review for approval which will be completed with 4 business hours between 8 AM and 10 PM PST/PDT.
-                        </strong>
-                    </p>
-                </div>
-                <p><strong>Your Order number is <a href="{{route('orderDetail', $order->id)}}">{{'#'.$order->id}}</a></strong></p>
+                <p>Thank you for order! Your order number is <strong><a href="{{route('orderDetail', $order->id)}}">{{'#'.$order->id}}</a></strong></p>
+                <br>
+                <p>Your lab req has been added to our queue, please standby for us to review and approve your order.</p>
+                <p>Your lab req will be available between 30 minutes to 1 hour.</p>
                 <hr>
                 <p><strong>What's next?</strong></p>
-                <ul style="font-weight: 400;">
-                    <li style="margin-bottom: 10px">Once our staff approve your order we will send you another email with a link to your Requisition Order which you must deliver to your medical provider.</li>
-                    <li style="margin-bottom: 10px">They will draw your blood and deliver it to the testing company. When they have completed yours test(s), they will upload your results and you will
-                        receive another email from us notifying you it's available for download.
-                    </li>
-                </ul>
-                <p><strong>Additional Details</strong></p>
-                <p>In addition to the emails you receive, they will also be available on our website under
-                    My Account > Orders > And selecting the Details button beside any Order.</p>
+                <p style="margin-bottom: 5px">Once our staff approve your order we will send you another email with a link to your Requisition Order which you must deliver to your medical provider.</p>
+                <p style="margin-bottom: 5px">They will draw your blood and deliver it to the testing company. When they have completed yours test(s), they will upload your results and you will
+                    receive another email from us notifying you it's available for download.
+                </p>
                 <br>
-                <p><strong>Note:</strong> If you do not see "My Account" you must first login by clicking the Login button.</p>
+                <p><strong>Specimen Collection:</strong></p>
+                <p style="margin-bottom: 5px">Once you have downloaded your req, take it with you to your local Quest PSC, make sure you present  Identification such as a drivers licenses and your lab req. Appointments are not needed, and walk-ins are always welcome. </p>
+                <p>Find a Quest location nearest you:</p>
+                <p><a href="https://appointment.questdiagnostics.com/patient/confirmation" style="font-weight: bold">MyQuest (questdiagnostics.com)</a></p>
                 <br>
-                <p><strong>Note:</strong> If you do not remember your password or username you must use the recovery link below the login form on the website.</p>
+                <p><strong>Accessing Your Results:</strong></p>
+                <p>Normally test results are available 72 hours from the time of your draw. Depending on some tests, results can take slightly longer. Your results will be located under your “My Account” My Orders tab in your portal. </p>
                 <br>
                 <div class="clrlist listview list-icon">
-                    <strong>Thanks again and have a proactive day.</strong>
+                    <p>Thank you for your patients, we look forward to serving you!</p>
                 </div>
             </div>
         </div>
