@@ -10,7 +10,23 @@
                         @if($message!="")
                             <p style="line-height:150%"><span style="font-size:10.5pt;line-height:150%;font-family:&quot;Arial&quot;,sans-serif;color:#737373"> {{ $message }} </span></p>
                         @else
-                            Your lab order will be emailed to you within a 4 hour window of your order, during our hours of operation 8 AM PST to 10 PM PST. Please note if you have ordered a doctor consult, you must wait until your final results are complete before communication. We look forward to serving you!
+                            <p>Your lab req has been added to our queue, please standby for us to review and approve your order.</p>
+                            <p>Your lab req will be available between 30 minutes to 1 hour.</p>
+                            <hr>
+                            <p><strong>What's next?</strong></p>
+                            <p style="margin-bottom: 5px">Once our staff approve your order we will send you another email with a link to your Requisition Order which you must deliver to your medical provider.</p>
+                            <p style="margin-bottom: 5px">They will draw your blood and deliver it to the testing company. When they have completed yours test(s), they will upload your results and you will
+                                receive another email from us notifying you it's available for download.
+                            </p>
+                            <br>
+                            <p><strong>Specimen Collection:</strong></p>
+                            <p style="margin-bottom: 5px">Once you have downloaded your req, take it with you to your local Quest PSC, make sure you present  Identification such as a drivers licenses and your lab req. Appointments are not needed, and walk-ins are always welcome. </p>
+                            <p>Find a Quest location nearest you:</p>
+                            <p><a href="https://appointment.questdiagnostics.com/patient/confirmation" style="font-weight: bold">MyQuest (questdiagnostics.com)</a></p>
+                            <br>
+                            <p><strong>Accessing Your Results:</strong></p>
+                            <p>Normally test results are available 72 hours from the time of your draw. Depending on some tests, results can take slightly longer. Your results will be located under your “My Account” My Orders tab in your portal. </p>
+                            <br>
                             <p href="tel:{{ str_replace('-','',setting('site.hotline'))}}" value="{{ setting('site.hotline')}}" target="_blank">Tel: {{ setting('site.hotline')}}</p>
                             <p href="mailto:{{ setting('site.email_receive_notification') }}" target="_blank">Email: {{ setting('site.email_receive_notification') }}</p>
                         @endif
