@@ -18,9 +18,8 @@
                 <p>Your lab req will be available between 30 minutes to 1 hour.</p>
                 <hr>
                 <p><strong>What's next?</strong></p>
-                <p style="margin-bottom: 5px">Once our staff approve your order we will send you another email with a link to your Requisition Order which you must deliver to your medical provider.</p>
-                <p style="margin-bottom: 5px">They will draw your blood and deliver it to the testing company. When they have completed yours test(s), they will upload your results and you will
-                    receive another email from us notifying you it's available for download.
+                <p style="margin-bottom: 5px">You will be notified via email in just a few short moments that your lab order is ready with a secure link. </p>
+                <p style="margin-bottom: 5px">You can access your lab order directly from your email, and your account  portal by going to “My Account” then “My Order Detail” to download your lab req after you’ve been notified via email
                 </p>
                 <br>
                 <p><strong>Specimen Collection:</strong></p>
