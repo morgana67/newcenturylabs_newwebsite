@@ -82,6 +82,9 @@ Route::get('downloadResultTest/{id}','ProfileController@downloadResultTest')->na
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+
+    Route::get('forgot-password', 'Admin\ForgotPasswordController@showLinkRequestForm')->name('admin.forgot-password.get');
+    Route::post('forgot-password', 'Admin\ForgotPasswordController@reset_password')->name('admin.forgot-password.post');
 });
 Route::group(['prefix' => 'admin','namespace' => 'Admin','as' => 'admin.','middleware' => ['auth']], function () {
     Route::group(['prefix' => 'orders','as' => 'orders.',],function (){
