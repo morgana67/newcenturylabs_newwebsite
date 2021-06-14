@@ -19,7 +19,7 @@ Route::get('/bundle', 'HomeController@bundle')->name('bundle');
 Route::get('/testlistbydisease/{id}', 'HomeController@testlistbydisease')->name('testlistbydisease');
 Route::get('/testbydisease', 'HomeController@testbydisease')->name('testbydisease');
 Route::get('/blog/{slug?}', 'HomeController@blog')->name('blog');
-Route::get('/post/{slug}', 'HomeController@post_detail')->name('post_detail');
+Route::get('/blog/post/{slug}', 'HomeController@post_detail')->name('post_detail');
 Route::get('/faq', 'HomeController@faq')->name('faq');
 Route::get('/how-to-order', 'HomeController@howToOrder')->name('how-to-order');
 Route::get('/about-us','HomeController@aboutUs')->name('about_us');
