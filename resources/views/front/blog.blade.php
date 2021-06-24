@@ -96,6 +96,7 @@
                         <div class="clearfix"></div>
                     @endif
                 @endforeach
+                <div>{{ $posts->links() }}</div>
             </div>
             <div class="col-sm-4 blogs__sidebar">
                 <div class="sidebar__srch">
