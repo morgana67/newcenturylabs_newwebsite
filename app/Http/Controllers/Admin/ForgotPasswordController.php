@@ -53,10 +53,10 @@ class ForgotPasswordController extends Controller
                 $body =  Functions::replaceBodyEmail($mailConfig->body,$user);
                 $body = str_replace("{{PASSWORD}}", $password, $body);
                 event(new SendMailProcessed($request->email,$mailConfig->subject,$body));
-                \Session::flash('success', 'Your new password has been emailed.');
+                \Session::flash('success', 'A new password reset has been resent to '. $request->email);
                 return redirect()->route('voyager.login');
             } else {
-                return redirect()->back()->withErrors('Email not found.');
+                return redirect()->back()->withErrors('That email does not exist.');
             }
             return redirect()->route('login');
         }catch (\Exception $exception){
