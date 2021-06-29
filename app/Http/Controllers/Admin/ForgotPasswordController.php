@@ -56,8 +56,7 @@ class ForgotPasswordController extends Controller
                 \Session::flash('success', 'Your new password has been emailed.');
                 return redirect()->route('voyager.login');
             } else {
-                \Session::flash('success', 'Email not found.');
-                return redirect()->back();
+                return redirect()->back()->withErrors('Email not found.');
             }
             return redirect()->route('login');
         }catch (\Exception $exception){
