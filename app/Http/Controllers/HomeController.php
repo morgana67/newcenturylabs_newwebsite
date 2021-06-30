@@ -12,7 +12,9 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\CatalogProduct;
 use App\Models\Catalog;
+use TCG\Voyager\Models\Role;
 use DB;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -57,7 +59,34 @@ class HomeController extends Controller
         }else{
             $product = Product::where('slug',$slug)->firstOrFail();
         }
-        return view('front.product-detail', compact('product'));
+
+        $price_for_doctor = $this->getPriceForDoctor($product);
+
+        return view('front.product-detail', compact('product', 'price_for_doctor'));
+    }
+
+    private function getPriceForDoctor($product)
+    {
+        $is_doctor = false;
+        $price = 0;
+
+        $user = user();
+
+        if ($user !== null)
+        {
+            $role = Role::find($user->role_id);
+            if (strtolower($role->name) == 'doctor') {
+                $is_doctor = true;
+                $price = $product->price_for_doctor;
+            }
+        } 
+
+        $price_for_doctor = [
+            'is_doctor' => $is_doctor,
+            'price'     => $price
+        ];
+
+        return $price_for_doctor;
     }
 
     public function bundle(){

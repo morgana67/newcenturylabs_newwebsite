@@ -35,13 +35,26 @@
                                     $price = $product->price;
                                 }
                             @endphp
-                            @if ($product->sale_price != null)
-                                <h2><sup>{{setting('site.currency')}}</sup>{{ format_price($price)}}</h2>
+                            @if($price_for_doctor['is_doctor'])
+                                @if($price_for_doctor['price'] > 0)
+                                @php $price = $price_for_doctor['price']; @endphp
+                                <h2><sup>{{setting('site.currency')}}</sup>{{ format_price($price_for_doctor['price']) }}</h2>
                                 <strong>Average competitors price</strong>
                                 <h4><sup>{{setting('site.currency')}}</sup>{{  format_price($product->price) }}</h4>
-                            @else
-                                <h2><sup>{{setting('site.currency')}}</sup>{{ $price }}</h2>
+                                @else
+                                <h2><sup>{{setting('site.currency')}}</sup>{{ format_price($price) }}</h2>
                                 <strong>Average competitors price</strong>
+                                <h4><sup>{{setting('site.currency')}}</sup>{{  format_price($product->price) }}</h4>
+                                @endif
+                            @else
+                                @if ($product->sale_price != null)
+                                    <h2><sup>{{setting('site.currency')}}</sup>{{ format_price($price)}}</h2>
+                                    <strong>Average competitors price</strong>
+                                    <h4><sup>{{setting('site.currency')}}</sup>{{  format_price($product->price) }}</h4>
+                                @else
+                                    <h2><sup>{{setting('site.currency')}}</sup>{{ $price }}</h2>
+                                    @endif
+                                    <strong>Average competitors price</strong>
                             @endif
                             <strong>Pricing based on average direct to consumer pricing.</strong>
                             <div class="checkout-area">
