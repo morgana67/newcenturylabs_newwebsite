@@ -1,6 +1,6 @@
 @extends('layouts.site')
 @section('title'){{ $product->name }}@endsection
-@section('description'){{ strip_tags($product->description) }}@endsection
+@section('description'){{ strip_tags($product->short_description) !== '' ? strip_tags($product->short_description) : config('front.meta_description') }}@endsection
 @section('keywords'){{ $product->keywords }}@endsection
 @section('content')
     <section class="bnr-area page-bnr-area bg-full bg-cntr valigner"
