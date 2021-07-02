@@ -4,7 +4,7 @@
     $body = json_decode($page->body);
 @endphp
 @extends('layouts.site')
-@section('title'){{ $page->title }}@endsection
+@section('title'){{ $page->meta_title }}@endsection
 @section('description'){{ $page->meta_description }}@endsection
 @section('keywords'){{ $page->meta_keywords }}@endsection
 @section('content')

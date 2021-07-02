@@ -11,6 +11,12 @@
 </div>
 
 <div class="form-group col-md-12 ">
+    <label class="control-label" for="name">Meta Title</label>
+    <input type="text" class="form-control" name="meta_title" placeholder="Meta Title"
+           value="{{old('meta_title',$page->meta_title)}}">
+</div>
+
+<div class="form-group col-md-12 ">
     <label class="control-label" for="name">Meta Keywords</label>
     <input type="text" class="form-control" name="meta_keywords" placeholder="Meta Keywords"
            value="{{old('meta_keywords',$page->meta_keywords)}}">
