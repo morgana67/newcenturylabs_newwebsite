@@ -1,5 +1,5 @@
 @extends('layouts.site')
-@section('title'){{ 'Test By Disease' }}@endsection
+@section('title'){{ 'Test Menu' }}@endsection
 @section('description'){{'Test By Disease'}}@endsection
 @section('keywords'){{'Test By Disease'}}@endsection
 @section('content')
