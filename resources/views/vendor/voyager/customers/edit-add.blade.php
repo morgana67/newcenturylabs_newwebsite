@@ -60,7 +60,7 @@
                             @foreach($dataTypeRows as $row)
                             <!-- GET THE DISPLAY OPTIONS -->
                                 @php
-                                    if(in_array($row->field, ['physician_name', 'physician_license_number', 'physician_npi_number', 'special_requests'])) {
+                                    if(in_array($row->field, ['physician_name', 'physician_license_number', 'physician_npi_number', 'draw_patients', 'blood_draw', 'special_requests'])) {
                                         $rowTemp[] = $row;
                                         continue;
                                     }
