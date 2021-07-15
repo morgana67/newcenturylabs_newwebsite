@@ -59,6 +59,8 @@ class ProfileController extends Controller
                     $dataCustomer['physician_name'] = $request->physician_name;
                     $dataCustomer['physician_license_number'] = $request->physician_license_number;
                     $dataCustomer['physician_npi_number'] = $request->physician_npi_number;
+                    $dataCustomer['draw_patients'] = $request->draw_patients;
+                    $dataCustomer['blood_draw'] = $request->blood_draw;
                     $dataCustomer['special_requests'] = $request->special_requests;
                 }
 
