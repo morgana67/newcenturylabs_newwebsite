@@ -46,6 +46,8 @@ Route::get('/results','PwnhealthController@status')->name('webhooks_status');
 
 
 Auth::routes();
+Route::get('/doctor-register','Auth\RegisterController@doctorRegister')->name('doctorRegister');
+
 
 Route::post('/post-register','Auth\RegisterController@postRegister')->name('postRegister');
 Route::post('/reset-password','Auth\ResetPasswordController@reset_password')->name('resetPassword');

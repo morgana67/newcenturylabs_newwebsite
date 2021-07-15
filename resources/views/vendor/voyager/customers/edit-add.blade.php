@@ -23,7 +23,6 @@
     <div class="page-content edit-add container-fluid">
         <div class="row">
             <div class="col-md-12">
-
                 <div class="panel panel-bordered">
                     <!-- form start -->
                     <form role="form"
@@ -31,6 +30,8 @@
                           action="{{ $edit ? route('voyager.'.$dataType->slug.'.update', $dataTypeContent->getKey()) : route('voyager.'.$dataType->slug.'.store') }}"
                           method="POST" enctype="multipart/form-data">
                         <!-- PUT Method if we are editing -->
+                        <h3 style="margin-left: 15px">Customer Information</h3>
+
                     @if($edit)
                         {{ method_field("PUT") }}
                     @endif
@@ -53,12 +54,16 @@
                         <!-- Adding / Editing -->
                             @php
                                 $dataTypeRows = $dataType->{($edit ? 'editRows' : 'addRows' )};
+                                $rowTemp = [];
                             @endphp
 
                             @foreach($dataTypeRows as $row)
                             <!-- GET THE DISPLAY OPTIONS -->
-
                                 @php
+                                    if(in_array($row->field, ['physician_name', 'physician_license_number', 'physician_npi_number', 'special_requests'])) {
+                                        $rowTemp[] = $row;
+                                        continue;
+                                    }
                                     $display_options = $row->details->display ?? NULL;
                                     if ($dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')}) {
                                         $dataTypeContent->{$row->field} = $dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')};
@@ -69,8 +74,7 @@
                                             style="background-color: {{ $row->details->legend->bgcolor ?? '#f0f0f0' }};padding: 5px;">{{ $row->details->legend->text }}</legend>
                                 @endif
 
-                                <div
-                                    class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width ?? 12 }} {{ $errors->has($row->field) ? 'has-error' : '' }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                <div class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width ?? 12 }} {{ $errors->has($row->field) ? 'has-error' : '' }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
                                     {{ $row->slugify }}
                                     <label class="control-label"
                                            for="name">{{ $row->getTranslatedAttribute('display_name') }}</label>
@@ -93,13 +97,30 @@
                                     @endif
                                 </div>
                             @endforeach
-                            <div class="form-group col-sm-12 {{ $errors->has('state') ? 'has-error' : '' }}">
+                            <div class="form-group col-sm-6 ">
+                                <label class="control-label" for="country">Country</label>
+                                <input class="form-control" name="country" type="text" value="{{!empty($dataTypeContent->address) ? $dataTypeContent->address->country(): 'Country United States (US)'}}" readonly>
+                            </div>
+                            <div class="form-group col-sm-6 {{ $errors->has('zip') ? 'has-error' : '' }}">
+                                <label class="control-label" for="zip">Zip</label>
+                                <input placeholder="Postal Code / Zipcode" class="form-control"
+                                       name="zip"
+                                       type="text"
+                                       value="{{old('zip',!empty($dataTypeContent->address) ? $dataTypeContent->address->zip : null)}}">
+                                @if ($errors->has('zip'))
+                                    @foreach ($errors->get('zip') as $error)
+                                        <span class="help-block">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+
+                            <div class="form-group col-sm-6 {{ $errors->has('state') ? 'has-error' : '' }}">
                                 <label class="control-label" for="phone">State</label>
                                 <select name="state" id="state" required class="form-control">
                                     <option value="">State *</option>
                                     @foreach(\App\Models\State::get() as $state)
                                         <option
-                                            {{old('state',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->state : null) == $state->code ? 'selected' : ''}} value="{{$state->code}}">{{$state->title}}</option>
+                                            {{old('state',!empty($dataTypeContent->address) ? $dataTypeContent->address->state : null) == $state->code ? 'selected' : ''}} value="{{$state->code}}">{{$state->title}}</option>
                                     @endforeach
                                 </select>
                                 @if ($errors->has('state'))
@@ -108,49 +129,34 @@
                                     @endforeach
                                 @endif
                             </div>
-
                             <div
-                                class="form-group col-sm-12 {{ $errors->has('city') ? 'has-error' : '' }}">
+                                class="form-group col-sm-6 {{ $errors->has('city') ? 'has-error' : '' }}">
                                 <label class="control-label" for="City">City</label>
                                 <input placeholder="City" class="form-control" name="city" type="text"
-                                       value="{{old('city',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->city : null)}}">
+                                       value="{{old('city',!empty($dataTypeContent->address) ? $dataTypeContent->address->city : null)}}">
                                 @if ($errors->has('city'))
                                     @foreach ($errors->get('city') as $error)
                                         <span class="help-block">{{ $error }}</span>
                                     @endforeach
                                 @endif
                             </div>
-                            <div
-                                class="form-group col-sm-12 {{ $errors->has('address') ? 'has-error' : '' }}">
+                            <div class="form-group col-sm-12 {{ $errors->has('address') ? 'has-error' : '' }}">
                                 <label class="control-label" for="address">Address</label>
                                 <input placeholder="Address" class="form-control" name="address"
                                        type="text"
-                                       value="{{old('address',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->address : null)}}">
+                                       value="{{old('address',!empty($dataTypeContent->address) ? $dataTypeContent->address->address : null)}}">
                                 @if ($errors->has('address'))
                                     @foreach ($errors->get('address') as $error)
                                         <span class="help-block">{{ $error }}</span>
                                     @endforeach
                                 @endif
                             </div>
-                            <div
-                                class="form-group col-sm-12 {{ $errors->has('zip') ? 'has-error' : '' }}">
-                                <label class="control-label" for="zip">Zip</label>
-                                <input placeholder="Postal Code / Zipcode" class="form-control"
-                                       name="zip"
-                                       type="text"
-                                       value="{{old('zip',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->zip : null)}}">
-                                @if ($errors->has('zip'))
-                                    @foreach ($errors->get('zip') as $error)
-                                        <span class="help-block">{{ $error }}</span>
-                                    @endforeach
-                                @endif
-                            </div>
 
                             <div
-                                class="form-group col-sm-12 {{ $errors->has('phone') ? 'has-error' : '' }}">
+                                class="form-group col-sm-6 {{ $errors->has('phone') ? 'has-error' : '' }}">
                                 <label class="control-label" for="phone">Phone</label>
                                 <input placeholder="Phone" class="form-control" name="phone" type="text"
-                                       value="{{old('phone',!empty($dataTypeContent->address[0]) ? $dataTypeContent->address[0]->phone : null)}}">
+                                       value="{{old('phone',!empty($dataTypeContent->address) ? $dataTypeContent->address->phone : null)}}">
                                 @if ($errors->has('phone'))
                                     @foreach ($errors->get('phone') as $error)
                                         <span class="help-block">{{ $error }}</span>
@@ -158,7 +164,55 @@
                                 @endif
                             </div>
 
+                            <div
+                                class="form-group col-sm-6 {{ $errors->has('fax') ? 'has-error' : '' }}">
+                                <label class="control-label" for="fax">FAX</label>
+                                <input placeholder="Fax" class="form-control" name="fax" type="text"
+                                       value="{{old('fax',!empty($dataTypeContent->address) ? $dataTypeContent->address->fax : null)}}">
+                                @if ($errors->has('fax'))
+                                    @foreach ($errors->get('fax') as $error)
+                                        <span class="help-block">{{ $error }}</span>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div class="doctor-info hide" style="display: block" >
+                            <h3>Doctor Information</h3>
+                            @foreach($rowTemp as $row)
+                                @php
+                                    $display_options = $row->details->display ?? NULL;
+                                    if ($dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')}) {
+                                        $dataTypeContent->{$row->field} = $dataTypeContent->{$row->field.'_'.($edit ? 'edit' : 'add')};
+                                    }
+                                @endphp
+                                @if (isset($row->details->legend) && isset($row->details->legend->text))
+                                    <legend class="text-{{ $row->details->legend->align ?? 'center' }}"
+                                            style="background-color: {{ $row->details->legend->bgcolor ?? '#f0f0f0' }};padding: 5px;">{{ $row->details->legend->text }}</legend>
+                                @endif
 
+                                <div class="form-group @if($row->type == 'hidden') hidden @endif col-md-{{ $display_options->width ?? 12 }} {{ $errors->has($row->field) ? 'has-error' : '' }}" @if(isset($display_options->id)){{ "id=$display_options->id" }}@endif>
+                                    {{ $row->slugify }}
+                                    <label class="control-label"
+                                           for="name">{{ $row->getTranslatedAttribute('display_name') }}</label>
+                                    @include('voyager::multilingual.input-hidden-bread-edit-add')
+                                    @if (isset($row->details->view))
+                                        @include($row->details->view, ['row' => $row, 'dataType' => $dataType, 'dataTypeContent' => $dataTypeContent, 'content' => $dataTypeContent->{$row->field}, 'action' => ($edit ? 'edit' : 'add'), 'view' => ($edit ? 'edit' : 'add'), 'options' => $row->details])
+                                    @elseif ($row->type == 'relationship')
+                                        @include('voyager::formfields.relationship', ['options' => $row->details])
+                                    @else
+                                        {!! app('voyager')->formField($row, $dataType, $dataTypeContent) !!}
+                                    @endif
+
+                                    @foreach (app('voyager')->afterFormFields($row, $dataType, $dataTypeContent) as $after)
+                                        {!! $after->handle($row, $dataType, $dataTypeContent) !!}
+                                    @endforeach
+                                    @if ($errors->has($row->field))
+                                        @foreach ($errors->get($row->field) as $error)
+                                            <span class="help-block">{{ $error }}</span>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            @endforeach
+                            </div>
                             <div class="panel-footer">
                                 @section('submit-buttons')
                                     <button type="submit"
@@ -166,6 +220,7 @@
                                 @stop
                                 @yield('submit-buttons')
                             </div>
+                        </div>
                     </form>
 
                     <iframe id="form_target" name="form_target" style="display:none"></iframe>
@@ -285,6 +340,15 @@
                 $('#confirm_delete_modal').modal('hide');
             });
             $('[data-toggle="tooltip"]').tooltip();
+
+            $('[name="role_id"]').on('change', () => {
+                const role = $('[name="role_id"]').val();
+                if(role == 1) {
+                    $('.doctor-info').removeClass('hide');
+                } else {
+                    $('.doctor-info').addClass('hide');
+                }
+            }).trigger('change');
         });
     </script>
 @stop

@@ -131,16 +131,22 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
         $condition = [
             'firstName' => ['required', 'string', 'max:191'],
             'lastName' => ['required', 'string', 'max:191'],
+            'email' => ['required', 'string', 'email', 'max:191'],
             'state' => 'required|max:191',
             'city' => 'required|max:191',
             'address' => 'required|max:191',
-            'zip' => 'required|numeric',
-            'dob' => 'nullable|'.'before:' . date('Y-m-d'),
-            'phone' => 'required|numeric',
+            'zip' => 'required|max:191',
+            'phone' => 'required|regex:/^[01]?[- .]?([2-9]\d{2})?[- .]?\d{3}[- .]?\d{4}$/',
             'facebook' => 'nullable|url',
             'twitter' => 'nullable|url',
             'instagram' => 'nullable|url',
         ];
+        if($request->role_id == 1) {
+            $condition['physician_name'] = 'required|string|max:191';
+            $condition['physician_license_number'] = 'required|max:191';
+            $condition['physician_npi_number'] = 'required|max:191';
+        }
+
         if(!empty($request->password)){
             $condition['password'] = ['required', 'min:8'];
         }
@@ -154,19 +160,31 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
             $dataCustomer = [
                 'firstName' => $request['firstName'],
                 'lastName' => $request['lastName'],
+                'email' => $request['email'],
                 'gender' => $request['gender'],
                 'role_id' => $request['role_id'],
                 'dob' => $request['dob'],
                 'token' => Hash::make($request['email']. $request['password']),
+                'facebook' => $request->facebook,
+                'twitter' => $request->twitter,
+                'instagram' => $request->instagram,
             ];
+            if($request->role_id == 1) {
+                $dataCustomer['physician_name'] = $request->physician_name;
+                $dataCustomer['physician_license_number'] = $request->physician_license_number;
+                $dataCustomer['physician_npi_number'] = $request->physician_npi_number;
+                $dataCustomer['special_requests'] = $request->special_requests;
+            }
 
             if(!empty($request->password)){
                 $dataCustomer['password'] = Hash::make($request['password']);
             }
+
             $customer = Customer::where('id',$id)->update($dataCustomer);
 
             $dataAddress = [
                 'phone' => $request['phone'],
+                'fax' => $request['fax'],
                 'country_id' => 230,
                 'state' => $request['state'],
                 'city' => $request['city'],
@@ -251,8 +269,7 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
 
         // Check permission
         $this->authorize('add', app($dataType->model_name));
-
-        $validator = Validator::make($request->all(), [
+        $condition = [
             'firstName' => ['required', 'string', 'max:191'],
             'lastName' => ['required', 'string', 'max:191'],
             'email' => ['required', 'string', 'email', 'max:191', 'unique:customers'],
@@ -261,12 +278,19 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
             'city' => 'required|max:191',
             'address' => 'required|max:191',
             'zip' => 'required|numeric',
-            'dob' => 'nullable|'.'before:' . date('Y-m-d'),
-            'phone' => 'required|numeric',
+            'dob' => 'nullable|before:' . date('Y-m-d'),
+            'phone' => 'required',
             'facebook' => 'nullable|url',
             'twitter' => 'nullable|url',
             'instagram' => 'nullable|url',
-        ]);
+        ];
+        if($request->role_id == 1) {
+            $condition['physician_name'] = 'required|string|max:191';
+            $condition['physician_license_number'] = 'required|max:191';
+            $condition['physician_npi_number'] = 'required|max:191';
+        }
+
+        $validator = Validator::make($request->all(), $condition);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
@@ -283,13 +307,24 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
                 'role_id' => $request['role_id'],
                 'dob' => $request['dob'],
                 'token' => Hash::make($request['email']. $request['password']),
+                'facebook' => $request->facebook,
+                'twitter' => $request->twitter,
+                'instagram' => $request->instagram,
             ];
+
+            if($request->role_id == 1) {
+                $dataCustomer['physician_name'] = $request->physician_name;
+                $dataCustomer['physician_license_number'] = $request->physician_license_number;
+                $dataCustomer['physician_npi_number'] = $request->physician_npi_number;
+                $dataCustomer['special_requests'] = $request->special_requests;
+            }
 
             $customer = Customer::create($dataCustomer);
 
             $dataAddress = [
                 'customer_id' => $customer->id,
                 'phone' => $request['phone'],
+                'fax' => $request['fax'],
                 'country_id' => 230,
                 'state' => $request['state'],
                 'city' => $request['city'],
@@ -297,11 +332,10 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
                 'zip' => $request['zip']
             ];
             Address::insert($dataAddress);
-            DB::commit();
             $mailConfig = MailConfig::where('code','=','new_customer')->first();
             $body =  Functions::replaceBodyEmail($mailConfig->body,$customer);
             event(new SendMailProcessed($request['email'],$mailConfig->subject,$body));
-
+            DB::commit();
             return redirect()
                 ->route("voyager.{$dataType->slug}.index")
                 ->with([

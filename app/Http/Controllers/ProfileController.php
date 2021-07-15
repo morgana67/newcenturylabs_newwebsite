@@ -17,10 +17,10 @@ class ProfileController extends Controller
             return $query->where('addressType','=','billing');
         }])->first();
         if($request->isMethod('POST')){
-            $validator = Validator::make($request->all(), [
+            $condition = [
                 'firstName' => ['required', 'string', 'max:191'],
                 'lastName' => ['required', 'string', 'max:191'],
-                'email' => 'required|unique:customers,email,'.user()->getAuthIdentifier(),
+                'email' => ['required', 'string', 'email', 'max:191'],
                 'state' => 'required|max:191',
                 'city' => 'required|max:191',
                 'address' => 'required|max:191',
@@ -29,7 +29,14 @@ class ProfileController extends Controller
                 'facebook' => 'nullable|url',
                 'twitter' => 'nullable|url',
                 'instagram' => 'nullable|url',
-            ]);
+            ];
+            if($user->role_id == 1) {
+                $condition['physician_name'] = 'required|string|max:191';
+                $condition['physician_license_number'] = 'required|max:191';
+                $condition['physician_npi_number'] = 'required|max:191';
+            }
+
+            $validator = Validator::make($request->all(), $condition);
 
             if ($validator->fails()) {
                 return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
@@ -42,26 +49,31 @@ class ProfileController extends Controller
                     'lastName' => $request['lastName'],
                     'email' => $request['email'],
                     'gender' => $request['gender'],
-                    'dob' => $request['year'] . "-" . $request['month'] . "-" . $request['date'],
-                    'facebook' => $request['facebook'],
-                    'twitter' => $request['twitter'],
-                    'instagram' => $request['instagram'],
+                    'dob' => $request['dob'],
+                    'token' => \Illuminate\Support\Facades\Hash::make($request['email']. $request['password']),
+                    'facebook' => $request->facebook,
+                    'twitter' => $request->twitter,
+                    'instagram' => $request->instagram,
                 ];
+                if($request->role_id == 1) {
+                    $dataCustomer['physician_name'] = $request->physician_name;
+                    $dataCustomer['physician_license_number'] = $request->physician_license_number;
+                    $dataCustomer['physician_npi_number'] = $request->physician_npi_number;
+                    $dataCustomer['special_requests'] = $request->special_requests;
+                }
 
                 $customerId = Customer::where('id',user()->getAuthIdentifier())->update($dataCustomer);
 
                 $dataAddress = [
                     'phone' => $request['phone'],
+                    'fax' => $request['fax'],
                     'country_id' => 230,
                     'state' => $request['state'],
                     'city' => $request['city'],
                     'address' => $request['address'],
                     'zip' => $request['zip']
                 ];
-                Address::where([
-                    ['customer_id' , '=', user()->getAuthIdentifier()],
-                    ['addressType', '=', 'billing']
-                ])->update($dataAddress);
+                Address::where('customer_id',$user->id)->update($dataAddress);
                 DB::commit();
                 message_set('Profile updated successfully','success');
                 return redirect()->back();

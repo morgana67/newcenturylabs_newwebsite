@@ -10,6 +10,6 @@ class Customer extends Authenticatable
     protected $table = 'customers';
     protected $guarded = ['id'];
     public function address(){
-        return $this->hasMany('App\Models\Address','customer_id','id');
+        return $this->belongsTo('App\Models\Address','id','customer_id');
     }
 }

@@ -85,7 +85,8 @@ class RegisterController extends Controller
      */
     public function postRegister(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $role = 2;
+        $validation = [
             'firstName' => ['required', 'string', 'max:191'],
             'lastName' => ['required', 'string', 'max:191'],
             'email' => ['required', 'string', 'email', 'max:191', 'unique:customers'],
@@ -95,7 +96,15 @@ class RegisterController extends Controller
             'address' => 'required|max:191',
             'zip' => 'required|max:191',
             'phone' => 'required|regex:/^[01]?[- .]?([2-9]\d{2})?[- .]?\d{3}[- .]?\d{4}$/',
-        ]);
+        ];
+        if(isset($request->is_doctor_register)) {
+            $validation['physician_name'] = 'required|string|max:191';
+            $validation['physician_license_number'] = 'required|max:191';
+            $validation['physician_npi_number'] = 'required|max:191';
+            $role = 1;
+        }
+
+        $validator = Validator::make($request->all(), $validation);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
@@ -109,12 +118,18 @@ class RegisterController extends Controller
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
                 'gender' => $request['gender'],
-                'role_id' => 2,
+                'role_id' => $role,
                 'isVerified' => 0,
                 'dob' => $request['year'] . "-" . $request['month'] . "-" . $request['date'],
                 'token' => Hash::make($request['email']. $request['password']),
-
             ];
+
+            if(isset($request->is_doctor_register)) {
+                $dataCustomer['physician_name'] = $request->physician_name;
+                $dataCustomer['physician_license_number'] = $request->physician_license_number;
+                $dataCustomer['physician_npi_number'] = $request->physician_npi_number;
+                $dataCustomer['special_requests'] = $request->special_requests;
+            }
             $customerId = Customer::insertGetId($dataCustomer);
 
             $dataAddress = [
@@ -124,7 +139,8 @@ class RegisterController extends Controller
                 'state' => $request['state'],
                 'city' => $request['city'],
                 'address' => $request['address'],
-                'zip' => $request['zip']
+                'zip' => $request['zip'],
+                'fax' => $request['fax']
             ];
             Address::insert($dataAddress);
 
@@ -168,5 +184,9 @@ class RegisterController extends Controller
         }
 
         return abort(404);
+    }
+
+    public function doctorRegister() {
+        return view('auth.register', ['is_doctor_register' => true]);
     }
 }

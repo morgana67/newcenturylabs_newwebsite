@@ -11,6 +11,19 @@
         ul li{
             list-style: none;
         }
+        .list_catalog {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            padding: 10px;
+        }
+        .list_catalog > ul{
+            border: 1px solid #3399cc;
+            padding: 20px;
+            margin-bottom: 0;
+        }
+        .list_catalog > ul .parent-product-name{
+            font-weight: bold;
+        }
     </style>
 @stop
 
@@ -101,9 +114,9 @@
                                             @if(isset($catalogs))
                                                 @foreach($catalogs as $catalog)
                                                 <ul id="{{$catalog->id}}">
-                                                    <div class="col-md-4">
-                                                        <li><input type="checkbox" class="check_all" id="{{$catalog->id}}">
-                                                            <label for="{{$catalog->id}}">{{$catalog->name}}</label>
+                                                    <div>
+                                                        <li><input type="checkbox" class="check_all" id="check_all_{{$catalog->id}}" data-id="{{$catalog->id}}">
+                                                            <label for="check_all_{{$catalog->id}}" class="parent-product-name">{{$catalog->name}}</label>
                                                             @if(isset($catalog->children_catalogs))
                                                                 <ul>
                                                                     @foreach($catalog->children_catalogs as $children)
@@ -264,7 +277,8 @@
                 }
             })
             $('.check_all').on('change', function () {
-                $(".sub_cat_" + this.id).prop('checked', $(this).prop('checked'));
+                const element = $(this);
+                $(".sub_cat_" + element.attr('data-id')).prop('checked', element.prop('checked'));
             });
             @if((isset($dataTypeContent) && $dataTypeContent->type != 'additional') || !isset($dataTypeContent))
                 divFieldMandatory.addClass('hide')
