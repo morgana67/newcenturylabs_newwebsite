@@ -55,7 +55,7 @@ class ProfileController extends Controller
                     'twitter' => $request->twitter,
                     'instagram' => $request->instagram,
                 ];
-                if($request->role_id == 1) {
+                if($user->role_id == 1) {
                     $dataCustomer['physician_name'] = $request->physician_name;
                     $dataCustomer['physician_license_number'] = $request->physician_license_number;
                     $dataCustomer['physician_npi_number'] = $request->physician_npi_number;
