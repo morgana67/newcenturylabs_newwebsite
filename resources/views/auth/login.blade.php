@@ -6,14 +6,14 @@
                 <div class="hed"><h2>LOGIN</h2></div>
             </div>
         </section>
-        @if(session()->has('success'))
-            <div class="mt-2 alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {!! session('success') !!}
-            </div>
-        @endif
         <section class="inr-intro-area ">
             <div class="container">
+                @if(session()->has('success'))
+                    <div class="mt-2 alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {!! session('success') !!}
+                    </div>
+                @endif
                 <div class="fom col-sm-6 fom-shad pt20">
                     <div class="col-md-12">
                         @include('layouts.alert')

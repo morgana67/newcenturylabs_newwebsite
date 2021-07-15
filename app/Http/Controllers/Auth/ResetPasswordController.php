@@ -67,14 +67,10 @@ class ResetPasswordController extends Controller
                 $body =  Functions::replaceBodyEmail($mailConfig->body,$customer);
                 $body = str_replace("{{PASSWORD}}", $password, $body);
                 event(new SendMailProcessed($request->email,$mailConfig->subject,$body));
-                \Session::flash('success', 'Your new password has been emailed.');
-                return redirect()->route('login');
+                return redirect()->route('login')->with(['success' => 'Your new password has been emailed.']);
             } else {
-                \Session::flash('success', 'Email not found.');
-                return redirect()->back();
+                return redirect()->back()->withErrors('Email not found.');
             }
-
-            return redirect()->route('login');
         }catch (\Exception $exception){
             return redirect()->back()->withErrors($exception->getMessage());
         }
