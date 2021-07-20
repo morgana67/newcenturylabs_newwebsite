@@ -2,6 +2,16 @@
 @section('title'){{!empty($post->seo_title) ? $post->seo_title : $post->title}}@endsection
 @section('description'){{$post->meta_description}}@endsection
 @section('keywords'){{$post->meta_keywords}}@endsection
+@section('css')
+    <style>
+        .dtl__content > table tr * {
+            width: 100% !important;
+        }
+        .dtl__content > table {
+            width: 100% ;
+        }
+    </style>
+@endsection
 @section('content')
     <section class="blog-post-area">
         <div class="container">
@@ -23,18 +33,18 @@
                     </ul>
                 </div>
                 <div class="dtl__content">
-                    <div class="dtl__content">
+                    <object class="dtl__content">
                         {!! $post->body !!}
-                    </div>
+                    </object>
                 </div>
             </div>
         </div>
     </section>
-    <section class="blog-posted-area pt50 pb50" >
-        <div class="container">
-            <div class="row">
+    <section class="blog-posted-area pb50 container">
+        <hr style="margin: 20px 0">
+        <div class="row">
                 @foreach ($similarPosts as $similarPost)
-                <div class="posted-box col-sm-4">
+                <div class="posted-box col-sm-4 mt20">
                     <div class="posted__img">
                         <img src="{{ image($similarPost->image,'-medium') }}" alt="{{$similarPost->title}}" />
                         <div class="posted__hover">
@@ -53,6 +63,5 @@
                 </div>
                 @endforeach
             </div>
-        </div>
     </section>
 @endsection
