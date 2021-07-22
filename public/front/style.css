@@ -3772,7 +3772,7 @@ body .page-bnr-area {
 
 
     .blogs__articles.post__featured {
-        margin-bottom: 50px;
+        margin-bottom: 0;
         float: left;
         width: 100%;
     }
