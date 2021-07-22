@@ -7,6 +7,7 @@
 
         <form action="{{ route('admin.forgot-password.post') }}" method="POST">
             {{ csrf_field() }}
+            <div class="alert alert-info">This page is for Administrators only to recover their accounts. If you are a Customer or Doctor <a href="{{url('/password/reset')}}" style="text-decoration: underline">click here</a> to recover your password</div>
             <div class="form-group form-group-default" id="emailGroup">
                 <label>{{ __('voyager::generic.email') }}</label>
                 <div class="controls">

@@ -16,9 +16,11 @@
             <div class="container">
                 <div class="fom col-sm-6 fom-shad pt20 p0 pul-cntr">
                     <div class="col-md-12">
+
                         @include('layouts.alert')
                     </div>
                     <div class="form-group col-sm-12">
+                        <div class="alert alert-info">This page is for Customers & Doctors only to recover their passwords. If you are an administrator <a href="{{url('/admin/forgot-password')}}" style="text-decoration: underline">click here</a> to recover your password.</div>
                         <input placeholder="Email *" class="form-control" required="required" name="email" type="email"
                                value="{{old('email')}}" >
                         @error('email')
