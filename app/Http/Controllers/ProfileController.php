@@ -49,7 +49,7 @@ class ProfileController extends Controller
                     'lastName' => $request['lastName'],
                     'email' => $request['email'],
                     'gender' => $request['gender'],
-                    'dob' => $request['dob'],
+                    'dob' => "{$request['year']}-{$request['month']}-{$request['date']}",
                     'token' => \Illuminate\Support\Facades\Hash::make($request['email']. $request['password']),
                     'facebook' => $request->facebook,
                     'twitter' => $request->twitter,
