@@ -4,9 +4,6 @@
 @section('keywords'){{$post->meta_keywords}}@endsection
 @section('css')
     <style>
-        .dtl__content > table tr * {
-            width: 100% !important;
-        }
         .dtl__content > table {
             width: 100% ;
         }
