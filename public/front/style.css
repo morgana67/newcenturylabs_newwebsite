@@ -1872,13 +1872,20 @@ section.ftr-area {
 .dtl__postDay ul{
     padding:25px;
 }
-.dtl__content p{
-    padding:0 25px 25px;
-    line-height: 2;
-    margin-bottom:0;
-    font-size:15px;
-    font-weight:400;
+.dtl__content {
+    padding: 0 25px;
+    font-family: arial, 'helvetica neue', helvetica, sans-serif;
 }
+
+.dtl__content * {
+    max-width: 100% !important;
+    font-family: arial, 'helvetica neue', helvetica, sans-serif;
+}
+.
+/*.dtl__content span, .dtl__content p {*/
+/*    font-size: 15px !important;*/
+/*}*/
+
 .dtl__content ul li{
     list-style-type:none;
     font-size:15px;
@@ -3136,18 +3143,6 @@ table.table.table-topbot, table.table.table-topbot td, table.table.table-topbot 
     width: 100%;
 }
 
-.dtl__content h1 {
-    padding: 0 25px 0;
-}
-
-.dtl__content h2 {
-    padding: 0 25px 0;
-}
-
-.dtl__content h3 {
-    padding: 0 25px 0;
-}
-
 .locations-page .search-fom [type="submit"] {
     padding: 20px 30px;
     left: 0;
@@ -4052,9 +4047,12 @@ section.box-area.text-center.pt20.pb50 {
 /* Kindel Fire HD 8.9in (533x853) Tablets */
 @media only screen and (max-width : 533px) {	}
 
-
 /*iPhone3 Landscape*/
-@media only screen and (max-width : 480px) {	}
+@media only screen and (max-width : 480px) {
+    .dtl__content {
+        padding: 0 15px;
+    }
+}
 
 
 /* iPhone 6 PLUS (414x736) */
