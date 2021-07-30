@@ -230,11 +230,12 @@ class HomeController extends Controller
                     $response = simplexml_load_string($response);
                     $response = json_encode($response);
                     $response = json_decode($response, TRUE);
-                    $locations = $response['location'];
+                    if($response['respcode'] == '200')
+                        $locations = $response['location'];
                 }
 
                 if(count($locations) == 0 ) {
-                    return view('front.locations')->with(['locations' => []])->withErrors(['Not found labs']);
+                    return view('front.locations')->with(['locations' => []])->withErrors(['No locations found']);
                 }
             } catch (\Exception $e) {
                 return view('front.locations')->with(['locations' => []]);
@@ -268,7 +269,7 @@ class HomeController extends Controller
         if($response['respcode'] == '200') {
             $location = $response['location'];
         } else {
-            abort(404,'Data not found');
+            abort(404,'No location found');
         }
         return view('front.location', compact('location'));
     }
