@@ -3086,6 +3086,7 @@ table.table.table-topbot, table.table.table-topbot td, table.table.table-topbot 
     margin-right: 15px;
     color: #ddd;
     text-shadow: 2px 3px 0px #ccc;
+    height: 80px;
 }
 
 .loc__list td:hover div .fa {

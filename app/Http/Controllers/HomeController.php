@@ -8,6 +8,8 @@ use App\Models\DiseaseType;
 use App\Models\LabLocation;
 use App\Models\Page;
 use App\Models\Post;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\CatalogProduct;
@@ -79,7 +81,7 @@ class HomeController extends Controller
                 $is_doctor = true;
                 $price = $product->price_for_doctor;
             }
-        } 
+        }
 
         $price_for_doctor = [
             'is_doctor' => $is_doctor,
@@ -187,58 +189,90 @@ class HomeController extends Controller
     }
 
     public function locations(Request $request){
-        $locations = array();
-        $search['zip'] = $request->input('zip');
-        $search['city'] = $request->input('city');
-        $search['state'] = $request->input('state');
-        $search['search'] = $request->input('search');
+        $search['address'] = $request->input('address');
+        $search['activity'] = $request->input('activity');
+        $search['lat'] = $request->input('lat');
+        $search['lng'] = $request->input('lng');
 
         $locations = array();
-        $subSql = "";
-        $sqlSelect = "";
-        $tableName = "labs_locations";
-        $dist = 9;
-        $orderSql = "";
-        if ($search['search'] == 1) {
-            if ($search['city'] != '') {
-                $subSql .= " and city  like '" . $search['city'] . "%' ";
-            }
-            if ($search['zip'] != '' && is_numeric($search['zip']) && strlen($search['zip']) == 5) {
-
-                $url = "http://maps.googleapis.com/maps/api/geocode/json?address=USA&components=postal_code:" . $search['zip'] . "&sensor=false";
-                $response = Functions::makeCurlRequest($url);
-                $response = json_decode($response);
-                if ($response->status == 'OK') {
-                    if ($search['state'] == "") {
-                        $search['state'] = $response->results['0']->address_components[3]->short_name;
-                    }
-
-                    $lng = $response->results['0']->geometry->location->lng;
-                    $lat = $response->results['0']->geometry->location->lat;
-                    $origLat = $lat;
-                    $origLon = $lng;
-                    $sqlSelect .= ",longitude, 3956 * 2 * ASIN(SQRT( POWER(SIN(($origLat - latitude)*pi()/180/2),2) +COS($origLat*pi()/180 )*COS(latitude*pi()/180)*POWER(SIN(($origLon-longitude)*pi()/180/2),2))) as distance";
-                    $subSql .= " and longitude between ($origLon-$dist/cos(radians($origLat))*69) and ($origLon+$dist/cos(radians($origLat))*69) and latitude between ($origLat-($dist/69)) and ($origLat+($dist/69))";
-                    $orderSql = " order by distance asc";
+        if (!empty($search['address']) && !empty($search['activity']) && !empty($search['lat']) && !empty($search['lng'])) {
+            try {
+                $date = new DateTime('now', new DateTimeZone('UTC'));
+                $dateFormat = $date->format('D, j M Y g:i:s O');
+                $method = "POST";
+                $uri = "/assets/psc/schedule/locations";
+                $key = "{$method}\n\ntext/xml\n\nx-newcentury-date:{$dateFormat}\n{$uri}";
+                $secret = "Q14zeK0turtrszgisqtsgsgsgsc7WzdnlkYZR==";
+                $digestCode = HmacSHA1Encrypt($key, $secret);
+                $xmlRequest = "<request version=\"1.0\">
+                                    <radius>25</radius>
+                                    <coordinates>
+                                        <latitude>{$search['lat']}</latitude>
+                                        <longitude>{$search['lng']}</longitude>
+                                    </coordinates>
+                                    <scheduling>YES</scheduling>
+                                    <activity_id>{$search['activity']}</activity_id>
+                                </request>";
+                $url = "https://services-qa.questdiagnostics.com/assets/psc/schedule/locations";
+                $headers = [
+                    "Authorization: newcentury 1Y58HJ80-4859-43ZF-CEBB-A1763FG37D93:{$digestCode}",
+                    "Date: {$dateFormat}",
+                    "x-newcentury-date: {$dateFormat}",
+                    "Content-Type: text/xml",
+                ];
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, "{$xmlRequest}");
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                $response = curl_exec($ch);
+                $response = simplexml_load_string($response);
+                $response = json_encode($response);
+                $response = json_decode($response, TRUE);
+                if(empty(json_decode($response, TRUE))) {
+                    $response = simplexml_load_string($response);
+                    $response = json_encode($response);
+                    $response = json_decode($response, TRUE);
+                    $locations = $response['location'];
                 }
+
+                if(count($locations) == 0 ) {
+                    return view('front.locations')->with(['locations' => []])->withErrors(['Not found labs']);
+                }
+            } catch (\Exception $e) {
+                return view('front.locations')->with(['locations' => []]);
             }
-
-            if ($search['state'] != "") {
-                $subSql .= " and state =  '" . $search['state'] . "' ";
-            }
-
-
-            $sql = "SELECT id,name,address,city,state,zip,zipCode,address2,longitude,latitude,phone " . $sqlSelect . " FROM $tableName where (longitude<>0 and latitude!=0) " . $subSql . $orderSql;
-            $locations = DB::select($sql);
         }
         return view('front.locations',compact('locations'));
     }
 
-    public function location($id, Request $request) {
-        $search['zip'] = $request->input('zip');
-        $search['city'] = $request->input('city');
-        $search['state'] = $request->input('state');
-        $location = LabLocation::findOrFail($id);
-        return view('front.location', compact('location', 'search'));
+    public function location($site_code, Request $request) {
+        $uri = "/assets/facilities/psc/{$site_code}";
+        $method = "GET";
+        $date = new DateTime('now', new DateTimeZone('UTC'));
+        $dateFormat = $date->format('D, j M Y H:i:s O');
+        $key = "{$method}\n\ntext/xml\n\nx-newcentury-date:{$dateFormat}\n{$uri}";
+        $secret = "Q14zeK0turtrszgisqtsgsgsgsc7WzdnlkYZR==";
+        $digestCode = HmacSHA1Encrypt($key, $secret);
+        $url = "https://services-qa.questdiagnostics.com{$uri}";
+        $headers = [
+            "Authorization: newcentury 1Y58HJ80-4859-43ZF-CEBB-A1763FG37D93:{$digestCode}",
+            "Date: {$dateFormat}",
+            "x-newcentury-date: {$dateFormat}",
+            "Content-Type: text/xml",
+        ];
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($ch);
+        $response = simplexml_load_string($response);
+        $response = json_encode($response);
+        $response = json_decode($response, TRUE);
+        if($response['respcode'] == '200') {
+            $location = $response['location'];
+        } else {
+            abort(404,'Data not found');
+        }
+        return view('front.location', compact('location'));
     }
 }

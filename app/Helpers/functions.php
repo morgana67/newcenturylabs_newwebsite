@@ -94,3 +94,32 @@ if (!function_exists('generateToken')) {
         return $jwt;
     }
 }
+
+if (!function_exists('pscActivities')) {
+    function pscActivities()
+    {
+        return [
+          ['value' => '1', 'display' => 'Routine'],
+          ['value' => '2', 'display' => 'Drug screen'],
+          ['value' => '3', 'display' => 'Pediatric draw'],
+          ['value' => '4', 'display' => 'Glucose tolerance'],
+          ['value' => '8', 'display' => 'Semen Analysis'],
+          ['value' => '5', 'display' => 'Lab card'],
+          ['value' => '20', 'display' =>  'BFW'],
+          ['value' => '21', 'display' =>  'BFW with biometrics'],
+          ['value' => '22', 'display' =>  'QUANTIFERON-TB GOLD (Tspot)'],
+          ['value' => '23', 'display' =>  'All of Us (Client specific)'],
+          ['value' => '25', 'display' =>  'COVID Antibody Test'],
+          ['value' => '26', 'display' =>  'COVID Antibody Test'],
+          ['value' => '27', 'display' =>  'COVID Walmart'],
+        ];
+    }
+}
+
+if (!function_exists('HmacSHA1Encrypt')) {
+    function HmacSHA1Encrypt(String $encryptText,String $encryptKey ){
+        $hash_hmac = hash_hmac("sha1",$encryptText,$encryptKey,true);
+        $signature = base64_encode($hash_hmac);
+        return $signature;
+    }
+}

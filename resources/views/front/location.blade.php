@@ -1,11 +1,32 @@
 @extends('layouts.site')
+@section('css')
+    <style>
+        .loc__contact-info li {
+            padding-left: 0 !important;
+        }
+        .loc__contact-info li .title{
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .loc__contact-info li .operation_hours{
+            padding: 5px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .font-bold {
+            font-weight: bold !important;
+        }
 
+    </style>
+@stop
 @section('content')
     <section class="inr-bnr-blank">
         <div class="container">
             <div class="hed">
-                <h2>{{$location->name}} {{$location->city}} {{$location->address2}}</h2>
-                <span>{{$location->address}}, {{$location->city}}, {{$location->zip}}</span>
+                <h2>{{$location['site_name'] . " " . $location['site_descriptor']}}</h2>
+                <h4>{{$location['address_1']}} {{$location['city']}}, {{$location['state_abbreviation']}} {{$location['zipcode']}}</h4>
+                <h5>{{$location['address_landmark']}}</h5>
             </div>
         </div>
     </section>
@@ -20,9 +41,26 @@
 
                 <div class="loc__contact-info list-icon clrlist listview">
                     <ul>
-                        <li> <i class="fa fa-clock-o"></i> <strong>Operation Hours :</strong><br> {!! $location->operationHours !!}</li>
-                        <li> <i class="fa fa-phone"></i> <strong>Phone :</strong> {!! $location->phone !!}</li>
-                        <li> <i class="fa fa-fax"></i>  <strong>Fax :</strong> {!! $location->fax !!}</li>
+                        <li>
+                            <i class="fa fa-clock-o"></i>
+                            <div><span class="title">Operation Hours</span></div>
+                            @foreach($location['standardized_operation_hours'] as $dayOfWeek => $timeOpen)
+                                <div class="operation_hours @if(date('D') == substr($dayOfWeek,0,3)) font-bold @endif">
+                                    <span>{{$dayOfWeek}}</span>
+                                    <span>{{$timeOpen == "X" ? "CLOSED" : $timeOpen}}</span>
+                                </div>
+                            @endforeach
+                        </li>
+                        <li>
+                            <i class="fa fa-phone"></i>
+                            <div><span class="title">Phone</span></div>
+                            <div><span></span></div>
+                        </li>
+                        <li>
+                            <i class="fa fa-fax"></i>
+                            <div><span class="title">Fax</span></div>
+                            <div><span></span></div>
+                        </li>
                     </ul>
                 </div>
 
@@ -66,7 +104,7 @@
     </section>
     <script>
         function initMap() {
-            var uluru = {lat: {{ $location->latitude }}, lng: {{ $location->longitude }}};
+            var uluru = {lat: {{ $location['latitude'] }}, lng: {{ $location['longitude'] }}};
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 17,
                 center: uluru
@@ -74,7 +112,7 @@
             var marker = new google.maps.Marker({
                 position: uluru,
                 map: map,
-                title: '{{ $location->address }}'
+                title: '{{$location['site_name'] . " " . $location['site_descriptor']}}'
             });
         }
     </script>

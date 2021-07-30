@@ -41,24 +41,21 @@
             <div class="container">
                 <div class="map-area loc__fom col-sm-12 p0">
                     <form method="get" class="search-fom rds mb30" action="{{route('locations')}}">
-                        <div class="form-group col-sm-3">
-                            <label for="search">City</label>
-                            <input type="text" placeholder="City" class="form-control" name="city" id="city"
-                                   autocomplete="off" value="{{request()->get('city')}}">
+                        <input type="hidden" id="lat" name="lat" value="{{request()->get('lat')}}"/>
+                        <input type="hidden" id="lng" name="lng" {{request()->get('lng')}}/>
+                        <div class="form-group col-sm-5">
+                            <label for="search">Address</label>
+                            <input type="text" placeholder="Enter a location" class="form-control" name="address" id="address" required
+                                   autocomplete="off" value="{{request()->get('address')}}">
                         </div>
-                        <div class="form-group col-sm-3">
-                            <label for="search">State</label>
-                            <select id="state" class="form-control" name="state">
-                                <option value="" selected="selected">Select State</option>
-                                @foreach(\App\Models\State::get() as $state)
-                                    <option {{request()->get('state') == $state->code ? 'selected' : ''}} value="{{$state->code}}">{{$state->title}}</option>
+                        <div class="form-group col-sm-4">
+                            <label for="search">What testing do you need?</label>
+                            <select id="activity" class="form-control" name="activity" required>
+                                <option value="" >Select an Option</option>
+                                @foreach(pscActivities() as $pscActivity)
+                                    <option {{request()->get('activity') == $pscActivity['value'] ? 'selected' : ''}} value="{{$pscActivity['value']}}">{{$pscActivity['display']}}</option>
                                 @endforeach
                             </select>
-                        </div>
-                        <div class="form-group col-sm-3">
-                            <label for="search">Zip</label>
-                            <input type="text" placeholder="zip" class="form-control" name="zip" id="zip"
-                                   autocomplete="off" value="{{request()->get('zip')}}">
                         </div>
                         <div class="form-group  col-sm-3">
                             <input type="hidden" name="search" id="search" value="1">
@@ -69,6 +66,9 @@
                     <div id="suggested_locations" style="display:none;" class="form-group has-feedback"></div>
                 </div>
                 <div class="map-area loc__list col-sm-12 p0">
+                    @if($errors->count() > 0 )
+                        <div class="alert alert-danger">Not found labs</div>
+                    @endif
                     @if(count($locations) > 0)
                         <table id="example" class="table table-area0 table-striped table-bordered" cellspacing="0"
                                width="100%">
@@ -79,26 +79,14 @@
                             </thead>
                             <tbody>
                             @foreach($locations as $location)
-                                <?php
-                                if (isset($location->distance) && $location->distance >= 50) {
-                                    break;
-                                }
-                                ?>
                                 <tr>
                                     <td>
-                                        <div id="BDV1" class="clrhm">
-                                            <a tabindex="1" href="{{url('location')}}/<?php echo $location->id ?>"><i
-                                                    class="fa fa-map-marker fa-2x"></i>
-                                                <h3>
-                                                    {{$location->name}} {{$location->city}} {{$location->address2}}</h3>
-                                                <span>
-                                                {{$location->address}}, {{$location->city}}
-                                                    {{$location->state}}
-                                                    {{$location->zipCode}}
-                                                    @if(isset($location->distance))
-                                                         Distance : {{round($location->distance, 1)}} mi,
-                                                   @endif
-											</span>
+                                        <div id="{{$location['site_code']}}" class="clrhm">
+                                            <a tabindex="1" href="{{url('location')}}/{{$location['site_code']}}">
+                                                <i class="fa fa-map-marker fa-2x"></i>
+                                                <span style="color: gray">10.09 miles</span>
+                                                <h3> {{$location['site_name']}} </h3>
+                                                <span> {{$location['address_1']}} {{$location['city']}}, {{$location['state_abbreviation']}} {{$location['zipcode']}} </span>
                                             </a>
                                         </div>
                                     </td>
@@ -107,7 +95,6 @@
                             <tbody>
                         </table>
                     @endif
-
                 </div>
             </div>
         </section>
@@ -149,8 +136,17 @@
     </section>
 @endsection
 @section('script')
-    <script src="{{asset('front/plugin/select2/js/select2.min.js')}}"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVcyoaSTt87wUZ1d1765PX6Nl0LUV4iSA&libraries=places&callback=initialize"></script>
     <script>
-        $('#state').select2({});
+        function initialize() {
+            var input = document.getElementById('address');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                debugger;
+                var place = autocomplete.getPlace();
+                document.getElementById('lat').value = place.geometry.location.lat();
+                document.getElementById('lng').value = place.geometry.location.lng();
+            });
+        }
     </script>
 @stop
