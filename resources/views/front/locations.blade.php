@@ -84,7 +84,7 @@
                                         <div id="{{$location['site_code']}}" class="clrhm">
                                             <a tabindex="1" href="{{url('location')}}/{{$location['site_code']}}">
                                                 <i class="fa fa-map-marker fa-2x"></i>
-                                                <span style="color: gray">10.09 miles</span>
+                                                <span style="color: gray">{{$location['distance']}} miles</span>
                                                 <h3> {{$location['site_name']}} </h3>
                                                 <span> {{$location['address_1']}} {{$location['city']}}, {{$location['state_abbreviation']}} {{$location['zipcode']}} </span>
                                             </a>
