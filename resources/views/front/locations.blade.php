@@ -42,7 +42,7 @@
                 <div class="map-area loc__fom col-sm-12 p0">
                     <form method="get" class="search-fom rds mb30" action="{{route('locations')}}">
                         <input type="hidden" id="lat" name="lat" value="{{request()->get('lat')}}"/>
-                        <input type="hidden" id="lng" name="lng" {{request()->get('lng')}}/>
+                        <input type="hidden" id="lng" name="lng" value="{{request()->get('lng')}}"/>
                         <div class="form-group col-sm-5">
                             <label for="search">Address</label>
                             <input type="text" placeholder="Enter a location" class="form-control" name="address" id="address" required
