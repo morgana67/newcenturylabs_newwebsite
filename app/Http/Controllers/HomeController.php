@@ -226,9 +226,6 @@ class HomeController extends Controller
                 curl_setopt($ch, CURLOPT_POSTFIELDS, "{$xmlRequest}");
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                 $response = curl_exec($ch);
-                $response = simplexml_load_string($response);
-                $response = json_encode($response);
-                $response = json_decode($response, TRUE);
                 if(empty(json_decode($response, TRUE))) {
                     $response = simplexml_load_string($response);
                     $response = json_encode($response);

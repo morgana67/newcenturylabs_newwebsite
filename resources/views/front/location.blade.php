@@ -54,12 +54,12 @@
                         <li>
                             <i class="fa fa-phone"></i>
                             <div><span class="title">Phone</span></div>
-                            <div><span></span></div>
+                            <div><span>{{$location['phone']}}</span></div>
                         </li>
                         <li>
                             <i class="fa fa-fax"></i>
                             <div><span class="title">Fax</span></div>
-                            <div><span></span></div>
+                            <div><span>{{$location['fax']}}</span></div>
                         </li>
                     </ul>
                 </div>
