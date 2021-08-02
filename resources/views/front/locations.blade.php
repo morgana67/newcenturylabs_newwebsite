@@ -136,7 +136,7 @@
     </section>
 @endsection
 @section('script')
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVcyoaSTt87wUZ1d1765PX6Nl0LUV4iSA&libraries=places&callback=initialize"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGoeMvQDWaRjo4f056bg2XPZZVL5l00cg&libraries=places&callback=initialize"></script>
     <script>
         function initialize() {
             var input = document.getElementById('address');

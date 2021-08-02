@@ -116,6 +116,6 @@
             });
         }
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGoeMvQDWaRjo4f056bg2XPZZVL5l00cg&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1qKtXM-NvTrUxGfYpdkR3tCkGJMkIaq4&callback=initMap">
     </script>
 @endsection
