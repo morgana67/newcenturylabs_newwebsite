@@ -198,7 +198,7 @@ class HomeController extends Controller
         if (!empty($search['address']) && !empty($search['activity']) && !empty($search['lat']) && !empty($search['lng'])) {
             try {
                 $date = new DateTime('now', new DateTimeZone('UTC'));
-                $dateFormat = $date->format('D, j M Y g:i:s O');
+                $dateFormat = $date->format('D, d M Y H:i:s O');
                 $method = "POST";
                 $uri = "/assets/psc/schedule/locations";
                 $key = "{$method}\n\ntext/xml\n\nx-newcentury-date:{$dateFormat}\n{$uri}";
@@ -248,7 +248,7 @@ class HomeController extends Controller
         $uri = "/assets/facilities/psc/{$site_code}";
         $method = "GET";
         $date = new DateTime('now', new DateTimeZone('UTC'));
-        $dateFormat = $date->format('D, j M Y H:i:s O');
+        $dateFormat = $date->format('D, d M Y H:i:s O');
         $key = "{$method}\n\ntext/xml\n\nx-newcentury-date:{$dateFormat}\n{$uri}";
         $secret = "Q14zeK0turtrszgisqtsgsgsgsc7WzdnlkYZR==";
         $digestCode = HmacSHA1Encrypt($key, $secret);
