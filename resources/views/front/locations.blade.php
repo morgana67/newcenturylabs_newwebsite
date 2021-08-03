@@ -67,7 +67,7 @@
                 </div>
                 <div class="map-area loc__list col-sm-12 p0">
                     @if($errors->count() > 0 )
-                        <div class="alert alert-danger">No locations found</div>
+                        <div class="alert alert-danger">There are no laboratories within 25 miles of the location you entered.</div>
                     @endif
                     @if(count($locations) > 0)
                         <table id="example" class="table table-area0 table-striped table-bordered" cellspacing="0"

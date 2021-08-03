@@ -237,6 +237,11 @@ class HomeController extends Controller
                 if(count($locations) == 0 ) {
                     return view('front.locations')->with(['locations' => []])->withErrors(['No locations found']);
                 }
+				
+				if (!isset($locations[0])) { 
+					$locations = [$locations];
+				}
+				
             } catch (\Exception $e) {
                 return view('front.locations')->with(['locations' => []]);
             }
