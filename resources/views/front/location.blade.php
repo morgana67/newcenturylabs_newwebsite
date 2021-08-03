@@ -1,9 +1,6 @@
 @extends('layouts.site')
 @section('css')
     <style>
-        .loc__contact-info li {
-            padding-left: 0 !important;
-        }
         .loc__contact-info li .title{
             font-size: 18px;
             font-weight: bold;
