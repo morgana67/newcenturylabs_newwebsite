@@ -61,11 +61,24 @@
                 <div clsas="pack__hed">
                     <h4>{{$bundle->name}}</h4>
                     <h2>
-                        @if($bundle->sale_price !=  null)
+                        @php
+                            if($bundle->sale_price != null){
+                                $price = $bundle->sale_price;
+                            }else{
+                                $price = $bundle->price;
+                            }
+                        @endphp
+                        @if(Auth::user()->role_id == 3 && $bundle->price_for_doctor > 0)
+                            @php $price = $bundle->price_for_doctor @endphp
                             <span id="old_price" style="text-decoration: line-through;">${{ format_price($bundle->price) }}</span>
-                            <span id="price">{{setting('site.currency')}}{{ format_price($bundle->sale_price) }}</span>
+                            <span id="price">{{setting('site.currency')}}{{ format_price($bundle->price_for_doctor) }}</span>
                         @else
-                            <span id="price">{{setting('site.currency')}}{{ format_price($bundle->price) }}</span>
+                            @if($bundle->sale_price !=  null)
+                                <span id="old_price" style="text-decoration: line-through;">${{ format_price($bundle->price) }}</span>
+                                <span id="price">{{setting('site.currency')}}{{ format_price($bundle->sale_price) }}</span>
+                            @else
+                                <span id="price">{{setting('site.currency')}}{{ format_price($bundle->price) }}</span>
+                            @endif
                         @endif
                     </h2>
                     <div class="rating-area clrlist">
@@ -84,7 +97,7 @@
                         <form method="POST" action="{{route('cart.add')}}">
                             @csrf
                             <input type="hidden" value="1" name="quantity" id="quantity"/>
-                            <input type="hidden" name="price" id="price" value="{{$bundle->price}}"/>
+                            <input type="hidden" name="price" id="price" value="{{$price}}"/>
                             <input type="hidden" name="product_id" id="product_id" value="{{$bundle->id}}"/>
                             <input type="hidden" name="name" id="name" value="{{$bundle->name}}"/>
                             <input type="hidden" name="slug" id="slug" value="{{$bundle->slug}}"/>
