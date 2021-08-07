@@ -68,7 +68,7 @@
                                 $price = $bundle->price;
                             }
                         @endphp
-                        @if(Auth::user()->role_id == 3 && $bundle->price_for_doctor > 0)
+                        @if(Auth::check() && Auth::user()->role_id == 3 && $bundle->price_for_doctor > 0)
                             @php $price = $bundle->price_for_doctor @endphp
                             <span id="old_price" style="text-decoration: line-through;">${{ format_price($bundle->price) }}</span>
                             <span id="price">{{setting('site.currency')}}{{ format_price($bundle->price_for_doctor) }}</span>
