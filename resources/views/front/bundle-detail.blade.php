@@ -54,42 +54,20 @@
                     <div class="circle__cont text-center">
                         <div>
                             <h3>{{ $bundle->name }}</h3>
-                            @php
-                                $user = Auth::user();
-                                $isDoctor = $user->role_id == 3;
-                                if($bundle->sale_price != null){
-                                      $price = $bundle->sale_price;
-                                  }else{
-                                      $price = $bundle->price;
-                                  }
-                            @endphp
-                            @if($isDoctor)
-                                @if ($bundle->price_for_doctor > 0)
-                                    @php $price = $bundle->price_for_doctor; @endphp
-                                    <h2><sup>{{setting('site.currency')}}</sup>{{ format_price($price)}}</h2>
-                                    <strong>Average competitors price</strong>
-                                    <h4><sup>{{setting('site.currency')}}</sup>{{  format_price($bundle->price) }}</h4>
-                                @else
-                                    <h2><sup>{{setting('site.currency')}}</sup>{{ format_price($price) }}</h2>
-                                    <strong>Average competitors price</strong>
-                                    <h4><sup>{{setting('site.currency')}}</sup>{{  format_price($bundle->price) }}</h4>
-                                @endif
+                            @if ($bundle->sale_price != null)
+                                <h2><sup>{{setting('site.currency')}}</sup>{{ format_price($bundle->sale_price)}}</h2>
+                                <strong>Average competitors price</strong>
+                                <h4><sup>{{setting('site.currency')}}</sup>{{  format_price($bundle->price) }}</h4>
                             @else
-                                @if ($bundle->sale_price != null)
-                                    <h2><sup>{{setting('site.currency')}}</sup>{{ format_price($price)}}</h2>
-                                    <strong>Average competitors price</strong>
-                                    <h4><sup>{{setting('site.currency')}}</sup>{{  format_price($product->price) }}</h4>
-                                @else
-                                    <h2><sup>{{setting('site.currency')}}</sup>{{ $price }}</h2>
-                                @endif
+                                <h2><sup>{{setting('site.currency')}}</sup>{{ format_price($bundle->price) }}</h2>
                                 <strong>Average competitors price</strong><br>
+                                <strong>Pricing based on average direct to consumer pricing.</strong>
                             @endif
-                            <strong>Pricing based on average direct to consumer pricing.</strong>
                             <div class="checkout-area">
                                 <form method="POST" action="{{route('cart.add')}}">
                                     @csrf
                                     <input type="hidden" value="1" name="quantity" id="quantity"/>
-                                    <input type="hidden" name="price" id="price" value="{{$price}}"/>
+                                    <input type="hidden" name="price" id="price" value="{{$bundle->price}}"/>
                                     <input type="hidden" name="product_id" id="product_id" value="{{$bundle->id}}"/>
                                     <input type="hidden" name="name" id="name" value="{{$bundle->name}}"/>
                                     <input type="hidden" name="slug" id="slug" value="{{$bundle->slug}}"/>

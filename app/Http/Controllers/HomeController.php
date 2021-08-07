@@ -91,30 +91,6 @@ class HomeController extends Controller
         return $price_for_doctor;
     }
 
-    public function bundle(){
-        $model = Product::select('id','name','slug','code','description','price','sale_price')->active()->bundleType()->get();
-
-        $allCategories = Catalog::orderBy('order', 'asc')->get();
-        $categories = array();
-        foreach ($allCategories as $category) {
-            if ($category->parent_id == 0) {
-                $categories[$category->id]['name'] = $category->name;
-            } else {
-                $categories[$category->parent_id]['categories'][$category->id] = $category->name;
-            }
-        }
-
-        $modelProductsCategories = CatalogProduct::get();
-        $productCategories = array();
-        foreach ($modelProductsCategories as $pc) {
-            if (!array_key_exists($pc->product_id,$productCategories)){
-                $productCategories[$pc->product_id][] = $pc->catalog_id;
-            }else{
-                array_push($productCategories[$pc->product_id],$pc->catalog_id);
-            }
-        }
-        return view('front.bundle', compact('model', 'categories', 'productCategories'));
-    }
 
     public function testbydisease(){
         $diseaseTypes = DiseaseType::select('id','name')->orderBy('name','asc')->get();
@@ -237,11 +213,11 @@ class HomeController extends Controller
                 if(count($locations) == 0 ) {
                     return view('front.locations')->with(['locations' => []])->withErrors(['No locations found']);
                 }
-				
-				if (!isset($locations[0])) { 
+
+				if (!isset($locations[0])) {
 					$locations = [$locations];
 				}
-				
+
             } catch (\Exception $e) {
                 return view('front.locations')->with(['locations' => []]);
             }

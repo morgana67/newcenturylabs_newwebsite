@@ -22,38 +22,92 @@
                 <div class="table-area col-sm-12">
                     <table class="table cart-item-table table-bordered table-topbot table-valign">
                         <thead>
-                            <th class="col-sm-6 ">LAB TEST</th>
+                            <th class="col-sm-6 " colspan="2" >PRODUCT NAME</th>
                             <th class="col-sm-2 text-center">PRICES</th>
                             <th class="col-sm-2 text-center">QUANTITY</th>
                             <th class="col-sm-2 text-center">TOTAL</th>
                         </thead>
                         <tbody>
                             @foreach ($cart as $product)
-                                <tr>
-                                    <td class="text-left">
-                                        <a href="{{route('product_detail',['slug' => $product->id])}}" class="view-cat-link">{{$product->name}}</a>
-                                        <button class="btn-xs btn-danger delete_product" type="button">remove</button>
-                                        <form action="{{route('cart.update')}}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="rowId" value="{{$product->rowId}}">
-                                        </form>
-                                    </td>
-                                    <td class="text-center">
-                                        {{setting('site.currency')}}{{format_price($product->price)}}
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="form-group d-flex justify-content-center">
-                                            <form action="{{route('cart.update')}}" method="POST">
+                                @if($product->options->type == 'bundle')
+                                    @php
+                                        $modelProduct = getProductById($product->id);
+                                        $totalProducts = $modelProduct->productBundleTotalPrice();
+                                        $productBundles = $modelProduct->productBundle;
+                                        $numOfProducts = count($productBundles);
+                                    @endphp
+                                    @foreach($productBundles as $productBundle)
+                                        @php
+                                            $priceOfProductInBundle = empty($productBundle->product->sale_price) ? $productBundle->product->price : $productBundle->product->sale_price;
+                                        @endphp
+                                        @if($loop->first)
+                                        <tr>
+                                            <td class="text-left" rowspan="{{$numOfProducts}}">
+                                                <a href="{{route('bundle.show',['slug' => $product->options->slug])}}" class="view-cat-link">{{$product->name}} (Bundle Package)</a>
+                                            </td>
+                                            <td class="text-left">
+                                                <a href="{{route('product_detail',['slug' => $productBundle->product->slug])}}" class="view-cat-link">{{$productBundle->product->name}}</a>
+                                                <button class="btn-xs btn-danger delete_product" type="button">remove</button>
+                                                <form action="{{route('cart.remove')}}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="productId" value="{{$productBundle->product_id}}">
+                                                    <input type="hidden" name="rowId" value="{{$product->rowId}}">
+                                                </form>
+                                            </td>
+                                            <td class="text-center">
+                                                {{setting('site.currency')}}{{format_price($priceOfProductInBundle)}}
+                                            </td>
+                                            <td class="text-center">1</td>
+                                            <td class="text-center" rowspan="{{$numOfProducts}}">
+                                                <span style="text-decoration-line: line-through">{{setting('site.currency')}}{{format_price($totalProducts)}}</span><br>
+                                                <span>{{setting('site.currency')}}{{format_price($product->subtotal)}}</span>
+                                            </td>
+                                        </tr>
+                                        @else
+                                        <tr>
+                                            <td class="text-left">
+                                                <a href="{{route('product_detail',['slug' => $productBundle->product->slug])}}" class="view-cat-link">{{$productBundle->product->name}}</a>
+                                                <button class="btn-xs btn-danger delete_product" type="button">remove</button>
+                                                <form action="{{route('cart.remove')}}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="productId" value="{{$productBundle->product_id}}">
+                                                    <input type="hidden" name="rowId" value="{{$product->rowId}}">
+                                                </form>
+                                            </td>
+                                            <td class="text-center">
+                                                {{setting('site.currency')}}{{format_price($productBundle->product->sale_price == null ? $productBundle->product->price : $productBundle->product->sale_price)}}
+                                            </td>
+                                            <td class="text-center">1</td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td class="text-left" colspan="2">
+                                            <a href="{{route('product_detail',['slug' => $product->id])}}" class="view-cat-link">{{$product->name}}</a>
+                                            <button class="btn-xs btn-danger delete_product" type="button">remove</button>
+                                            <form action="{{route('cart.remove')}}" method="POST">
                                                 @csrf
-                                                <input type="number" class="form-control" name="qty" value="{{$product->qty}}" style="outline: none">
                                                 <input type="hidden" name="rowId" value="{{$product->rowId}}">
                                             </form>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        {{setting('site.currency')}}{{format_price($product->subtotal)}}
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td class="text-center">
+                                            {{setting('site.currency')}}{{format_price($product->price)}}
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="form-group d-flex justify-content-center">
+                                                <form action="{{route('cart.update')}}" method="POST">
+                                                    @csrf
+                                                    <input type="number" class="form-control" name="qty" value="{{$product->qty}}" style="outline: none">
+                                                    <input type="hidden" name="rowId" value="{{$product->rowId}}">
+                                                </form>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            {{setting('site.currency')}}{{format_price($product->subtotal)}}
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                             @php
                                 $priceMandatory = 0;
@@ -65,7 +119,7 @@
                                         $priceMandatory += $price;
                                     @endphp
                                     <tr>
-                                        <td class="text-left">
+                                        <td class="text-left" colspan="2">
                                             <a class="view-cat-link">{{$product->name}}</a>
                                         </td>
                                         <td class="text-center">

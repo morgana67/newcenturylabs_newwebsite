@@ -7,24 +7,6 @@
 
 @section('css')
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <style>
-        ul li{
-            list-style: none;
-        }
-        .list_catalog {
-            display: grid;
-            grid-template-columns: auto auto auto auto;
-            padding: 10px;
-        }
-        .list_catalog > ul{
-            border: 1px solid #3399cc;
-            padding: 20px;
-            margin-bottom: 0;
-        }
-        .list_catalog > ul .parent-product-name{
-            font-weight: bold;
-        }
-    </style>
 @stop
 
 @section('page_title', __('voyager::generic.'.($edit ? 'edit' : 'add')).' '.$dataType->getTranslatedAttribute('display_name_singular'))
@@ -52,7 +34,7 @@
                     @if($edit)
                         {{ method_field("PUT") }}
                     @endif
-
+                        <input type="hidden" name="filter_type" value="{{old('filter_type', $filter_type)}}">
                     <!-- CSRF TOKEN -->
                         {{ csrf_field() }}
 
@@ -110,28 +92,13 @@
                                         @endif
                                     </div>
                                     @if($row->field == 'type')
-                                        <div class="list_catalog {{((isset($dataTypeContent) && $dataTypeContent->type != 'bundle') || !isset($dataTypeContent)) ? 'hide' : ''}}">
-                                            @if(isset($catalogs))
-                                                @foreach($catalogs as $catalog)
-                                                <ul id="{{$catalog->id}}">
-                                                    <div>
-                                                        <li><input type="checkbox" class="check_all" id="check_all_{{$catalog->id}}" data-id="{{$catalog->id}}">
-                                                            <label for="check_all_{{$catalog->id}}" class="parent-product-name">{{$catalog->name}}</label>
-                                                            @if(isset($catalog->children_catalogs))
-                                                                <ul>
-                                                                    @foreach($catalog->children_catalogs as $children)
-                                                                        <li>
-                                                                            <input class="sub_cat_{{$catalog->id}}" id="sub_cat_{{$children->id}}" {{isset($catalogsSelected) > 0 && in_array($children->id,$catalogsSelected) ? 'checked' : ''}} name="catalogs[]" type="checkbox" value="{{$children->id}}">
-                                                                            <label for="sub_cat_{{$children->id}}">{{$children->name}}</label>
-                                                                        </li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            @endif
-                                                        </li>
-                                                    </div>
-                                                </ul>
+                                        <div class="bundle_product_list form-group col-md-12 {{((old('type') != 'bundle' && $dataTypeContent->type != 'bundle') && old('bundle_products') != 'bundle') ? 'hide' : ''}}">
+                                            <label class="control-label" for="name">Products In Bundle</label>
+                                            <select name="bundle_products[]" id="bundle_products" multiple class="form-control">
+                                                @foreach($products as $product)
+                                                    <option value="{{$product->id}}" {{in_array($product->id,old('bundle_products', $bundle_products)) ? 'selected' : '' }}>{{$product->name}}</option>
                                                 @endforeach
-                                            @endif
+                                            </select>
                                         </div>
                                     @endif
                             @endforeach
@@ -139,7 +106,7 @@
                                 <label class="control-label" for="name">Suggest Products</label>
                                 <select name="products[]" id="products" multiple class="form-control">
                                     @foreach($products as $product)
-                                        <option value="{{$product->id}}" {{in_array($product->id,$productsSuggested) ? 'selected' : '' }}>{{$product->name}}</option>
+                                        <option value="{{$product->id}}" {{in_array($product->id,old('products', $productsSuggested)) ? 'selected' : '' }}>{{$product->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -195,7 +162,7 @@
     <script>
         var params = {};
         var $file;
-        $('#products').select2({});
+        $('#products, #bundle_products').select2({});
         function deleteHandler(tag, isMulti) {
             return function() {
                 $file = $(this).siblings(tag);
@@ -262,12 +229,16 @@
                 $('#confirm_delete_modal').modal('hide');
             });
             $('[data-toggle="tooltip"]').tooltip();
-            let divFieldMandatory = $('[name=mandatory]').parents('div.form-group');
+            var divFieldMandatory = $('[name=mandatory]').parents('div.form-group');
+            var divFieldFeatured = $('[name=featured]').closest('div.form-group');
             $('select[name=type]').on('change',function () {
                 if($(this).val() === 'bundle'){
-                    $('.list_catalog').removeClass('hide');
+                    $('.bundle_product_list').removeClass('hide');
+                    $('#bundle_products').siblings('span.select2').css('width',"100%");
+                    divFieldFeatured.removeClass('hide')
                 }else{
-                    $('.list_catalog').addClass('hide');
+                    $('.bundle_product_list').addClass('hide');
+                    divFieldFeatured.addClass('hide')
                 }
 
                 if($(this).val() === 'additional'){
@@ -275,16 +246,12 @@
                 }else{
                     divFieldMandatory.addClass('hide')
                 }
-            })
+            }).trigger('change');
             $('.check_all').on('change', function () {
                 const element = $(this);
                 $(".sub_cat_" + element.attr('data-id')).prop('checked', element.prop('checked'));
             });
-            @if((isset($dataTypeContent) && $dataTypeContent->type != 'additional') || !isset($dataTypeContent))
-                divFieldMandatory.addClass('hide')
-            @else
-                divFieldMandatory.removeClass('hide')
-            @endif
+
         });
     </script>
 
