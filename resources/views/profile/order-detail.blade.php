@@ -174,8 +174,13 @@
                                     @foreach ($order->details as $product)
                                         <tr>
                                             <td class="text-left">
-                                                <a href="{{route('product_detail',['slug' => $product->product_id])}}"
-                                                   class="view-cat-link">{{$product->product->name}}</a>
+                                                @if($product->product->type == 'bundle')
+                                                    <a href="{{route('bundle.show',['slug' => $product->product->slug])}}"
+                                                       class="view-cat-link">{{$product->product->name}} (Bundle Package)</a>
+                                                @else
+                                                    <a href="{{route('product_detail',['slug' => $product->product_id])}}"
+                                                       class="view-cat-link">{{$product->product->name}}</a>
+                                                @endif
                                             </td>
                                             <td class="text-center">
                                                 {{setting('site.currency')}}{{format_price($product->price)}}
