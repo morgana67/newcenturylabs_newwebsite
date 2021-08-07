@@ -2817,6 +2817,7 @@ a.link.pul-rgt {
     margin: 15px 10px 0;
     max-height: 82px;
     overflow: hidden;
+    padding: 0 25px;
 }
 
 .circle__cont h3 + p {
@@ -2996,12 +2997,13 @@ li.cart-item .dropdown-menu {
     font-size: 16px;
 }
 
-.test-menu-area td[colspan="4"] {
+.test-menu-area td[colspan="4"],  .test-menu-area td.alphabet{
     font-size: 30px;
     padding-left: 20px;
     border-bottom: 2px solid  #ccc;
     border-top: 2px solid  #ccc;
     font-weight: 500;
+    text-transform: uppercase;
 }
 
 a.btn.btn-view {
@@ -4344,6 +4346,9 @@ button{
 
 .justify-content-flex-end{
     justify-content: flex-end !important;
+}
+.justify-content-space-between{
+    justify-content: space-between !important;
 }
 
 .align-item-center{

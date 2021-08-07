@@ -54,7 +54,7 @@
                                 @else
                                     <h2><sup>{{setting('site.currency')}}</sup>{{ $price }}</h2>
                                     @endif
-                                    <strong>Average competitors price</strong>
+                                    <strong>Average competitors price</strong><br>
                             @endif
                             <strong>Pricing based on average direct to consumer pricing.</strong>
                             <div class="checkout-area">

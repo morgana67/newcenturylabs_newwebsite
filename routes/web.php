@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/shop', 'HomeController@shop')->name('shop');
 Route::get('/product/{slug}', 'HomeController@product_detail')->name('product_detail');
-Route::get('/bundle', 'HomeController@bundle')->name('bundle');
+Route::get('/bundle', 'BundleController@index')->name('bundle.index');
+Route::get('/bundle/{slug}', 'BundleController@show')->name('bundle.show');
 Route::get('/testlistbydisease/{id}', 'HomeController@testlistbydisease')->name('testlistbydisease');
 Route::get('/testbydisease', 'HomeController@testbydisease')->name('testbydisease');
 Route::get('/blog/{slug?}', 'HomeController@blog')->name('blog');
@@ -68,7 +69,7 @@ Route::group(['middleware' => 'customer'],function (){
         Route::post('addMultiple','CartController@addMultiple')->name('addMultiple');
         Route::get('view','CartController@view')->name('view');
         Route::post('update','CartController@update')->name('update');
-        Route::post('delete','CartController@delete')->name('delete');
+        Route::post('remove','CartController@remove')->name('remove');
         Route::get('/checkout', 'CheckoutController@view')->name('checkout');
         Route::post('/checkoutProceed', 'CheckoutController@checkoutProceed')->name('checkoutProceed');
     });
