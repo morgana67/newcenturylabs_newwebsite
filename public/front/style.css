@@ -2048,11 +2048,9 @@ section.ftr-area {
 .blogs__imginner{
     height:200px;
     overflow:hidden;
-    border:1px solid #525152;
+    box-shadow: 1px 1px 4px 0;
 }
 .blogs__cont {
-    border:1px solid #525152;
-    border-left:none;
     padding: 0 25px;
     height:200px;
 }
