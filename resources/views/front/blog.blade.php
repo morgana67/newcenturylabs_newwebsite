@@ -7,8 +7,7 @@
 
 @extends('layouts.site')
 @section('content')
-    <section class="bnr-area page-bnr-area bg-full bg-cntr valigner"
-             style="background-image:url('/front/images/bnr-blog.jpg');">
+    <section class="bnr-area page-bnr-area bg-full bg-cntr valigner" style="background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(/front/images/bnr-blog.jpg); background-position: 0 30%; background-repeat: no-repeat;background-size: cover;">
         <div class="container">
             <div class="bnr__cont valign white text-center col-sm-12 text-uppercase anime-flipInX">
                 <h2>Blog</h2>
@@ -34,7 +33,7 @@
                                     <ul>
                                         <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{$date->format('g:i A')}}
                                         </li>
-                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F d, Y')}}
+                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F j, Y')}}
                                         </li>
                                     </ul>
                                 </div>
@@ -43,7 +42,7 @@
                                     <ul class="dtl__hoverList">
                                         <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{$date->format('g:i A')}}
                                         </li>
-                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F d, Y')}}
+                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F j, Y')}}
                                         </li>
                                     </ul>
                                 </div>
@@ -74,7 +73,7 @@
                                     <ul>
                                         <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{$date->format('g:i A')}}
                                         </li>
-                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F d, Y')}}
+                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F j, Y')}}
                                         </li>
                                     </ul>
                                 </div>

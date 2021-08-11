@@ -126,7 +126,7 @@ class HomeController extends Controller
 
     public function post_detail($slug){
         $post = Post::published()->where([['slug','=',$slug]])->firstOrFail();
-        $similarPosts = Post::where("category_id", '=', $post->category_id)->limit(3)->get();
+        $similarPosts = Post::where("category_id", '=', $post->category_id)->where('slug', '!=', $slug)->limit(3)->get();
         return view('front.blog-detail',compact('post','similarPosts'));
     }
 

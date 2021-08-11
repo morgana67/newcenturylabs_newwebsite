@@ -1854,7 +1854,6 @@ section.ftr-area {
     padding:75px 0;
 }
 .dtl__main{
-    border:1px solid #525152;
     padding:0;
 }
 .dtl__postDay ul li i{
@@ -3783,9 +3782,6 @@ body .page-bnr-area {
 
     .about__icon {
         margin: 10px 0;
-    }
-    .blogs__cont {
-        border: 1px solid #525252;
     }
 
 
