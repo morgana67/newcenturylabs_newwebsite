@@ -1872,7 +1872,6 @@ section.ftr-area {
     padding:25px;
 }
 .dtl__content {
-    padding: 0 25px;
     font-family: arial, 'helvetica neue', helvetica, sans-serif;
 }
 
@@ -4044,13 +4043,13 @@ section.box-area.text-center.pt20.pb50 {
 /* Kindel Fire HD 8.9in (533x853) Tablets */
 @media only screen and (max-width : 533px) {	}
 
-/*iPhone3 Landscape*/
+/*iPhone3 Landscape
 @media only screen and (max-width : 480px) {
     .dtl__content {
         padding: 0 15px;
     }
 }
-
+*/
 
 /* iPhone 6 PLUS (414x736) */
 @media only screen and (max-width : 414px) {
