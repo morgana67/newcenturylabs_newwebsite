@@ -1901,12 +1901,12 @@ section.ftr-area {
 .posted__img{
     height:240px;
     overflow:hidden;
-    border:1px solid #525152;
     position:relative;
 }
 .posted__img img{
     height:100%;
     min-width: 100%;
+    object-fit: cover;
 }
 .posted__hover{
     background-color: #0076c4;
