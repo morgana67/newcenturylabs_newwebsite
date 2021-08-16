@@ -39,7 +39,7 @@
 
         <section class="location-area pt30 pb30">
             <div class="container">
-                <div class="map-area loc__fom col-sm-12 p0">
+                <div class="map-area loc__fom row p0">
                     <form method="get" class="search-fom rds mb30" action="{{route('locations')}}">
                         <input type="hidden" id="lat" name="lat" value="{{request()->get('lat')}}"/>
                         <input type="hidden" id="lng" name="lng" value="{{request()->get('lng')}}"/>
