@@ -8,7 +8,7 @@
     </style>
 @endsection
 @section('content')
-    <section class="bnr-area page-bnr-area bg-full bg-cntr valigner" style="background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(/front/images/bnr-blog.jpg); background-position: 0 30%; background-repeat: no-repeat;background-size: cover;">
+    <section class="bnr-area page-bnr-area bg-full bg-cntr valigner" style="background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('{{str_replace('\\', '/', image($post->image))}}'); background-position: 0 30%; background-repeat: no-repeat;background-size: cover;">
         <div class="container">
             <div class="bnr__cont valign white text-center col-sm-12 text-uppercase anime-flipInX">
                 <h2 style="padding: 0 10%">{{$post->title}}</h2>
@@ -19,9 +19,6 @@
     <section class="blog-dtl-area pt30">
         <div class="container">
             <div class="dtl__main col-sm-12">
-                <div class="dtl__img">
-                    <img src="{{image($post->image)}}" alt="{{$post->title}}">
-                </div>
                 <div class="dtl__postDay">
                     <ul>
                         <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{ date("h:m a", strtotime($post->created_at)) }}, </li>
