@@ -21,11 +21,6 @@
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             line-height: 36px !important;
         }
-        .remove-location{
-            height: 40px;
-            width: 65px;
-            font-weight: bold;
-        }
     </style>
 @endsection
 @section('content')
@@ -50,10 +45,8 @@
                         <input type="hidden" id="lng" name="lng" value="{{request()->get('lng')}}"/>
                         <div class="form-group col-sm-5">
                             <label for="search">Address</label>
-                            <br>
                             <input type="text" placeholder="Enter a location" class="form-control" name="address" id="address" required
-                                   autocomplete="off" value="{{request()->get('address')}}" style="display: inline-block; width: calc(100% - 70px)">
-                            <button type="button" class="remove-location">Clear</button>
+                                   autocomplete="off" value="{{request()->get('address')}}">
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="search">What testing do you need?</label>
@@ -149,15 +142,11 @@
             var input = document.getElementById('address');
             var autocomplete = new google.maps.places.Autocomplete(input);
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                debugger;
                 var place = autocomplete.getPlace();
                 document.getElementById('lat').value = place.geometry.location.lat();
                 document.getElementById('lng').value = place.geometry.location.lng();
             });
         }
-        $('.remove-location').on('click', function () {
-            $('#address').val('');
-            $('#lat').val('');
-            $('#lng').val('');
-        })
     </script>
 @stop
