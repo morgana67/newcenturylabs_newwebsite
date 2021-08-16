@@ -55,6 +55,7 @@ class PageStaticController extends Controller
             Page::withoutGlobalScopes()->where(['code_page' => $code])->update([
                 'title' => $request->title,
                 'slug' => $request->slug,
+                'meta_title' => $request->meta_title,
                 'meta_keywords' => $request->meta_keywords,
                 'meta_description' => $request->meta_description,
                 'body' => $this->data,
