@@ -30,9 +30,14 @@
                         {!! $post->body !!}
                     </object>
                 </div>
+                <div class="text-center" style="background-color: #f7f7f7; padding: 18px">
+                    <h3 style="font-weight: bold">Talk to Our Medical Doctors for just $26.00<br>Order your Blood Tests from New Century Labs&nbsp;</h3>
+                    <p style="font-size: 14px; font-weight: 500">Don't Just Think You're Healthy, Know You're Healthy.<br>Information about "YOU" on Demand</p>
+                </div>
             </div>
         </div>
     </section>
+
     <section class="blog-posted-area pb50 container">
         <hr style="margin: 20px 0">
         <div class="row">
