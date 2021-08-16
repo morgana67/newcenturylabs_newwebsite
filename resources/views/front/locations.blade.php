@@ -163,5 +163,10 @@
             $('#lng').val('');
             $(this).hide();
         })
+        if($('#address').val() == '') {
+            $('.remove-location').hide();
+        } else {
+            $('.remove-location').show();
+        }
     </script>
 @stop
