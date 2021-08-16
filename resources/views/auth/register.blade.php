@@ -23,7 +23,7 @@
         <div class="container">
             <div class="bnr__cont valign white text-center col-sm-12 text-uppercase anime-flipInX">
                 @if(isset($is_doctor_register))
-                    <h2>SIGN UP DOCTOR</h2>
+                    <h2>Doctor Registration</h2>
                 @else
                     <h2>SIGN UP</h2>
                 @endif
@@ -38,13 +38,14 @@
             <input type="hidden" name="is_doctor_register" value="1">
         @endif
         <section class="billing-area ">
+            @if(isset($is_doctor_register))
             <div class="container">
                 <div class="alert alert-info pul-cntr col-sm-9 text-center" style="margin-top: 15px; margin-bottom: 0; font-size: 24px; color: #fff; background-color: #3399cc">
                     New Century Labs servers <strong class="count-doctors">1500</strong> doctors nation wide.
                 </div>
             </div>
-
-            <div class="container">
+            @endif
+            <div class="container mb50">
                 <div class="fom fom-shad mt20 col-sm-9 p0 pul-cntr">
                     <div class="col-md-12">
                         @include('layouts.alert')
