@@ -113,7 +113,7 @@
                             @endfor
                         </select>
                     </div>
-                    <div class="form-group col-sm-3 col-xs-4">
+                    <div class="form-group col-sm-2 col-xs-4">
                         <select class="form-control" required="required" name="month">
                             <option {{old('month') == 1 ? 'selected' : ''}} value="1">January</option>
                             <option {{old('month') == 2 ? 'selected' : ''}} value="2">February</option>
@@ -136,6 +136,8 @@
                             @endfor
                         </select>
                     </div>
+                    <div class="col-sm-6"></div>
+
                     <div class="col-sm-12" style="opacity: 0;margin-bottom: -20px">--</div>
                     @endif
                     <div class="form-group col-sm-6">

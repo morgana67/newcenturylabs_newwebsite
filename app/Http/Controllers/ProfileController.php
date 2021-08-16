@@ -34,6 +34,7 @@ class ProfileController extends Controller
                 $condition['physician_name'] = 'required|string|max:191';
                 $condition['physician_license_number'] = 'required|max:191';
                 $condition['physician_npi_number'] = 'required|max:191';
+                $validation['fax'] = 'required|regex:/^[01]?[- .]?([2-9]\d{2})?[- .]?\d{3}[- .]?\d{4}$/';
             }
 
             $validator = Validator::make($request->all(), $condition);
@@ -48,20 +49,21 @@ class ProfileController extends Controller
                     'firstName' => $request['firstName'],
                     'lastName' => $request['lastName'],
                     'email' => $request['email'],
-                    'gender' => $request['gender'],
-                    'dob' => "{$request['year']}-{$request['month']}-{$request['date']}",
                     'token' => \Illuminate\Support\Facades\Hash::make($request['email']. $request['password']),
                     'facebook' => $request->facebook,
                     'twitter' => $request->twitter,
                     'instagram' => $request->instagram,
                 ];
-                if($user->role_id == 1) {
+                if(isset($request->is_doctor_register)) {
                     $dataCustomer['physician_name'] = $request->physician_name;
                     $dataCustomer['physician_license_number'] = $request->physician_license_number;
                     $dataCustomer['physician_npi_number'] = $request->physician_npi_number;
                     $dataCustomer['draw_patients'] = $request->draw_patients;
                     $dataCustomer['blood_draw'] = $request->blood_draw;
                     $dataCustomer['special_requests'] = $request->special_requests;
+                } else {
+                    $dataCustomer['dob'] = $request['year'] . "-" . $request['month'] . "-" . $request['date'];
+                    $dataCustomer['gender'] = $request['gender'];
                 }
 
                 $customerId = Customer::where('id',user()->getAuthIdentifier())->update($dataCustomer);

@@ -102,7 +102,6 @@ class RegisterController extends Controller
             $validation['physician_license_number'] = 'required|max:191';
             $validation['physician_npi_number'] = 'required|max:191';
             $validation['fax'] = 'required|regex:/^[01]?[- .]?([2-9]\d{2})?[- .]?\d{3}[- .]?\d{4}$/';
-
             $role = 1;
         }
 
@@ -119,10 +118,8 @@ class RegisterController extends Controller
                 'lastName' => $request['lastName'],
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
-                'gender' => $request['gender'],
                 'role_id' => $role,
                 'isVerified' => 0,
-                'dob' => $request['year'] . "-" . $request['month'] . "-" . $request['date'],
                 'token' => Hash::make($request['email']. $request['password']),
             ];
 
@@ -133,6 +130,9 @@ class RegisterController extends Controller
                 $dataCustomer['draw_patients'] = $request->draw_patients;
                 $dataCustomer['blood_draw'] = $request->blood_draw;
                 $dataCustomer['special_requests'] = $request->special_requests;
+            } else {
+                $dataCustomer['dob'] = $request['year'] . "-" . $request['month'] . "-" . $request['date'];
+                $dataCustomer['gender'] = $request['gender'];
             }
             $customerId = Customer::insertGetId($dataCustomer);
 
