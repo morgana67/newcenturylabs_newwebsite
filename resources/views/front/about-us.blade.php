@@ -1,5 +1,5 @@
 @extends('layouts.site')
-@section('title'){{ $page->title }}@endsection
+@section('title'){{ $page->meta_title }}@endsection
 @section('description'){{ $page->meta_description }}@endsection
 @section('keywords'){{ $page->meta_keywords }}@endsection
 @php

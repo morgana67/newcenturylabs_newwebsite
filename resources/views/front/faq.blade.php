@@ -1,5 +1,5 @@
 @extends('layouts.site')
-@section('title'){{ $faq->title }}@endsection
+@section('title'){{ $faq->meta_title }}@endsection
 @section('description'){{ $faq->meta_description }}@endsection
 @section('keywords'){{ $faq->meta_keywords }}@endsection
 @section('content')
