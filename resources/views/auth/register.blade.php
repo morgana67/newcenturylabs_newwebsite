@@ -32,11 +32,18 @@
     </section>
 
     <form method="POST" action="{{route('postRegister')}}" class="form" name="register">
+
         @csrf
         @if(isset($is_doctor_register))
             <input type="hidden" name="is_doctor_register" value="1">
         @endif
         <section class="billing-area ">
+            <div class="container">
+                <div class="alert alert-info pul-cntr col-sm-9 text-center" style="margin-top: 15px; margin-bottom: 0; font-size: 24px; color: #fff; background-color: #3399cc">
+                    New Century Labs servers <strong class="count-doctors">1500</strong> doctors nation wide.
+                </div>
+            </div>
+
             <div class="container">
                 <div class="fom fom-shad mt20 col-sm-9 p0 pul-cntr">
                     <div class="col-md-12">
@@ -244,3 +251,20 @@
         </section>
     </form>
 @endsection
+@section('script')
+    <script>
+        $(document).ready(function () {
+            $('.count-doctors').each(function () {
+                $(this).prop('Counter',0).animate({
+                    Counter: $(this).text()
+                }, {
+                    duration: 3000,
+                    easing: 'swing',
+                    step: function (now) {
+                        $(this).text(Math.ceil(now));
+                    }
+                });
+            });
+        });
+    </script>
+@stop
