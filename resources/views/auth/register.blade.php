@@ -137,7 +137,7 @@
                                value="{{old('phone')}}" >
                     </div>
                     <div class="form-group col-sm-6">
-                        <input placeholder="Fax" class="form-control" name="fax" type="text"
+                        <input placeholder="Fax @if(isset($is_doctor_register))*@endif" class="form-control" name="fax" type="text"
                                value="{{old('fax')}}" >
                     </div>
                     @if(isset($is_doctor_register))
