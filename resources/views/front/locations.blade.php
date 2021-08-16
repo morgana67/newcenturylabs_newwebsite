@@ -21,13 +21,10 @@
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             line-height: 36px !important;
         }
-        .remove-location {
-            position: absolute;
-            top: 41px;
-            padding: 7px 15px;
-            right: 11px;
+        .remove-location{
+            height: 40px;
+            width: 65px;
             font-weight: bold;
-            display: none;
         }
     </style>
 @endsection
@@ -53,9 +50,10 @@
                         <input type="hidden" id="lng" name="lng" value="{{request()->get('lng')}}"/>
                         <div class="form-group col-sm-5">
                             <label for="search">Address</label>
+                            <br>
                             <input type="text" placeholder="Enter a location" class="form-control" name="address" id="address" required
-                                   autocomplete="off" value="{{request()->get('address')}}">
-                            <button type="button" class="remove-location">X</button>
+                                   autocomplete="off" value="{{request()->get('address')}}" style="display: inline-block; width: calc(100% - 70px)">
+                            <button type="button" class="remove-location">Clear</button>
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="search">What testing do you need?</label>
@@ -154,19 +152,12 @@
                 var place = autocomplete.getPlace();
                 document.getElementById('lat').value = place.geometry.location.lat();
                 document.getElementById('lng').value = place.geometry.location.lng();
-                $('.remove-location').show();
             });
         }
         $('.remove-location').on('click', function () {
             $('#address').val('');
             $('#lat').val('');
             $('#lng').val('');
-            $(this).hide();
         })
-        if($('#address').val() == '') {
-            $('.remove-location').hide();
-        } else {
-            $('.remove-location').show();
-        }
     </script>
 @stop
