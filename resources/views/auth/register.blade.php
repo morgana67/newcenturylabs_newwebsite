@@ -41,7 +41,7 @@
             @if(isset($is_doctor_register))
             <div class="container">
                 <div class="alert alert-info pul-cntr col-sm-9 text-center" style="margin-top: 15px; margin-bottom: 0; font-size: 24px; color: #fff; background-color: #3399cc">
-                    New Century Labs servers <strong class="count-doctors">1500</strong> doctors nation wide.
+                    New Century Labs serves <strong class="count-doctors">1500</strong> doctors nation wide.
                 </div>
             </div>
             @endif
