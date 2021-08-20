@@ -53,7 +53,7 @@
                         <div class="dtl__postDay">
                             <ul>
                                 <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{ date("h:m a", strtotime($similarPost->created_at)) }} </li>
-                                <li><i class="fa fa-calendar" aria-hidden="true"></i>{{ date("F d, Y", strtotime($similarPost->created_at)) }} </li>
+                                <li><i class="fa fa-calendar" aria-hidden="true"></i>{{ date("F j, Y", strtotime($similarPost->created_at)) }} </li>
                             </ul>
                             <h3><a href="{{route('post_detail',['slug' => $similarPost->slug])}}">{{$similarPost->title}}</a></h3>
                         </div>
