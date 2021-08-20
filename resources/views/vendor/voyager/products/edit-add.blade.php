@@ -96,9 +96,7 @@
                                             <label class="control-label" for="name">Products In Bundle</label>
                                             <select name="bundle_products[]" id="bundle_products" multiple class="form-control">
                                                 @foreach($products as $product)
-                                                    @if($product->type == 'simple')
                                                     <option value="{{$product->id}}" {{in_array($product->id,old('bundle_products', $bundle_products)) ? 'selected' : '' }}>{{$product->name}}</option>
-                                                    @endif
                                                 @endforeach
                                             </select>
                                         </div>
