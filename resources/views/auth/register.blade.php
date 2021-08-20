@@ -155,7 +155,7 @@
                         <select name="state" id="state" required class="form-control">
                             <option value="">State *</option>
                             @foreach(\App\Models\State::get() as $state)
-                                @if($state->code == 'HI' && isset($is_doctor_register)) @continue @endif
+                                @if(in_array($state->code,  ['NY', 'NJ', 'RI', 'MD', 'HI']) && isset($is_doctor_register)) @continue @endif
                                 <option {{old('state') == $state->code ? 'selected' : ''}} value="{{$state->code}}">{{$state->title}}</option>
                             @endforeach
                         </select>
