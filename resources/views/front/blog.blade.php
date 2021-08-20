@@ -17,83 +17,87 @@
     <section class="blogs-cont-area pt30">
         <div class="container">
             <div class="blogs__featured col-sm-8">
-                @foreach($posts as $key => $post)
-                    @php $date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$post->created_at)@endphp
-                    @if( ($key+1) % 3 != 0)
-                        <div class="blogs__articles col-sm-12">
-                            <div class="blogs__img col-sm-4">
-                                <div class="blogs__imginner">
-                                    <img style="width: 100%;" src="{{image($post->image,'-cropped')}}"
-                                         alt="{{$post->title}}">
-                                </div>
-                            </div>
-                            <div class="blogs__cont col-sm-8">
-                                <h3><a href="{{route('post_detail',['slug' => $post->slug])}}">{{$post->title}}</a></h3>
-                                <div class="dtl__postDay">
-                                    <ul>
-                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F jS, Y')}}
-                                        </li>
-                                    </ul>
-                                </div>
-                                <p>{{$post->excerpt}}</p>
-                                <div class="dtl__postDayHover">
-                                    <ul class="dtl__hoverList">
-                                        <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{$date->format('g:i A')}}
-                                        </li>
-                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F jS, Y')}}
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="blogs__readMore">
-                                    <a href="{{route('post_detail',['slug' => $post->slug])}}">Read More >></a>
-                                </div>
-                                {{--                                <div class="blogs__commLike">--}}
-                                {{--                                    <div class="blogs__like">--}}
-                                {{--                                        <i class="fa fa-heart-o" aria-hidden="true"></i>0--}}
-                                {{--                                    </div>--}}
-                                {{--                                    <div class="blogs__comment">--}}
-                                {{--                                        <i class="fa fa-comments-o" aria-hidden="true"></i>0--}}
-                                {{--                                    </div>--}}
-                                {{--                                </div>--}}
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    @else
-                        <div class="blogs__articles col-sm-12 post__featured">
-                            <div class="blogs__img col-sm-4">
-                                <div class="blogs__imginner">
-                                    <img src="{{image($post->image)}}" width="100%" alt="{{$post->title}}">
-                                </div>
-                            </div>
-                            <div class="blogs__cont col-sm-8">
-                                <h3><a href="{{route('post_detail',['slug' => $post->slug])}}">{{$post->title}}</a></h3>
-                                <div class="dtl__postDay">
-                                    <ul>
-                                        <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{$date->format('g:i A')}}
-                                        </li>
-                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F jS, Y')}}
-                                        </li>
-                                    </ul>
-                                </div>
-                                <p>{{$post->excerpt}}</p>
-                                <div class="blogs__readMore">
-                                    <a href="{{route('post_detail',['slug' => $post->slug])}}">Read More >></a>
-                                </div>
-                                <!--
-                                <div class="blogs__commLike">
-                                    <div class="blogs__like">
-                                        <i class="fa fa-heart-o" aria-hidden="true"></i>105
+                @if(count($posts) > 0)
+                    @foreach($posts as $key => $post)
+                        @php $date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$post->created_at)@endphp
+                        @if( ($key+1) % 3 != 0)
+                            <div class="blogs__articles col-sm-12">
+                                <div class="blogs__img col-sm-4">
+                                    <div class="blogs__imginner">
+                                        <img style="width: 100%;" src="{{image($post->image,'-cropped')}}"
+                                             alt="{{$post->title}}">
                                     </div>
-                                    <div class="blogs__comment">
-                                        <i class="fa fa-comments-o" aria-hidden="true"></i>35
+                                </div>
+                                <div class="blogs__cont col-sm-8">
+                                    <h3><a href="{{route('post_detail',['slug' => $post->slug])}}">{{$post->title}}</a></h3>
+                                    <div class="dtl__postDay">
+                                        <ul>
+                                            <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F jS, Y')}}
+                                            </li>
+                                        </ul>
                                     </div>
-                                </div>-->
+                                    <p>{{$post->excerpt}}</p>
+                                    <div class="dtl__postDayHover">
+                                        <ul class="dtl__hoverList">
+                                            <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{$date->format('g:i A')}}
+                                            </li>
+                                            <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F jS, Y')}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="blogs__readMore">
+                                        <a href="{{route('post_detail',['slug' => $post->slug])}}">Read More >></a>
+                                    </div>
+                                    {{--                                <div class="blogs__commLike">--}}
+                                    {{--                                    <div class="blogs__like">--}}
+                                    {{--                                        <i class="fa fa-heart-o" aria-hidden="true"></i>0--}}
+                                    {{--                                    </div>--}}
+                                    {{--                                    <div class="blogs__comment">--}}
+                                    {{--                                        <i class="fa fa-comments-o" aria-hidden="true"></i>0--}}
+                                    {{--                                    </div>--}}
+                                    {{--                                </div>--}}
+                                </div>
                             </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    @endif
-                @endforeach
-                <div>{{ $posts->links() }}</div>
+                            <div class="clearfix"></div>
+                        @else
+                            <div class="blogs__articles col-sm-12 post__featured">
+                                <div class="blogs__img col-sm-4">
+                                    <div class="blogs__imginner">
+                                        <img src="{{image($post->image)}}" width="100%" alt="{{$post->title}}">
+                                    </div>
+                                </div>
+                                <div class="blogs__cont col-sm-8">
+                                    <h3><a href="{{route('post_detail',['slug' => $post->slug])}}">{{$post->title}}</a></h3>
+                                    <div class="dtl__postDay">
+                                        <ul>
+                                            <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{$date->format('g:i A')}}
+                                            </li>
+                                            <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F jS, Y')}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <p>{{$post->excerpt}}</p>
+                                    <div class="blogs__readMore">
+                                        <a href="{{route('post_detail',['slug' => $post->slug])}}">Read More >></a>
+                                    </div>
+                                    <!--
+                                    <div class="blogs__commLike">
+                                        <div class="blogs__like">
+                                            <i class="fa fa-heart-o" aria-hidden="true"></i>105
+                                        </div>
+                                        <div class="blogs__comment">
+                                            <i class="fa fa-comments-o" aria-hidden="true"></i>35
+                                        </div>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        @endif
+                    @endforeach
+                    <div>{{ $posts->links() }}</div>
+                @else
+                    <div class="alert alert-danger">We're sorry, but there are no Posts in this Category.</div>
+                @endif
             </div>
             <div class="col-sm-4 blogs__sidebar">
                 <div class="sidebar__srch">
