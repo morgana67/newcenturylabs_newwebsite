@@ -31,7 +31,7 @@
                                 <h3><a href="{{route('post_detail',['slug' => $post->slug])}}">{{$post->title}}</a></h3>
                                 <div class="dtl__postDay">
                                     <ul>
-                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F j, Y')}}
+                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F jS, Y')}}
                                         </li>
                                     </ul>
                                 </div>
@@ -40,7 +40,7 @@
                                     <ul class="dtl__hoverList">
                                         <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{$date->format('g:i A')}}
                                         </li>
-                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F j, Y')}}
+                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F jS, Y')}}
                                         </li>
                                     </ul>
                                 </div>
@@ -71,7 +71,7 @@
                                     <ul>
                                         <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{$date->format('g:i A')}}
                                         </li>
-                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F j, Y')}}
+                                        <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F jS, Y')}}
                                         </li>
                                     </ul>
                                 </div>
