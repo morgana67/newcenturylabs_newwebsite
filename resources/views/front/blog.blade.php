@@ -32,8 +32,8 @@
                                     <h3><a href="{{route('post_detail',['slug' => $post->slug])}}">{{$post->title}}</a></h3>
                                     <div class="dtl__postDay">
                                         <ul>
-                                            <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F jS, Y')}}
-                                            </li>
+                                            <li><i class="fa fa-calendar" aria-hidden="true"></i> {{$date->format('F jS, Y')}}</li>
+                                            <li class="pul-rgt"><i class="fa fa-th-list"></i> <a href="{{route('blog', $post->category->slug)}}">{{$post->category->name}}</a></li>
                                         </ul>
                                     </div>
                                     <p>{{$post->excerpt}}</p>

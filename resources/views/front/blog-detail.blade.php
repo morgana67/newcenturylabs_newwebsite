@@ -11,6 +11,12 @@
             .bnr__cont h2 {
                 padding: 0;
             }
+            .similar-post:first-child {
+                margin-top: 0;
+            }
+            .similar-post {
+                margin-top: 50px;
+            }
         }
     </style>
 @endsection
@@ -29,8 +35,13 @@
         </div>
     </section>
 
-    <section class="blog-dtl-area pt30">
+    <section class="blog-dtl-area">
         <div class="container">
+            <div class="dtl__postDay">
+                <ul class="pull-right">
+                    <li style="font-size: 14px"><i>Categorized in</i> <b><a href="{{route('blog', $post->category->slug)}}">{{$post->category->name}}</a></b></li>
+                </ul>
+            </div>
             <div class="dtl__main col-sm-12">
                 <div class="dtl__content">
                     <object class="dtl__content">
@@ -49,7 +60,7 @@
         <hr style="margin: 20px 0">
         <div class="row">
                 @foreach ($similarPosts as $similarPost)
-                <div class="posted-box col-sm-4 mt20">
+                <div class="posted-box col-sm-4 similar-post">
                     <div class="posted__img">
                         <img src="{{ image($similarPost->image,'-medium') }}" alt="{{$similarPost->title}}" />
                         <div class="posted__hover">
@@ -58,11 +69,11 @@
                     </div>
                     <div class="posted__cont">
                         <div class="dtl__postDay">
-                            <ul>
-                                <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{ date("h:m a", strtotime($similarPost->created_at)) }} </li>
-                                <li><i class="fa fa-calendar" aria-hidden="true"></i>{{ date("F jS, Y", strtotime($similarPost->created_at)) }} </li>
-                            </ul>
                             <h3><a href="{{route('post_detail',['slug' => $similarPost->slug])}}">{{$similarPost->title}}</a></h3>
+                            <ul style="padding: 0; display: flex;justify-content: space-between;align-content: center;">
+                                <li><i class="fa fa-calendar" aria-hidden="true"></i>{{ date("F jS, Y", strtotime($similarPost->created_at)) }} </li>
+                                <li class="text-right" style="padding: 0"><i class="fa fa-th-list"></i><a href="{{route('blog', $post->category->slug)}}">{{$post->category->name}}</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
