@@ -242,10 +242,12 @@
                         </small>
                     </div>
                     @endif
+                    @if(!isset($is_doctor_register))
                     <div class="form-group col-sm-6">
                         <small>We do not support orders from the following states:
                             <strong>NY, NJ RI, MD, HI</strong></small>
                     </div>
+                    @endif
                     <div class="form-group col-sm-6 text-right">
                         <button type="submit" class="btn btn-flat btn-primary ">SIGNUP</button>
                     </div>

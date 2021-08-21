@@ -125,6 +125,7 @@
                         <select name="state" id="state" required class="form-control">
                             <option>State *</option>
                             @foreach(\App\Models\State::get() as $state)
+                                @if(in_array($state->code,  ['NY', 'NJ', 'RI', 'MD', 'HI']) && isset($is_doctor_register)) @continue @endif
                                 <option {{old('state',$user->address->state) == $state->code ? 'selected' : ''}} value="{{$state->code}}">{{$state->title}}</option>
                             @endforeach
                         </select>
@@ -226,10 +227,12 @@
                             <textarea class="form-control" style="min-height: 40px" placeholder="Do you have any special requests?" name="special_requests">{{old('special_requests', $user->special_requests)}}</textarea>
                         </div>
                     @endif
+                    @if(!isset($is_doctor_register))
                     <div class="form-group col-sm-6">
                         <small>We do not support orders from the following states:
                             <strong>NY, NJ RI, MD, HI</strong></small>
                     </div>
+                    @endif
                     <div class="form-group col-sm-6 text-right">
                         <button type="submit" class="btn btn-flat btn-primary ">UPDATE PROFILE</button>
                     </div>
