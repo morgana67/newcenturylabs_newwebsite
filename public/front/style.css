@@ -1871,6 +1871,22 @@ section.ftr-area {
 .dtl__postDay ul{
     padding:25px;
 }
+.bnr__cont .dtl__postDay ul {
+    padding: 0;
+}
+
+.bnr__cont .dtl__postDay ul li {
+    display:inline-block;
+    font-style:italic;
+    color:#fff;
+    font-size:16px;
+    font-weight:500;
+    padding:0 5px;
+}
+.bnr__cont .dtl__postDay ul li i {
+    color:#fff;
+}
+
 .dtl__content {
     font-family: arial, 'helvetica neue', helvetica, sans-serif;
 }
@@ -3833,6 +3849,7 @@ body .page-bnr-area {
         text-align: center;
         float: left;
         width: 100%;
+        padding: 0 10%
     }
 
 
@@ -4041,7 +4058,11 @@ section.box-area.text-center.pt20.pb50 {
 
 
 /* Kindel Fire HD 8.9in (533x853) Tablets */
-@media only screen and (max-width : 533px) {	}
+@media only screen and (max-width : 533px) {
+    .bnr__cont {
+        padding: 0;
+    }
+}
 
 /*iPhone3 Landscape
 @media only screen and (max-width : 480px) {
