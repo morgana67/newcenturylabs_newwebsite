@@ -25,7 +25,7 @@
         <div class="container">
             <div class="bnr__cont valign white text-center col-sm-12 text-uppercase anime-flipInX">
                 <h2>{{$post->title}}</h2>
-                <div class="dtl__postDay" style="height: 65px">
+                <div class="dtl__postDay">
                     <ul>
                         <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{ date("h:m a", strtotime($post->created_at)) }}, </li>
                         <li><i class="fa fa-calendar" aria-hidden="true"></i> {{ date("F jS, Y", strtotime($post->created_at)) }} </li>
@@ -37,7 +37,7 @@
 
     <section class="blog-dtl-area">
         <div class="container">
-            <div class="dtl__postDay">
+            <div class="dtl__postDay" style="height: 70px">
                 <ul class="pull-right">
                     <li style="font-size: 14px"><i>Categorized in</i> <b><a href="{{route('blog', $post->category->slug)}}">{{$post->category->name}}</a></b></li>
                 </ul>
