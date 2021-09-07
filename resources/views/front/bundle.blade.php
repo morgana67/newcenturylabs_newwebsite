@@ -8,33 +8,36 @@
 @section('keywords'){{'Bundle'}}@endsection
 @section('css')
    <style>
-       #example tr th{
-           text-align: left;
+       .sticky{
+           position: fixed;
+           top: 80px;
        }
-       #example tr td .btn-view {
-           font-size: 12px;
-           border: 1px solid #39c;
-           color: #000;
-           padding: 2px 5px;
-           background: #fff;
+       .sticky2{
+           position: fixed;
+           bottom: 0;
        }
 
-       .lnk-btn .view-bundle {
-           color: #333 !important;
-           background-color: #fff !important;
-           border-color: #ccc !important;
-           font-size: 14px;
-           height: 34px;
+       .footer_cart{
+           width: 100%;
+           display: flex;
+           font-weight: 700;
+           font-size: 20px;
+           text-align: center;
+           background-color: #0076c4;
+           color: #fff;
        }
-       .pack-box:hover .view-bundle {
-           color: #333 !important;
-           background-color: #fff !important;
-           border-color: #ccc !important;
+       .footer_cart > div{
+           border: 1px solid #aaa!important;
+           padding: 10px;
        }
-       .pack-box:hover .view-bundle:hover {
-           color: #333 !important;
-           background-color: #e6e6e6 !important;
-           border-color: #adadad !important;
+       .footer_cart > div:nth-child(1){
+            width: 114px;
+       }
+       .footer_cart > div:nth-child(2){
+           width: 342px;
+       }
+       .footer_cart > div:nth-child(3) , .footer_cart > div:nth-child(4), .footer_cart > div:nth-child(5),.footer_cart > div:nth-child(6){
+           width: 171px;
        }
    </style>
 @endsection
@@ -52,33 +55,60 @@
                 menu</p>
         </div>
     </section>
-    @if(count($bundlesFeatured) > 0)
     <section class="packages-area bg-snow p30 mb30 box-scale--hover">
         <div class="container">
-            <h3 class="text-center">FEATURED BUNDLE PACKAGE</h3>
-           @foreach ($bundlesFeatured as $bundle)
+            <?php
+            $thHead = "";
+            $thPrice = "";
+            $thBody = "";
+            $tdBottom = "";
+            $thBottom ="";
+            foreach ($model as $product) {
+
+            if ($product->sale_price != null)
+                $price = $product->sale_price;
+            else
+                $price = $product->price;
+
+
+            $thHead .= '<th width="15%">' . $product->name . '</th>';
+            $thPrice .= "<th>".setting('site.currency') . format_price($price) . "</th>";
+            $tdBottom .= '<div width="15%">'.setting('site.currency') . format_price($price) .'
+                            <div class="lnk-btn inline-btns">
+                                    <form method="POST" action="'.route('cart.add').'">
+                                       <input type="hidden" value="'.csrf_token().'" name="_token" />
+                                        <input type="hidden" value="1" name="quantity" id="quantity"/>
+                                        <input type="hidden" name="price" id="price" value="'.$price.'"/>
+                                        <input type="hidden" name="product_id" id="product_id" value="'.$product->id.'"/>
+                                        <input type="hidden" name="name" id="name" value="'.$product->name.'"/>
+                                        <input type="hidden" name="slug" id="slug" value="'.$product->slug.'"/>
+                                        <button id="btn_add_to_cart" class="out-btn btn btn-default">CHECKOUT</button>
+                                    </form>
+                            </div>
+                        </div>';
+            $thBottom .= '<th width="15%">'.setting('site.currency') . format_price($price) .'
+                            <div class="lnk-btn inline-btns">
+                                    <form method="POST" action="'.route('cart.add').'">
+                                       <input type="hidden" value="'.csrf_token().'" name="_token" />
+                                        <input type="hidden" value="1" name="quantity" id="quantity"/>
+                                        <input type="hidden" name="price" id="price" value="'.$price.'"/>
+                                        <input type="hidden" name="product_id" id="product_id" value="'.$product->id.'"/>
+                                        <input type="hidden" name="name" id="name" value="'.$product->name.'"/>
+                                        <input type="hidden" name="slug" id="slug" value="'.$product->slug.'"/>
+                                        <button id="btn_add_to_cart" class="out-btn btn btn-default">CHECKOUT</button>
+                                    </form>
+                            </div>
+                        </th>';
+            ?>
             <div class="pack-box col-sm-3 ">
                 <div clsas="pack__hed">
-                    <h4>{{$bundle->name}}</h4>
+                    <h4><?php echo $product->name; ?></h4>
                     <h2>
-                        @php
-                            if($bundle->sale_price != null){
-                                $price = $bundle->sale_price;
-                            }else{
-                                $price = $bundle->price;
-                            }
-                        @endphp
-                        @if(Auth::check() && Auth::user()->role_id == 3 && $bundle->price_for_doctor > 0)
-                            @php $price = $bundle->price_for_doctor @endphp
-                            <span id="old_price" style="text-decoration: line-through;">${{ format_price($bundle->price) }}</span>
-                            <span id="price">{{setting('site.currency')}}{{ format_price($bundle->price_for_doctor) }}</span>
+                        @if($product->sale_price !=  null)
+                            <span id="old_price" style="text-decoration: line-through;">${{ format_price($product->price) }}</span>
+                            <span id="price">{{setting('site.currency')}}{{ format_price($product->sale_price) }}</span>
                         @else
-                            @if($bundle->sale_price !=  null)
-                                <span id="old_price" style="text-decoration: line-through;">${{ format_price($bundle->price) }}</span>
-                                <span id="price">{{setting('site.currency')}}{{ format_price($bundle->sale_price) }}</span>
-                            @else
-                                <span id="price">{{setting('site.currency')}}{{ format_price($bundle->price) }}</span>
-                            @endif
+                            <span id="price">{{setting('site.currency')}}{{ format_price($product->price) }}</span>
                         @endif
                     </h2>
                     <div class="rating-area clrlist">
@@ -92,61 +122,131 @@
                     </div>
                 </div>
                 <div class="cont">
-                    <p>{!! $bundle->description  !!} </p>
+                    <p>{!! $product->description  !!} </p>
                     <div class="lnk-btn inline-btns">
                         <form method="POST" action="{{route('cart.add')}}">
                             @csrf
                             <input type="hidden" value="1" name="quantity" id="quantity"/>
                             <input type="hidden" name="price" id="price" value="{{$price}}"/>
-                            <input type="hidden" name="product_id" id="product_id" value="{{$bundle->id}}"/>
-                            <input type="hidden" name="name" id="name" value="{{$bundle->name}}"/>
-                            <input type="hidden" name="slug" id="slug" value="{{$bundle->slug}}"/>
-                            <a href="{{route('bundle.show',['slug' => $bundle->slug])}}" class="out-btn btn btn-default view-bundle">VIEW</a>
+                            <input type="hidden" name="product_id" id="product_id" value="{{$product->id}}"/>
+                            <input type="hidden" name="name" id="name" value="{{$product->name}}"/>
+                            <input type="hidden" name="slug" id="slug" value="{{$product->slug}}"/>
                             <button id="btn_add_to_cart" class="out-btn btn btn-default">CHECKOUT</button>
                         </form>
+
                     </div>
                 </div>
 
             </div>
-            @endforeach
+            <?php } ?>
         </div>
     </section>
-    @endif
-    <section class="test-bd-area pt50 pb50">
+    <section class="table-area0 pack-table pt30 pb30 table-valign a--hidden">
         <div class="container">
-            <h3 class="text-center">LIST BUNDLE PACKAGE</h3>
-            <div class="test-menu-area">
-                <table id="example" class="table table-area0 table-striped table-bordered" cellspacing="0" width="100%" style="margin-top: 30px">
-                    <thead>
-                    <tr>
-                        <th>Bundle Package Name</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($bundles as $bundle)
+
+            <div class="table-responsive">
+
+                <table class="table table-hover">
+                    <colgroup>
+                        <col width="10%">
+                        <col width="30%">
+                        <col width="15%">
+                        <col width="15%">
+                        <col width="15%">
+                        <col width="15%">
+                    </colgroup>
+                    <thead class="cart-sticky">
                         <tr>
-                            <td class="d-flex justify-content-space-between">
-                                <a href="{{route('bundle.show',['slug' => $bundle->slug])}}">{{ $bundle->name }}</a>
-                                <div class="actions">
-                                    <a class="btn btn-view" href="{{route('bundle.show',['slug' => $bundle->slug])}}">View</a>
-                                    <form method="POST" action="{{route('cart.add')}}" class="inline-block">
-                                        @csrf
-                                        <input type="hidden" value="1" name="quantity" id="quantity"/>
-                                        <input type="hidden" name="price" id="price" value="{{$bundle->price}}"/>
-                                        <input type="hidden" name="product_id" id="product_id" value="{{$bundle->id}}"/>
-                                        <input type="hidden" name="name" id="name" value="{{$bundle->name}}"/>
-                                        <input type="hidden" name="slug" id="slug" value="{{$bundle->slug}}"/>
-                                        <button id="btn_add_to_cart" class="btn btn-view">CHECKOUT</button>
-                                    </form>
-                                </div>
-                            </td>
+                            <th width="10%">Category</th>
+                            <th width="30%">Bio Markers</th>
+                            {!! $thHead !!}
                         </tr>
-                    @endforeach
-                    </tbody>
+                    </thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        {!! $thPrice !!}
+                    </tr>
+
+                    <?php
+                    foreach ($categories as $id => $category) {
+                    if (empty($category['categories'])) {
+                        continue;
+                    }
+                    ?>
+                    <tr>
+                        <td colspan="<?php echo count($model) + 2; ?>"><?php echo $category['name']; ?></td>
+                    </tr>
+                    <?php
+                        foreach ($category['categories'] as $subCatId => $subCategory) {
+                    ?>
+                    <tr>
+                        <td><a href="#">View</a></td>
+                        <td><?php echo $subCategory; ?></td>
+
+                        <?php
+                        foreach ($model as $product) {
+                            if (isset($productCategories[$product->id]) && in_array($subCatId, $productCategories[$product->id])) {
+                                $class = "check";
+                            } else {
+                                $class = "times";
+                            }
+                        ?>
+                        <td><i class="fa fa-<?php echo $class; ?>"></i></td>
+                        <?php
+                        }
+                        ?>
+                    </tr>
+                    <?php
+                    }
+                    }
+                    ?>
+                    @if(!$Agent->isDesktop())
+                        <thead class="cart-sticky">
+                            <tr>
+                                <th width="10%"></th>
+                                <th width="30%"></th>
+                                {!! $thBottom !!}
+                            </tr>
+                        </thead>
+                    @endif
                 </table>
+                @if($Agent->isDesktop())
+                    <div class="footer_cart">
+                        <div></div>
+                        <div></div>
+                        {!! $tdBottom !!}
+                    </div>
+                @endif
             </div>
+
         </div>
     </section>
 @endsection
 @section('script')
+    @if($Agent->isDesktop())
+    <script>
+        $(function (){
+            let cartOffset = $('.cart-sticky').offset().top;
+            let footer_cart = $('.footer_cart').offset().top;
+            $(window).scroll(function (event) {
+                let scroll = $(window).scrollTop();
+                if(scroll > cartOffset-100){
+                    $('.cart-sticky').addClass('sticky');
+                    $('.sticky').css('width',$('tbody').width());
+                }else{
+                    $('.cart-sticky').removeClass('sticky');
+                }
+
+                if(scroll >= cartOffset && scroll < parseInt(footer_cart)-1000){
+                    $('.footer_cart').addClass('sticky2');
+                    $('.sticky2').css('width',$('tbody').width());
+                }else{
+                    $('.footer_cart').removeClass('sticky2');
+                }
+
+            });
+        })
+    </script>
+    @endif
 @endsection

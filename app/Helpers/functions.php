@@ -123,9 +123,3 @@ if (!function_exists('HmacSHA1Encrypt')) {
         return $signature;
     }
 }
-
-if (!function_exists('getProductById')) {
-    function getProductById($id){
-        return \App\Models\Product::find($id);
-    }
-}
