@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="form-group col-sm-12">
-                        <input placeholder="Email *" class="form-control" required="required" name="email" type="email"
+                        <input placeholder="Email Address *" class="form-control" required="required" name="email" type="email"
                                value="{{old('email')}}" >
                         <span class="require"></span>
 
@@ -167,7 +167,7 @@
                         <span class="require"></span>
                     </div>
                     <div class="form-group col-sm-12">
-                        <input placeholder="Address *" class="form-control" required="required" name="address"
+                        <input placeholder="Street Address *" class="form-control" required="required" name="address"
                                type="text" value="{{old('address')}}">
                         <span class="require"></span>
                     </div>
@@ -187,17 +187,17 @@
                         <h4 class="mt20 mb20">Doctor Information</h4>
                     </div>
                     <div class="form-group col-sm-12">
-                        <input placeholder="Physician Name*" class="form-control" required="required" name="physician_name"
+                        <input placeholder="Physician Name *" class="form-control" required="required" name="physician_name"
                                type="text" value="{{old('physician_name')}}">
                         <span class="require"></span>
                     </div>
                     <div class="form-group col-sm-6">
-                        <input placeholder="Physician License Number*" class="form-control" required="required" name="physician_license_number"
+                        <input placeholder="Physician License Number *" class="form-control" required="required" name="physician_license_number"
                                type="text" value="{{old('physician_license_number')}}">
                         <span class="require"></span>
                     </div>
                     <div class="form-group col-sm-6">
-                        <input placeholder="Physician NPI Number*" class="form-control" required="required" name="physician_npi_number"
+                        <input placeholder="Physician NPI Number *" class="form-control" required="required" name="physician_npi_number"
                                type="text" value="{{old('physician_npi_number')}}">
                         <span class="require"></span>
                     </div>
