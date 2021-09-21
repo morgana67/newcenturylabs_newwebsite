@@ -27,7 +27,7 @@
                 <h2>{{$post->title}}</h2>
                 <div class="dtl__postDay">
                     <ul>
-                        <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{ date("h:m a", strtotime($post->created_at)) }}, </li>
+                        <li><i class="fa fa-clock-o" aria-hidden="true"></i> {{ date("g:i a", strtotime($post->created_at)) }} </li>
                         <li><i class="fa fa-calendar" aria-hidden="true"></i> {{ date("F jS, Y", strtotime($post->created_at)) }} </li>
                     </ul>
                 </div>

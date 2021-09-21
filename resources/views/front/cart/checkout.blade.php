@@ -165,7 +165,7 @@
                             @foreach(Cart::content() as $product)
                                 @php $productsInCart[] = $product->id @endphp
                                 <tr>
-                                    <td>{{$product->name}} @if($product->options->type == 'bundle')(Bundle Package)@endif</td>
+                                    <td>{{$product->name}}</td>
                                     <td>{{setting('site.currency')}}{{format_price($product->price)}}</td>
                                 </tr>
                             @endforeach

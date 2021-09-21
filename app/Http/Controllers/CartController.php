@@ -10,19 +10,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 class CartController extends Controller
 {
     public function add(Request $request){
-        $product = Product::find($request->product_id);
-        $productInfo = [
-            'id' => $request->product_id,
-            'name' => $request->name,
-            'price' => $request->price,
-            'qty' => $request->quantity,
-            'weight' => 0,
-            'options' => [
-                'type' => $product->type,
-                'slug' => $product->slug,
-            ]
-        ];
-        Cart::add($productInfo);
+        Cart::add(['id' => $request->product_id,'name' => $request->name,'price' => $request->price,'qty' => $request->quantity,'weight' => 0]);
         return redirect()->route('cart.view');
     }
 
@@ -64,31 +52,7 @@ class CartController extends Controller
     }
 
     public function remove(Request $request){
-        $productInCart = Cart::get($request->rowId);
-        if($productInCart->options->type == 'bundle') {
-            $bundleProducts = Product::find($productInCart->id)->productBundle;
-            $arrCart = [];
-            foreach($bundleProducts as $bundleProduct) {
-                if($bundleProduct->product_id != $request->productId) {
-                    $product = $bundleProduct->product;
-                    $arrCart[] = [
-                        'id' => $product->id,
-                        'name' => $product->name,
-                        'price' => !empty($product->sale_price) ? $product->sale_price : $product->price,
-                        'qty' => 1,
-                        'weight' => 0,
-                        'options' => [
-                            'type' => $product->type,
-                            'slug' => $product->slug,
-                        ]
-                    ];
-                }
-            }
-            Cart::remove($request->rowId);
-            Cart::add($arrCart);
-        } else {
-            Cart::remove($request->rowId);
-        }
+        Cart::remove($request->rowId);
         return back();
     }
 

@@ -167,7 +167,17 @@ class RegisterController extends Controller
                 $body = str_replace("{{LINK_VERIFY}}", route('verifyAccount').'?'.http_build_query($paramGet), $body);
                 event(new SendMailProcessed($request->email,$mailConfig->subject,$body));
             }
+            if(isset($request->is_doctor_register)) {
+                $mailConfig = MailConfig::where('code','=','new_doctor')->first();
+                if ($mailConfig){
+                    $customer = Customer::find($customerId);
+                    $body =  Functions::replaceBodyEmail($mailConfig->body,$customer);
+                    $body = str_replace("{{LINK_CUSTOMER}}", route('voyager.customers.index', $customer->id), $body);
+                    event(new SendMailProcessed(setting('site.email_receive_notification'),$mailConfig->subject,$body));
+                }
+            }
             DB::commit();
+
             return redirect()->route('login')->with('success', 'We have sent you a verification email. Please check your mail !');
         }catch (\Exception $exception){
             DB::rollback();
