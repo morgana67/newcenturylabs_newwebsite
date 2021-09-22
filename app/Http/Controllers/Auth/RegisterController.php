@@ -172,7 +172,7 @@ class RegisterController extends Controller
                 if ($mailConfig){
                     $customer = Customer::find($customerId);
                     $body =  Functions::replaceBodyEmail($mailConfig->body,$customer);
-                    $body = str_replace("{{LINK_CUSTOMER}}", route('voyager.customers.index', $customer->id), $body);
+                    $body = str_replace("{{LINK_CUSTOMER}}", route('voyager.customers.show', $customer->id), $body);
                     event(new SendMailProcessed(setting('site.email_receive_notification'),$mailConfig->subject,$body));
                 }
             }
