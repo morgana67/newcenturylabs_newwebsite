@@ -172,6 +172,15 @@ class RegisterController extends Controller
                 if ($mailConfig){
                     $customer = Customer::find($customerId);
                     $body =  Functions::replaceBodyEmail($mailConfig->body,$customer);
+                    $body = str_replace("{{FIRST_NAME}}", $request['firstName'], $body);
+                    $body = str_replace("{{LAST_NAME}}", $request['lastName'], $body);
+                    $body = str_replace("{{EMAIL}}", $request['email'], $body);
+                    $body = str_replace("{{PHYSICIAN_NAME}}", $request->physician_name, $body);
+                    $body = str_replace("{{PHYSICIAN_LICENSE_NUMBER}}", $request->physician_license_number, $body);
+                    $body = str_replace("{{PHYSICIAN_NPI_NUMBER}}", $request->physician_npi_number, $body);
+                    $body = str_replace("{{DRAW_PATIENTS_OFFICE}}", $request->draw_patient ? "YES" : "NO", $body);
+                    $body = str_replace("{{BLOOD_DRAW_SUPPLIES}}", $request->blood_draw  ? "YES" : "NO", $body);
+                    $body = str_replace("{{ANY_SPECIAL_REQUEST}}", $request->special_requests, $body);
                     $body = str_replace("{{LINK_CUSTOMER}}", route('voyager.customers.show', $customer->id), $body);
                     event(new SendMailProcessed(setting('site.email_receive_notification'),$mailConfig->subject,$body));
                 }
