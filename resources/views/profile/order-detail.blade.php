@@ -63,13 +63,13 @@
                                 </div>
                                 <div class="order-info-item">
                                     <div>Payment Status</div>
-                                    <div>
+                                    <div style="text-transform: capitalize">
                                         {{$order->paymentStatus}}
                                     </div>
                                 </div>
                                 <div class="order-info-item">
                                     <div>Order Status</div>
-                                    <div>{{$order->orderStatus}}</div>
+                                    <div style="text-transform: capitalize">{{$order->orderStatus}}</div>
                                 </div>
                                 <div class="order-info-item">
                                     <div>PWH Requisition Order</div>
@@ -83,16 +83,16 @@
                                     </div>
                                 </div>
                                 <div class="order-info-item">
-                                    <div>PWH Order Link</div>
+                                    <div>PWN Order Link</div>
                                     <div style="word-break: break-all;"><a href="{{$order->pwh_order_link}}" class="btn btn-primary">Order Link</a></div>
                                 </div>
                                 <div class="order-info-item">
-                                    <div>PWH Status</div>
+                                    <div>PWN Status</div>
                                     <div><p>{{$order->pwh_status}}</p></div>
                                 </div>
                                 @if(strpos($order->pwh_status, 'Result') !== false)
                                     <div class="order-info-item">
-                                        <div>PWH Order Result</div>
+                                        <div>PWN Order Result</div>
                                         <div>
                                             @if(!empty($order->pwh_order_id))
                                                 <form action="{{route('downloadResultTest',$order->pwh_order_id)}}" method="GET">
