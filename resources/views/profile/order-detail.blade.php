@@ -72,7 +72,7 @@
                                     <div style="text-transform: capitalize">{{$order->orderStatus}}</div>
                                 </div>
                                 <div class="order-info-item">
-                                    <div>PWH Requisition Order</div>
+                                    <div>PWN Requisition Order</div>
                                     <div>
                                         @if(!empty($order->pwh_order_id))
                                             <form action="{{route('downloadRequisitionOrder',$order->pwh_order_id)}}" method="GET">
