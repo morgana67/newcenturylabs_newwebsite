@@ -113,7 +113,7 @@ class PwnhealthController extends Controller
                 $status = 'available';
                 $isDr = false;
                 $name = $order->firstName. ' '.$order->lastName;
-                $order->update(['pwh_status' => 'Result released: '.$request->result]);
+                $order->update(['pwh_status' => 'Result released: '.$request->result, 'orderStatus' => 'completed']);
                 $url = route('login',['redirect' => route('orderDetail',['id' => $order->id])]);
                 $bodyRender = view('emails.pwh_mail_result',compact('name','isDr','order','status','url'))->render();
                 event(new SendMailProcessed($order->email,'Your Order Results are now Available',$bodyRender));
