@@ -22,7 +22,15 @@ class CartController extends Controller
                 'slug' => $product->slug,
             ]
         ];
-        Cart::add($productInfo);
+        $add = true;
+        foreach(Cart::content() as $cartItem) {
+            if($cartItem->id == $product->id && $product->type == 'bundle') {
+                $add = false;
+                Cart::update($cartItem->rowId, ['qty' => 1]); // Will update the id, name and price
+            }
+        }
+        if($add) Cart::add($productInfo);
+
         return redirect()->route('cart.view');
     }
 

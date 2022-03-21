@@ -90,7 +90,7 @@ class RegisterController extends Controller
             'firstName' => ['required', 'string', 'max:191'],
             'lastName' => ['required', 'string', 'max:191'],
             'email' => ['required', 'string', 'email', 'max:191', 'unique:customers'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:8', 'confirmed', 'regex:/(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/'],
             'state' => 'required|max:191',
             'city' => 'required|max:191',
             'address' => 'required|max:191',

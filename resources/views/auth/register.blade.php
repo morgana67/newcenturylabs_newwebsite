@@ -16,6 +16,7 @@
             color: red;
         }
     </style>
+    <link rel="stylesheet" href="{{asset('front/css/jquery.passwordRequirements.css')}}">
 @stop
 @section('content')
     <section class="bnr-area page-bnr-area bg-full bg-cntr valigner"
@@ -71,8 +72,8 @@
                     </div>
 
                     <div class="form-group col-sm-12">
-                        <input placeholder="Password *" class="form-control"
-                               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required="required" name="password"
+                        <input placeholder="Password *" class="form-control pr-password"
+                               pattern="(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" name="password"
                                type="password" value="">
                         <span class="require"></span>
 
@@ -95,7 +96,7 @@
                     <div class="form-group col-sm-12">
                         <label for="gender">Gender <span class="require-label">*</span></label>
                         <div class="inline-form">
-                            <input {{old('gender') == 'm' || empty(old('gender')) ? 'checked' : ''}} name="gender" type="radio" value="m" id="gender">
+                            <input {{old('gender') == 'm' ? 'checked' : ''}} name="gender" type="radio" value="m" id="gender">
                             <label for="Male">Male</label>
                             <input {{old('gender') == 'f' ? 'checked' : ''}} name="gender" type="radio" value="f" id="gender">
                             <label for="Female">Female</label>
@@ -138,7 +139,7 @@
                     </div>
                     <div class="col-sm-6"></div>
 
-                    <div class="col-sm-12" style="opacity: 0;margin-bottom: -20px">--</div>
+                    <div class="col-sm-12" style="opacity: 0;margin-bottom: -20px; z-index: -1">--</div>
                     @endif
                     <div class="form-group col-sm-6">
                         <input placeholder="Country United States (US)" class="form-control" readonly="readonly"
@@ -155,7 +156,7 @@
                         <select name="state" id="state" required class="form-control">
                             <option value="">State *</option>
                             @foreach(\App\Models\State::get() as $state)
-                                @if(in_array($state->code,  ['NY', 'NJ', 'RI', 'MD', 'HI']) && isset($is_doctor_register)) @continue @endif
+                                @if(in_array($state->code,  ['NY', 'NJ', 'RI', 'MD', 'HI']) && isset($is_doctor_register) || $state->code == 'HI') @continue @endif
                                 <option {{old('state') == $state->code ? 'selected' : ''}} value="{{$state->code}}">{{$state->title}}</option>
                             @endforeach
                         </select>
@@ -257,8 +258,17 @@
     </form>
 @endsection
 @section('script')
+    <script src="{{asset('front/js/jquery.passwordRequirements.min.js')}}"></script>
     <script>
         $(document).ready(function () {
+            $(".pr-password").passwordRequirements({
+                numCharacters: 8,
+                useLowercase:true,
+                useUppercase:true,
+                useNumbers:true,
+                useSpecial:true
+            });
+
             $('.count-doctors').each(function () {
                 $(this).prop('Counter',0).animate({
                     Counter: $(this).text()

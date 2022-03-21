@@ -124,7 +124,14 @@ class CheckoutController extends Controller
                     'price' => $product->price,
                     'quantity' => $product->qty,
                 ];
-                $ids[] = $product->id;
+                if($product->options->type == 'bundle') {
+                    $productBundle = Product::find($product->id);
+                    foreach($productBundle->productBundle as $productB) {
+                        $ids[] = $productB->id;
+                    }
+                } else {
+                    $ids[] = $product->id;
+                }
             }
 
             foreach ($mandatoryProducts as $mandatoryProduct){
