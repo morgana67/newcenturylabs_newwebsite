@@ -16,7 +16,7 @@ class IsCustomer
     public function handle($request, Closure $next)
     {
         if (!is_customer()) {
-            return redirect()->route('login',['redirect' => url()->previous()]);
+            return redirect()->route('login',['redirect' => url()->current()]);
         }
         return $next($request);
     }

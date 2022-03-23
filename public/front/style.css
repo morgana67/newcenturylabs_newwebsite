@@ -2524,7 +2524,7 @@ button.remove-btn.reg {
 	line-height: 18px;
 }
 
-table.table.cart-item-table a {
+table.table.cart-item-table a:not(.btn) {
     color: #000;
 }
 

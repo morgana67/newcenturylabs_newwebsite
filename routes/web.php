@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //
+Route::get('/test', function() {
+    echo bcrypt("asdqwe123");
+});
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/shop', 'HomeController@shop')->name('shop');
 Route::get('/product/{slug}', 'HomeController@product_detail')->name('product_detail');
@@ -56,6 +59,16 @@ Route::match(['get','post'],'/change-password','Auth\ResetPasswordController@cha
 
 Route::get('/verify-account','Auth\RegisterController@verifyAccount')->name('verifyAccount');
 
+Route::group(['prefix' => 'cart','as' => 'cart.'],function (){
+    Route::post('add','CartController@add')->name('add');
+    Route::post('addMultiple','CartController@addMultiple')->name('addMultiple');
+    Route::get('view','CartController@view')->name('view');
+    Route::post('update','CartController@update')->name('update');
+    Route::post('remove','CartController@remove')->name('remove');
+    Route::get('removeAll','CartController@removeAll')->name('removeAll');
+
+});
+
 Route::group(['middleware' => 'customer'],function (){
     Route::group(['prefix' => 'profile','as' => 'profile.'],function (){
         Route::match(['get','post'],'/','ProfileController@profile')->name('profile');
@@ -65,11 +78,6 @@ Route::group(['middleware' => 'customer'],function (){
     Route::get('order-detail/{id}','ProfileController@orderDetail')->name('orderDetail');
 
     Route::group(['prefix' => 'cart','as' => 'cart.'],function (){
-        Route::post('add','CartController@add')->name('add');
-        Route::post('addMultiple','CartController@addMultiple')->name('addMultiple');
-        Route::get('view','CartController@view')->name('view');
-        Route::post('update','CartController@update')->name('update');
-        Route::post('remove','CartController@remove')->name('remove');
         Route::get('/checkout', 'CheckoutController@view')->name('checkout');
         Route::post('/checkoutProceed', 'CheckoutController@checkoutProceed')->name('checkoutProceed');
     });

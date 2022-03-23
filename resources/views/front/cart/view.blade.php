@@ -20,7 +20,7 @@
                 </div>
             @else
                 <div class="table-area col-sm-12">
-                    <table class="table cart-item-table table-bordered table-topbot table-valign">
+                    <table class="table cart-item-table table-topbot table-valign">
                         <thead>
                             <th class="col-sm-6 " colspan="2" >PRODUCT NAME</th>
                             <th class="col-sm-2 text-center">PRICES</th>
@@ -135,12 +135,19 @@
                                 @endforeach
                             @endif
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" class="text-left">
+                                    <a href="{{route('cart.removeAll')}}" class="btn btn-danger">Remove All</a>
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
 
                 <div class="table-total-area col-sm-6 pul-lft">
                     @if($additionalProducts->isNotEmpty())
-                    <table class="table  table-bordered table-topbot">
+                    <table class="table table-topbot">
                         <tbody>
                         @foreach($additionalProducts as $product)
                             @php  $price = format_price(!empty($product->sale_price) ? $product->sale_price : $product->price); @endphp
@@ -162,7 +169,7 @@
                     </table>
                     @endif
                     @if($suggestProducts->isNotEmpty())
-                        <table class="table  table-bordered table-topbot">
+                        <table class="table table-topbot">
                             <tbody>
                             @foreach($suggestProducts as $suggestProduct)
                                 @php
@@ -194,7 +201,7 @@
 
 
                 <div class="table-total-area col-sm-4 col-sm-offset-2 pul-rgt">
-                    <table class="table  table-bordered table-topbot">
+                    <table class="table table-topbot">
                         <thead>
                         <tr><th colspan="2">CART TOTALS</th>
                         </tr></thead>

@@ -100,4 +100,9 @@ class CartController extends Controller
         return back();
     }
 
+    public function removeAll(Request $request) {
+        Cart::destroy();
+        return back();
+    }
+
 }
