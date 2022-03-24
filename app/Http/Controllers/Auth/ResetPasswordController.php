@@ -84,7 +84,7 @@ class ResetPasswordController extends Controller
         $customer = Customer::where('token', $token)->firstOrFail();
         if($request->isMethod('POST')) {
             $validator = Validator::make($request->all(),[
-                'password' => 'required|min:8|confirmed',
+                'password' => ['required', 'string', 'min:8', 'confirmed', 'regex:/(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/'],
             ]);
             if($validator->fails()){
                 return redirect()->back()->withErrors($validator->getMessageBag());
