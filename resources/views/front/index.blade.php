@@ -165,6 +165,21 @@
     </section>
 
 
+    <section class="box-area text-center pt20 pb50">
+        <div class="container">
+            <div class="hed">
+                <h2>Client We've Served</h2>
+            </div>
+            <div class="d-flex">
+                <div><img src="https://picsum.photos/200" alt=""></div>
+                <div><img src="https://picsum.photos/201" alt=""></div>
+                <div><img src="https://picsum.photos/202" alt=""></div>
+                <div><img src="https://picsum.photos/203" alt=""></div>
+            </div>
+        </div>
+    </section>
+
+
     <section class="testlab-area text-center bg-full white p100 valigner mt40 rotate-img--hover"
              style="background-image: url('{{ image($body->image_section4 ?? null ) }}')">
         <div class="container">

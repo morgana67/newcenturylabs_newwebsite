@@ -3312,8 +3312,9 @@ table.table.table-topbot, table.table.table-topbot td, table.table.table-topbot 
     }
 
     .most__inr__img {
-        width: 380px;
-        height: 380px;
+        width: 350px !important;
+        height: 350px !important;
+        margin: 0 auto;
     }
 
     .most__inr__cont h2 {

@@ -91,108 +91,146 @@
             @if(!empty($body->img_icon_1_section1))
                 <img class="img-responsive" src="{{image($body->img_icon_1_section1)}}" alt="">
             @endif
-{{--        </div>--}}
-    </div>
-    <div>
-        <div class="form-group col-md-4">
-            <label class="control-label" for="title_icon_2_section1">Title icon 2</label>
-            <input type="text" class="form-control" name="title_icon_2_section1"
+            {{--        </div>--}}
+        </div>
+        <div>
+            <div class="form-group col-md-4">
+                <label class="control-label" for="title_icon_2_section1">Title icon 2</label>
+                <input type="text" class="form-control" name="title_icon_2_section1"
+                       placeholder="Title"
+                       value="{{old('title_icon_2_section1',$body->title_icon_2_section1 ?? null)}}">
+            </div>
+            <div class="form-group col-md-4">
+                <label class="control-label" for="desc_icon_2_section1">Desc icon 2</label>
+                <input type="text" class="form-control" name="desc_icon_2_section1"
+                       placeholder="Desc"
+                       value="{{old('desc_icon_2_section1',$body->desc_icon_2_section1 ?? null)}}">
+            </div>
+            <div class="form-group col-md-4">
+                <label class="control-label" for="img_icon_2_section1">Icon</label>
+                <input type="file" style="padding: 7px;" name="img_icon_2_section1"
+                       class="form-control"
+                       value="{{old('img_icon_2_section1',$body->img_icon_2_section1 ?? null)}}">
+                @if(!empty($body->img_icon_2_section1))
+                    <img class="img-responsive" src="{{image($body->img_icon_2_section1)}}" alt="">
+                @endif
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group col-md-4">
+                <label class="control-label" for="title_icon_3_section1">Title icon 3</label>
+                <input type="text" class="form-control" name="title_icon_3_section1"
+                       placeholder="Title"
+                       value="{{old('title_icon_3_section1',$body->title_icon_3_section1 ?? null)}}">
+            </div>
+            <div class="form-group col-md-4">
+                <label class="control-label" for="desc_icon_3_section1">Desc icon 3</label>
+                <input type="text" class="form-control" name="desc_icon_3_section1"
+                       placeholder="Desc"
+                       value="{{old('desc_icon_3_section1',$body->desc_icon_3_section1 ?? null)}}">
+            </div>
+            <div class="form-group col-md-4">
+                <label class="control-label" for="img_icon_3_section1">Icon</label>
+                <input type="file" style="padding: 7px;" name="img_icon_3_section1"
+                       class="form-control"
+                       value="{{old('img_icon_3_section1',$body->img_icon_3_section1 ?? null)}}">
+                @if(!empty($body->img_icon_3_section1))
+                    <img class="img-responsive" src="{{image($body->img_icon_3_section1)}}" alt="">
+                @endif
+            </div>
+        </div>
+        <hr>
+        <div class="form-group col-md-12">
+            <h4>Section 2</h4>
+            <label class="control-label" for="name">Title</label>
+            <input type="text" class="form-control" name="title_section2"
                    placeholder="Title"
-                   value="{{old('title_icon_2_section1',$body->title_icon_2_section1 ?? null)}}">
+                   value="{{old('title_section2',$body->title_section2 ?? null)}}">
         </div>
-        <div class="form-group col-md-4">
-            <label class="control-label" for="desc_icon_2_section1">Desc icon 2</label>
-            <input type="text" class="form-control" name="desc_icon_2_section1"
-                   placeholder="Desc"
-                   value="{{old('desc_icon_2_section1',$body->desc_icon_2_section1 ?? null)}}">
+        <div class="form-group col-md-12">
+            <label class="control-label" for="content_banner">Description</label>
+            <textarea name="desc_section2" class="form-control" id="desc_section2" cols="20"
+                      rows="5">{{old('desc_section2',$body->desc_section2 ?? null)}}</textarea>
         </div>
-        <div class="form-group col-md-4">
-            <label class="control-label" for="img_icon_2_section1">Icon</label>
-            <input type="file" style="padding: 7px;" name="img_icon_2_section1"
-                   class="form-control"
-                   value="{{old('img_icon_2_section1',$body->img_icon_2_section1 ?? null)}}">
-            @if(!empty($body->img_icon_2_section1))
-                <img class="img-responsive" src="{{image($body->img_icon_2_section1)}}" alt="">
+        <div class="form-group col-md-6">
+            <label class="control-label" for="price_section2">Price</label>
+            <input type="text" class="form-control" name="price_section2"
+                   value="{{old('price_section2',$body->price_section2 ?? null)}}">
+        </div>
+        <div class="form-group col-md-6">
+            <label class="control-label" for="sale_price_section2">Sale Price</label>
+            <input type="text" class="form-control" name="sale_price_section2"
+                   value="{{old('sale_price_section2',$body->sale_price_section2 ?? null)}}">
+        </div>
+
+        <div class="form-group col-md-12">
+            <h4>Section 3</h4>
+            <label class="control-label" for="name">Title</label>
+            <input type="text" class="form-control" name="title_section3"
+                   placeholder="Title"
+                   value="{{old('title_section3',$body->title_section3 ?? null)}}">
+        </div>
+        <div class="form-group col-md-12">
+            <label class="control-label" for="content_banner">Description</label>
+            <textarea name="desc_section3" class="form-control" id="desc_section3" cols="20"
+                      rows="5">{{old('desc_section3',$body->desc_section3 ?? null)}}</textarea>
+        </div>
+        <div class="form-group col-md-12">
+            <input type="file" name="image_section3"
+                   value="{{old('image_section3',$body->image_section3 ?? null)}}">
+            @if(!empty($body->image_section3))
+                <img src="{{image($body->image_section3)}}" alt="">
             @endif
         </div>
-    </div>
 
-    <div>
-        <div class="form-group col-md-4">
-            <label class="control-label" for="title_icon_3_section1">Title icon 3</label>
-            <input type="text" class="form-control" name="title_icon_3_section1"
+        <div class="form-group col-md-12">
+            <h4>Section 4</h4>
+            <label class="control-label" for="name">Title</label>
+            <input type="text" class="form-control" name="title_section4"
                    placeholder="Title"
-                   value="{{old('title_icon_3_section1',$body->title_icon_3_section1 ?? null)}}">
+                   value="{{old('title_section4',$body->title_section4 ?? null)}}">
         </div>
-        <div class="form-group col-md-4">
-            <label class="control-label" for="desc_icon_3_section1">Desc icon 3</label>
-            <input type="text" class="form-control" name="desc_icon_3_section1"
-                   placeholder="Desc"
-                   value="{{old('desc_icon_3_section1',$body->desc_icon_3_section1 ?? null)}}">
-        </div>
-        <div class="form-group col-md-4">
-            <label class="control-label" for="img_icon_3_section1">Icon</label>
-            <input type="file" style="padding: 7px;" name="img_icon_3_section1"
-                   class="form-control"
-                   value="{{old('img_icon_3_section1',$body->img_icon_3_section1 ?? null)}}">
-            @if(!empty($body->img_icon_3_section1))
-                <img class="img-responsive" src="{{image($body->img_icon_3_section1)}}" alt="">
+
+        <div class="form-group col-md-12">
+            <input type="file" name="image_section4"
+                   value="{{old('image_section4',$body->image_section4 ?? null)}}">
+            @if(!empty($body->image_section4))
+                <img class="img-responsive" src="{{image($body->image_section4)}}" alt="">
             @endif
         </div>
-    </div>
-    <hr>
-    <div class="form-group col-md-12">
-        <h4>Section 2</h4>
-        <label class="control-label" for="name">Title</label>
-        <input type="text" class="form-control" name="title_section2"
-               placeholder="Title"
-               value="{{old('title_section2',$body->title_section2 ?? null)}}">
-    </div>
-    <div class="form-group col-md-12">
-        <label class="control-label" for="content_banner">Description</label>
-        <textarea name="desc_section2" class="form-control" id="desc_section2" cols="20" rows="5">{{old('desc_section2',$body->desc_section2 ?? null)}}</textarea>
-    </div>
-    <div class="form-group col-md-6">
-        <label class="control-label" for="price_section2">Price</label>
-        <input type="text" class="form-control" name="price_section2" value="{{old('price_section2',$body->price_section2 ?? null)}}">
-    </div>
-    <div class="form-group col-md-6">
-        <label class="control-label" for="sale_price_section2">Sale Price</label>
-        <input type="text" class="form-control" name="sale_price_section2" value="{{old('sale_price_section2',$body->sale_price_section2 ?? null)}}">
+
+
+        <div class="form-group col-md-12" style="margin-top: 1.5rem">
+            <h4>Client We've Served</h4>
+            @for($i = 1; $i <= 4; $i++)
+            @php $fieldName = "image_{$i}_section5" @endphp
+            <div class="col-md-3">
+                <input type="file" name="{{$fieldName}}"
+                       value="{{old($fieldName,$body->$fieldName ?? null)}}">
+                @if(!empty($body->$fieldName))
+                    <img class="img-responsive" src="{{image($body->$fieldName)}}" alt="">
+                @endif
+            </div>
+            @endfor
+        </div>
+
+
+        <div class="form-group col-md-12" style="margin-top: 1.5rem">
+            <h4>Some of Our Qualifications</h4>
+            @for($i = 1; $i <= 4; $i++)
+            @php $fieldName = "image_{$i}_section6" @endphp
+            <div class="col-md-3">
+                <input type="file" name="{{$fieldName}}"
+                       value="{{old($fieldName,$body->$fieldName ?? null)}}">
+                @if(!empty($body->$fieldName))
+                    <img class="img-responsive" src="{{image($body->$fieldName)}}" alt="">
+                @endif
+            </div>
+            @endfor
+        </div>
+
     </div>
 
-    <div class="form-group col-md-12">
-        <h4>Section 3</h4>
-        <label class="control-label" for="name">Title</label>
-        <input type="text" class="form-control" name="title_section3"
-               placeholder="Title"
-               value="{{old('title_section3',$body->title_section3 ?? null)}}">
-    </div>
-    <div class="form-group col-md-12">
-        <label class="control-label" for="content_banner">Description</label>
-        <textarea name="desc_section3" class="form-control" id="desc_section3" cols="20" rows="5">{{old('desc_section3',$body->desc_section3 ?? null)}}</textarea>
-    </div>
-    <div class="form-group col-md-12">
-        <input type="file" name="image_section3"
-               value="{{old('image_section3',$body->image_section3 ?? null)}}">
-        @if(!empty($body->image_section3))
-            <img src="{{image($body->image_section3)}}" alt="">
-        @endif
-    </div>
 
-    <div class="form-group col-md-12">
-        <h4>Section 4</h4>
-        <label class="control-label" for="name">Title</label>
-        <input type="text" class="form-control" name="title_section4"
-               placeholder="Title"
-               value="{{old('title_section4',$body->title_section4 ?? null)}}">
-    </div>
-
-    <div class="form-group col-md-12">
-        <input type="file" name="image_section4"
-               value="{{old('image_section4',$body->image_section4 ?? null)}}">
-        @if(!empty($body->image_section4))
-            <img class="img-responsive" src="{{image($body->image_section4)}}" alt="">
-        @endif
-    </div>
 </div>

@@ -129,6 +129,23 @@ class PageStaticController extends Controller
             $data['image_section4'] = $decodeBody->image_section4 ?? null;
         }
 
+        for($i=1; $i <= 4; $i ++) {
+            if($request->hasFile("image_{$i}_section5")) {
+                $image = uploadFile('/page_static/home',"image_{$i}_section5");
+                $data["image_{$i}_section5"] = $image;
+            } else {
+                $imageName = "image_{$i}_section5";
+                $data["image_{$i}_section5"] = $decodeBody->$imageName ?? null;
+            }
+
+            if($request->hasFile("image_{$i}_section6")) {
+                $image = uploadFile('/page_static/home',"image_{$i}_section6");
+                $data["image_{$i}_section6"] = $image;
+            } else {
+                $imageName = "image_{$i}_section6";
+                $data["image_{$i}_section6"] = $decodeBody->$imageName ?? null;
+            }
+        }
 
         $this->data = json_encode($data);
 
@@ -140,6 +157,7 @@ class PageStaticController extends Controller
         if ($validator->fails()) {
             $this->hasError = true;
             $this->errorsMessage = $validator->errors();
+            return;
         }
         $this->data = json_encode($data);
     }
@@ -154,6 +172,7 @@ class PageStaticController extends Controller
         if ($validator->fails()) {
             $this->hasError = true;
             $this->errorsMessage = $validator->errors();
+            return;
         }
 
         if($request->hasFile('banner')){
@@ -189,6 +208,7 @@ class PageStaticController extends Controller
         if ($validator->fails()) {
             $this->hasError = true;
             $this->errorsMessage = $validator->errors();
+            return;
         }
 
         if($request->hasFile('banner')){
@@ -234,6 +254,7 @@ class PageStaticController extends Controller
         if ($validator->fails()) {
             $this->hasError = true;
             $this->errorsMessage = $validator->errors();
+            return;
         }
         $this->data = $data['body'];
     }
