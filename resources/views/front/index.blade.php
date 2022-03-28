@@ -34,6 +34,19 @@
             </div>
         </div>
     </section>
+
+    <section class="box-area text-center pt20 pb50">
+        <div class="container">
+            <div class="counter blue">
+                <div class="counter-icon">
+                    <img src="{{asset('front/images/labs-icon.png')}}">
+                </div>
+                <h3>Monthly Labs</h3>
+                <span class="counter-value">{{$body->counter_number}}</span>
+            </div>
+        </div>
+    </section>
+
     <section class="box-area text-center pt20 pb50">
         <div class="hed">
             <h2>{!! $body->title_section1 ?? null !!}</h2>
@@ -165,6 +178,35 @@
     </section>
 
 
+    <section class="box-area text-center pt20 pb50">
+        <div class="container">
+            <div class="hed">
+                <h2>Client We've Served</h2>
+            </div>
+            <div class="our-services">
+                @for($i = 1; $i <= 4; $i++)
+                    @php $imageName = "image_{$i}_section5" @endphp
+                    <div><img src="{{ $body->$imageName ? image($body->$imageName) : "https://via.placeholder.com/200" }}" alt=""></div>
+                @endfor
+            </div>
+        </div>
+    </section>
+
+    <section class="box-area text-center pt20 pb50">
+        <div class="container">
+            <div class="hed">
+                <h2>Client We've Served</h2>
+            </div>
+            <div class="our-services">
+                @for($i = 1; $i <= 4; $i++)
+                    @php $imageName = "image_{$i}_section6" @endphp
+                    <div><img src="{{ $body->$imageName ? image($body->$imageName) : "https://via.placeholder.com/200" }}" alt=""></div>
+                @endfor
+            </div>
+        </div>
+    </section>
+
+
     <section class="testlab-area text-center bg-full white p100 valigner mt40 rotate-img--hover"
              style="background-image: url('{{ image($body->image_section4 ?? null ) }}')">
         <div class="container">
@@ -182,7 +224,7 @@
             <div class="hed text-center">
                 <h2>FAQ</h2>
             </div>
-            <div calss="cont">
+            <div class="cont">
                 {!! $faqBody->content_page !!}
                 <div class="panel-group accordion-arr" id="accordion">
                     <div class="col-sm-6 p0">
@@ -227,6 +269,24 @@
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 @endsection
 
+@section('script')
+    <script>
+        $(document).ready(function(){
+            $('.counter-value').each(function(){
+                $(this).prop('Counter',0).animate({
+                    Counter: $(this).text()
+                },{
+                    duration: 3500,
+                    easing: 'swing',
+                    step: function (now){
+                        $(this).text(Math.ceil(now));
+                    }
+                });
+            });
+        });
+    </script>
+@stop
