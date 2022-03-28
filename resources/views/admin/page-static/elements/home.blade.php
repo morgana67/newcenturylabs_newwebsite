@@ -51,6 +51,14 @@
         @endif
     </div>
     <div class="form-group col-md-12">
+        <h4>Counter Section</h4>
+        <label class="control-label" for="name">Counter Number</label>
+        <input type="text" class="form-control" name="counter_number" placeholder="Counter Number"
+               value="{{old('counter_number',$body->counter_number ?? 0)}}">
+    </div>
+
+
+    <div class="form-group col-md-12">
         <h4>Section 1</h4>
         <label class="control-label" for="name">Title</label>
         <input type="text" class="form-control" name="title_section1"
@@ -202,7 +210,7 @@
 
 
         <div class="form-group col-md-12" style="margin-top: 1.5rem">
-            <h4>Client We've Served</h4>
+            <h4>Client We've Served Section</h4>
             @for($i = 1; $i <= 4; $i++)
             @php $fieldName = "image_{$i}_section5" @endphp
             <div class="col-md-3">
@@ -217,7 +225,7 @@
 
 
         <div class="form-group col-md-12" style="margin-top: 1.5rem">
-            <h4>Some of Our Qualifications</h4>
+            <h4>Some of Our Qualifications Section</h4>
             @for($i = 1; $i <= 4; $i++)
             @php $fieldName = "image_{$i}_section6" @endphp
             <div class="col-md-3">
