@@ -35,7 +35,7 @@
         </div>
     </section>
 
-    <section class="box-area text-center pt20 pb50">
+    <section class="box-area text-center" style="margin-top: 5rem;">
         <div class="container">
             <div class="counter blue">
                 <div class="counter-icon">
@@ -195,7 +195,7 @@
     <section class="box-area text-center pt20 pb50">
         <div class="container">
             <div class="hed">
-                <h2>Client We've Served</h2>
+                <h2>Some of Our Qualifications Section</h2>
             </div>
             <div class="our-services">
                 @for($i = 1; $i <= 4; $i++)
