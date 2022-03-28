@@ -35,7 +35,7 @@
         </div>
     </section>
 
-    <section class="box-area text-center pt20 pb50">
+    <section class="box-area text-center" style="margin-top: 5rem;">
         <div class="container">
             <div class="counter blue">
                 <div class="counter-icon">
