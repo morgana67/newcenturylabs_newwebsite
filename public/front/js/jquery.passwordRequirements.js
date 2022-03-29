@@ -52,7 +52,7 @@
 				}
 
 				// Append password hint div
-				var messageDiv = '<div id="pr-box"><i></i><div id="pr-box-inner"><p>' + o.infoMessage + '</p><ul>' + numCharactersUI + useLowercaseUI + useUppercaseUI + useNumbersUI + useSpecialUI + '</ul></div></div>';
+				var messageDiv = '<div id="pr-box"><i></i><div id="pr-box-inner"><p style="margin-bottom: 0 !important; ">' + o.infoMessage + '</p><ul>' + numCharactersUI + useLowercaseUI + useUppercaseUI + useNumbersUI + useSpecialUI + '</ul></div></div>';
 
 				// Set campletion vatiables
 				var numCharactersDone = true,
@@ -88,7 +88,7 @@
 				var deleteMessage = function () {
 					var targetMessage = $("#pr-box");
 					targetMessage.fadeOut(o.fadeTime, function(){
-						$(this).remove();
+						$("#pr-box").remove();
 					});
 				};
 
@@ -97,7 +97,8 @@
 					if (numCharactersDone === true && useLowercaseDone === true && useUppercaseDone === true && useNumbersDone === true && useSpecialDone === true) {
 						deleteMessage();
 					} else {
-						showMessage();
+					    if($("#pr-box").length == 0)
+						    showMessage();
 					}
 				};
 
