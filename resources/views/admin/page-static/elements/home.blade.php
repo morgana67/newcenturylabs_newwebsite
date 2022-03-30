@@ -209,25 +209,18 @@
         </div>
 
 
+
         <div class="form-group col-md-12" style="margin-top: 1.5rem">
-            <h4>Client We've Served Section</h4>
-            @for($i = 1; $i <= 4; $i++)
-            @php $fieldName = "image_{$i}_section5" @endphp
-            <div class="col-md-3">
-                <input type="file" name="{{$fieldName}}"
-                       value="{{old($fieldName,$body->$fieldName ?? null)}}">
-                @if(!empty($body->$fieldName))
-                    <img class="img-responsive" src="{{image($body->$fieldName)}}" alt="">
-                @endif
-            </div>
-            @endfor
+            <h4>Section 5</h4>
+            <label class="control-label" for="name">Title</label>
+            <input type="text" class="form-control" name="title_section5"
+                   placeholder="Title"
+                   value="{{old('title_section5',$body->title_section5 ?? null)}}">
         </div>
 
-
-        <div class="form-group col-md-12" style="margin-top: 1.5rem">
-            <h4>Some of Our Qualifications Section</h4>
+        <div class="form-group col-md-12">
             @for($i = 1; $i <= 4; $i++)
-            @php $fieldName = "image_{$i}_section6" @endphp
+            @php $fieldName = "image_{$i}_section5" @endphp
             <div class="col-md-3">
                 <input type="file" name="{{$fieldName}}"
                        value="{{old($fieldName,$body->$fieldName ?? null)}}">

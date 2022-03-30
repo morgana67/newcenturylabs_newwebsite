@@ -181,25 +181,11 @@
     <section class="box-area text-center pt20 pb50">
         <div class="container">
             <div class="hed">
-                <h2>Client We've Served</h2>
+                <h2>{{$body->title_section5 ?? null}}</h2>
             </div>
             <div class="our-services">
                 @for($i = 1; $i <= 4; $i++)
                     @php $imageName = "image_{$i}_section5" @endphp
-                    <div><img src="{{ $body->$imageName ? image($body->$imageName) : "https://via.placeholder.com/200" }}" alt=""></div>
-                @endfor
-            </div>
-        </div>
-    </section>
-
-    <section class="box-area text-center pt20 pb50">
-        <div class="container">
-            <div class="hed">
-                <h2>Some of Our Qualifications Section</h2>
-            </div>
-            <div class="our-services">
-                @for($i = 1; $i <= 4; $i++)
-                    @php $imageName = "image_{$i}_section6" @endphp
                     <div><img src="{{ $body->$imageName ? image($body->$imageName) : "https://via.placeholder.com/200" }}" alt=""></div>
                 @endfor
             </div>
