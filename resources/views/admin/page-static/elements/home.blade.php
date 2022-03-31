@@ -221,7 +221,7 @@
         <div class="form-group col-md-12">
             @for($i = 1; $i <= 8; $i++)
             @php $fieldName = "image_{$i}_section5" @endphp
-            <div class="col-md-3">
+            <div class="col-md-3" style="magrin-top: 1.5rem">
                 <input type="file" name="{{$fieldName}}"
                        value="{{old($fieldName,$body->$fieldName ?? null)}}">
                 @if(!empty($body->$fieldName))
