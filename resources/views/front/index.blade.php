@@ -185,7 +185,7 @@
             </div>
             @for($i = 1; $i <= 8; $i++)
                 @if ($i == 1 || $i == 5)
-                    <div class="our-services">
+                    <div class="our-services" style="margin-top: 2rem">
                 @endif
                 @php $imageName = "image_{$i}_section5" @endphp
                     <div><img src="{{ isset($body->$imageName) ? image($body->$imageName) : "https://via.placeholder.com/200" }}" alt=""></div>
