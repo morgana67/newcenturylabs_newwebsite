@@ -183,12 +183,16 @@
             <div class="hed">
                 <h2>{{$body->title_section5 ?? null}}</h2>
             </div>
-            <div class="our-services">
-                @for($i = 1; $i <= 8; $i++)
-                    @php $imageName = "image_{$i}_section5" @endphp
+            @for($i = 1; $i <= 8; $i++)
+                @if ($i == 1 || $i == 5)
+                    <div class="our-services">
+                @endif
+                @php $imageName = "image_{$i}_section5" @endphp
                     <div><img src="{{ isset($body->$imageName) ? image($body->$imageName) : "https://via.placeholder.com/200" }}" alt=""></div>
-                @endfor
-            </div>
+                @if ($i == 1 || $i == 5)
+                    </div>>
+                @endif
+            @endfor
         </div>
     </section>
 
