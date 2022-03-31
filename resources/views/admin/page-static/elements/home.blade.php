@@ -219,7 +219,7 @@
         </div>
 
         <div class="form-group col-md-12">
-            @for($i = 1; $i <= 4; $i++)
+            @for($i = 1; $i <= 8; $i++)
             @php $fieldName = "image_{$i}_section5" @endphp
             <div class="col-md-3">
                 <input type="file" name="{{$fieldName}}"
