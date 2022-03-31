@@ -186,7 +186,7 @@
             <div class="our-services">
                 @for($i = 1; $i <= 8; $i++)
                     @php $imageName = "image_{$i}_section5" @endphp
-                    <div><img src="{{ $body->$imageName ? image($body->$imageName) : "https://via.placeholder.com/200" }}" alt=""></div>
+                    <div><img src="{{ isset($body->$imageName) ? image($body->$imageName) : "https://via.placeholder.com/200" }}" alt=""></div>
                 @endfor
             </div>
         </div>
