@@ -131,7 +131,7 @@ class PageStaticController extends Controller
 
         for($i=1; $i <= 8; $i ++) {
             if($request->hasFile("image_{$i}_section5")) {
-                $image = uploadFile('/page_static/home',"image_{$i}_section5");
+                $image = uploadFile('/page_static/home',"image_{$i}_section5", ['width' => "200"]);
                 $data["image_{$i}_section5"] = $image;
             } else {
                 $imageName = "image_{$i}_section5";

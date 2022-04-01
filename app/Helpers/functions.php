@@ -1,5 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+
 if (!function_exists('is_customer')) {
     function is_customer()
     {
@@ -46,11 +48,20 @@ if (!function_exists('image')) {
 }
 
 if (!function_exists('uploadFile')) {
-    function uploadFile($path = "", $name = "file")
+    function uploadFile($path = "", $name = "file", $resizeOptions = null)
     {
         $file     = request()->file($name);
         $fileName = $name.'.'.$file->getClientOriginalExtension();
-        return Storage::disk(config('voyager.storage.disk'))->putFileAs($path,request()->file($name),$fileName);
+        if($resizeOptions) {
+            $width = $resizeOptions['width'] ?? null;
+            $height = $resizeOptions['height'] ?? null;
+            Image::make($file)->resize($width, $height, function($constraint) {
+                $constraint->aspectRatio();
+            })->save(storage_path("app/public{$path}/{$fileName}"));
+            return ltrim("{$path}/{$fileName}", '/');
+        } else {
+            return Storage::disk(config('voyager.storage.disk'))->putFileAs($path,request()->file($name),$fileName);
+        }
     }
 }
 

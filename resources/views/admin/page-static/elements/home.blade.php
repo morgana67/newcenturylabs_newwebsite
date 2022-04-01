@@ -225,7 +225,7 @@
                 <input type="file" name="{{$fieldName}}"
                        value="{{old($fieldName,$body->$fieldName ?? null)}}">
                 @if(!empty($body->$fieldName))
-                    <img class="img-responsive" src="{{image($body->$fieldName)}}" alt="">
+                    <div style="width: 200px; height: 200px; margin-top: 1rem"><img class="img-responsive" style="object-fit: contain; width: 100%" src="{{image($body->$fieldName)}}" alt=""></div>
                 @endif
             </div>
             @endfor
