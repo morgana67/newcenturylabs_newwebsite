@@ -72,48 +72,19 @@
                             <label for="Female">Female</label>
                         </div>
                     </div>
-                    <div class="form-group col-sm-12">
-                        <label for="gender">Date of birth <span class="require-label">*</span></label>
-                    </div>
-
-                    <div class="form-group col-sm-2 col-xs-4">
-                        <select class="form-control" required="required" name="date">
-                            @for($i = 1;$i <= 31; $i++)
-                                <option  {{old('date',Carbon::create($user->dob)->day) ==  $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
-                            @endfor
-                        </select>
-                    </div>
-
-                    <div class="form-group col-sm-2 col-xs-4">
-                        <select class="form-control" required="required" name="month">
-                            <option {{old('month',Carbon::create($user->dob)->month) == 1 ? 'selected' : ''}} value="1">January</option>
-                            <option {{old('month',Carbon::create($user->dob)->month) == 2 ? 'selected' : ''}} value="2">February</option>
-                            <option {{old('month',Carbon::create($user->dob)->month) == 3 ? 'selected' : ''}} value="3">March</option>
-                            <option {{old('month',Carbon::create($user->dob)->month) == 4 ? 'selected' : ''}} value="4">April</option>
-                            <option {{old('month',Carbon::create($user->dob)->month) == 5 ? 'selected' : ''}} value="5">May</option>
-                            <option {{old('month',Carbon::create($user->dob)->month) == 6 ? 'selected' : ''}} value="6">June</option>
-                            <option {{old('month',Carbon::create($user->dob)->month) == 7 ? 'selected' : ''}} value="7">July</option>
-                            <option {{old('month',Carbon::create($user->dob)->month) == 8 ? 'selected' : ''}} value="8">August</option>
-                            <option {{old('month',Carbon::create($user->dob)->month) == 9 ? 'selected' : ''}} value="9">September</option>
-                            <option {{old('month',Carbon::create($user->dob)->month) == 10 ? 'selected' : ''}} value="10">October</option>
-                            <option {{old('month',Carbon::create($user->dob)->month) == 11 ? 'selected' : ''}} value="11">November</option>
-                            <option {{old('month',Carbon::create($user->dob)->month) == 12 ? 'selected' : ''}} value="12">December</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-2 col-xs-4">
-                        <select class="form-control" required="required" name="year">
-                            @for($i = Carbon::now()->year - 5; $i >= 1930; $i--)
-                                <option {{old('year',Carbon::create($user->dob)->year) == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
-                            @endfor
-                        </select>
-                    </div>
-                    <div class="col-sm-6"></div>
-                    <div class="col-sm-12" style="opacity: 0;margin-bottom: -20px">--</div>
                     @endif
-
                     <div class="form-group col-sm-6">
-                        <input placeholder="Country United States (US)" class="form-control" readonly="readonly"
-                               required="required" name="country" type="text">
+                        @php
+                            $us = \App\Models\Country::where('code','US')->first();
+                            $countries = \App\Models\Country::all();
+                        @endphp
+                        <select name="country" id="country" required class="form-control">
+                            <option value="{{$us->id}}">{{$us->name}}</option>
+                            @foreach($countries as $country)
+                                @if($country->code == 'US') @continue @endif
+                                <option value="{{$country->id}}">{{$country->name}}</option>
+                            @endforeach
+                        </select>
                         <span class="require"></span>
                     </div>
                     <div class="form-group col-sm-6">
@@ -125,7 +96,7 @@
                         <select name="state" id="state" required class="form-control">
                             <option>State *</option>
                             @foreach(\App\Models\State::get() as $state)
-                                @if(in_array($state->code,  ['NY', 'NJ', 'RI', 'MD', 'HI']) && isset($is_doctor_register)) @continue @endif
+                                @if(in_array($state->code,  ['NY', 'NJ', 'RI', 'MD']) && isset($is_doctor_register)) @continue @endif
                                 <option {{old('state',$user->address->state) == $state->code ? 'selected' : ''}} value="{{$state->code}}">{{$state->title}}</option>
                             @endforeach
                         </select>
@@ -150,10 +121,6 @@
                         <span class="require"></span>
                     </div>
                     <div class="form-group col-sm-6">
-                        <input placeholder="FAX *" class="form-control" name="fax" type="text"
-                               value="{{old('fax',$user->address->fax)}}" >
-                        <span class="require"></span>
-
                     </div>
 
                     <div class="form-group col-sm-4">
@@ -230,7 +197,7 @@
                     @if(!isset($is_doctor_register))
                     <div class="form-group col-sm-6">
                         <small>We do not support orders from the following states:
-                            <strong>NY, NJ RI, MD, HI</strong></small>
+                            <strong>NY, NJ RI, MD</strong></small>
                     </div>
                     @endif
                     <div class="form-group col-sm-6 text-right">

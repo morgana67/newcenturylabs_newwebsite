@@ -131,7 +131,6 @@ class RegisterController extends Controller
                 $dataCustomer['blood_draw'] = $request->blood_draw;
                 $dataCustomer['special_requests'] = $request->special_requests;
             } else {
-                $dataCustomer['dob'] = $request['year'] . "-" . $request['month'] . "-" . $request['date'];
                 $dataCustomer['gender'] = $request['gender'];
             }
             $customerId = Customer::insertGetId($dataCustomer);
@@ -139,7 +138,7 @@ class RegisterController extends Controller
             $dataAddress = [
                 'customer_id' => $customerId,
                 'phone' => $request['phone'],
-                'country_id' => 230,
+                'country_id' => $request['country'],
                 'state' => $request['state'],
                 'city' => $request['city'],
                 'address' => $request['address'],

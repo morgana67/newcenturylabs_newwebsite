@@ -188,8 +188,7 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
 
             $dataAddress = [
                 'phone' => $request['phone'],
-                'fax' => $request['fax'],
-                'country_id' => 230,
+                'country_id' => $request['country'],
                 'state' => $request['state'],
                 'city' => $request['city'],
                 'address' => $request['address'],
@@ -332,8 +331,7 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
             $dataAddress = [
                 'customer_id' => $customer->id,
                 'phone' => $request['phone'],
-                'fax' => $request['fax'],
-                'country_id' => 230,
+                'country_id' => $request['country'],
                 'state' => $request['state'],
                 'city' => $request['city'],
                 'address' => $request['address'],

@@ -178,14 +178,14 @@
     </section>
 
 
-    <section class="box-area text-center pt20 pb50">
+    <section class="box-area text-center pt20 pb50 anime-in">
         <div class="container">
             <div class="hed">
                 <h2>{{$body->title_section5 ?? null}}</h2>
             </div>
             @for($i = 1; $i <= 8; $i++)
                 @if ($i == 1 || $i == 5)
-                    <div class="our-services" style="margin-top: 2rem">
+                    <div class="our-services {{$i == 1 ? 'fadeInLeft' : 'fadeInRight'}}" style="margin-top: 2rem">
                 @endif
                 @php $imageName = "image_{$i}_section5" @endphp
                     <div><img src="{{ isset($body->$imageName) ? image($body->$imageName) : "https://via.placeholder.com/200" }}" alt=""></div>

@@ -62,7 +62,6 @@ class ProfileController extends Controller
                     $dataCustomer['blood_draw'] = $request->blood_draw;
                     $dataCustomer['special_requests'] = $request->special_requests;
                 } else {
-                    $dataCustomer['dob'] = $request['year'] . "-" . $request['month'] . "-" . $request['date'];
                     $dataCustomer['gender'] = $request['gender'];
                 }
 
@@ -71,7 +70,7 @@ class ProfileController extends Controller
                 $dataAddress = [
                     'phone' => $request['phone'],
                     'fax' => $request['fax'],
-                    'country_id' => 230,
+                    'country_id' => $request['country'],
                     'state' => $request['state'],
                     'city' => $request['city'],
                     'address' => $request['address'],
