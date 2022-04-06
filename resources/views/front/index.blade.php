@@ -42,7 +42,7 @@
                     <img src="{{asset('front/images/labs-icon.png')}}">
                 </div>
                 <h3>Monthly Labs</h3>
-                <span class="counter-value">{{$body->counter_number}}</span>
+                <span class="counter-value">{{$body->counter_number ?? 4000}}</span>
             </div>
         </div>
     </section>
@@ -57,39 +57,47 @@
     <section class="slider-area no-ctrl fadeft  pb50">
         <div class="box-area text-center col-md-4">
             <div class="box col-sm-12 anime-left ">
-                <div class="box__img"><img alt="" src="{{image($body->img_icon_1_section1 ?? null)}}"/></div>
+                <a href="javascript:void(0)" style="color: #333">
 
-                <div class="box__cont ">
-                    <h4>{!! $body->title_icon_1_section1 ?? null !!}</h4>
+                    <div class="box__img"><img alt="" src="{{image($body->img_icon_1_section1 ?? null)}}"/></div>
 
-                    <p>{!! $body->desc_icon_1_section1 ?? null !!}</p>
+                    <div class="box__cont ">
+                        <h4>{!! $body->title_icon_1_section1 ?? null !!}</h4>
 
-                    <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>
-                </div>
+                        <p>{!! $body->desc_icon_1_section1 ?? null !!}</p>
+
+                        <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>
+                    </div>
+                </a>
             </div>
 
             <div class="box col-sm-12 anime-in">
-                <div class="box__img"><img alt="" src="{{image($body->img_icon_2_section1 ?? null)}}"/></div>
+                <a href="javascript:void(0)" style="color: #333">
 
-                <div class="box__cont">
-                    <h4>{!! $body->title_icon_2_section1 ?? null !!}</h4>
+                    <div class="box__img"><img alt="" src="{{image($body->img_icon_2_section1 ?? null)}}"/></div>
 
-                    <p>{!! $body->title_icon_2_section1 ?? null !!}</p>
+                    <div class="box__cont">
+                        <h4>{!! $body->title_icon_2_section1 ?? null !!}</h4>
 
-                    <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>
-                </div>
+                        <p>{!! $body->title_icon_2_section1 ?? null !!}</p>
+
+                        <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>
+                    </div>
+                </a>
             </div>
 
             <div class="box col-sm-12 anime-right">
-                <div class="box__img"><img alt="" src="{{image($body->img_icon_3_section1 ?? null)}}"/></div>
+                <a href="{{route('locations')}}" style="color: #333">
+                    <div class="box__img"><img alt="" src="{{image($body->img_icon_3_section1 ?? null)}}"/></div>
 
-                <div class="box__cont">
-                    <h4>{!! $body->title_icon_3_section1 ?? null !!}</h4>
+                    <div class="box__cont">
+                        <h4>{!! $body->title_icon_3_section1 ?? null !!}</h4>
 
-                    <p>{!! $body->title_icon_3_section1 ?? null !!}</p>
+                        <p>{!! $body->title_icon_3_section1 ?? null !!}</p>
 
-                    <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>
-                </div>
+                        <div class="lnk-btn more-btn"><a href="#">LEARN MORE</a></div>
+                    </div>
+                </a>
             </div>
         </div>
         <div class="col-md-8">
