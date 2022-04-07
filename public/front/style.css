@@ -1458,15 +1458,15 @@ a.navbar-brand {
 
 
 .most__inr__cont {
-    width: 500px;
+    width: 450px;
     position: absolute;
     z-index: 5;
     top: 40px;
     background-image: url('/front/images/circle.png');
-    height: 440px;
+    height: 450px;
     left: 40px;
     color: #fff;
-    padding: 50px 50px 50px 15px;
+    padding: 65px;
     background-size:cover
 }
 
@@ -2808,7 +2808,8 @@ a.link.pul-rgt {
     min-height: 550px;
 }
 .circle__cont {
-    background-color: #348fcc;
+    background-image: url('/front/images/circle.png');
+    background-size: cover;
     border-radius: 50%;
     position: absolute;
     width: 450px;
@@ -3309,7 +3310,7 @@ table.table.table-topbot, table.table.table-topbot td, table.table.table-topbot 
         height: 350px;
         top: 15px;
         left: 15px;
-        padding: 35px 20px;
+        padding: 40px 20px;
     }
 
     .most__inr__img {
