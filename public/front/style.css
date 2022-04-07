@@ -2810,12 +2810,10 @@ a.link.pul-rgt {
 .circle__cont {
     background-image: url('/front/images/circle.png');
     background-size: cover;
-    border-radius: 50%;
     position: absolute;
     width: 450px;
     padding: 50px;
     height: 450px;
-    border: 1px solid #a7a6a7;
     color: #fff;
     z-index: 5;
     left: 50px;
