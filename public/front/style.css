@@ -1463,7 +1463,7 @@ a.navbar-brand {
     z-index: 5;
     top: 40px;
     background-image: url('/front/images/circle.png');
-    height: auto;
+    height: 440px;
     left: 40px;
     color: #fff;
     padding: 50px 50px 50px 15px;
