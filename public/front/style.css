@@ -1458,16 +1458,16 @@ a.navbar-brand {
 
 
 .most__inr__cont {
-    width: 400px;
+    width: 500px;
     position: absolute;
     z-index: 5;
     top: 40px;
-    background-color: rgba(0,180,255, .8);
-    border-radius: 50%;
-    height: 400px;
+    background-image: url('/front/images/circle.png');
+    height: auto;
     left: 40px;
     color: #fff;
-    padding: 50px;
+    padding: 50px 50px 50px 15px;
+    background-size:cover
 }
 
 .most__inr.box {
@@ -3309,6 +3309,7 @@ table.table.table-topbot, table.table.table-topbot td, table.table.table-topbot 
         height: 350px;
         top: 15px;
         left: 15px;
+        padding: 35px 20px;
     }
 
     .most__inr__img {
