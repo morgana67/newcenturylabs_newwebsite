@@ -96,6 +96,41 @@
                                 <label for="Female">Female</label>
                             </div>
                         </div>
+                        <div class="form-group col-sm-12 ">
+                            <label for="gender">Date of birth <span class="require-label">*</span></label>
+                        </div>
+
+                        <div class="form-group col-sm-4">
+                            <select class="form-control" required="required" name="date">
+                                @for($i = 1;$i <= 31; $i++)
+                                    <option  {{old('date') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <select class="form-control" required="required" name="month">
+                                <option {{old('month') == 1 ? 'selected' : ''}} value="1">January</option>
+                                <option {{old('month') == 2 ? 'selected' : ''}} value="2">February</option>
+                                <option {{old('month') == 3 ? 'selected' : ''}} value="3">March</option>
+                                <option {{old('month') == 4 ? 'selected' : ''}} value="4">April</option>
+                                <option {{old('month') == 5 ? 'selected' : ''}} value="5">May</option>
+                                <option {{old('month') == 6 ? 'selected' : ''}} value="6">June</option>
+                                <option {{old('month') == 7 ? 'selected' : ''}} value="7">July</option>
+                                <option {{old('month') == 8 ? 'selected' : ''}} value="8">August</option>
+                                <option {{old('month') == 9 ? 'selected' : ''}} value="9">September</option>
+                                <option {{old('month') == 10 ? 'selected' : ''}} value="10">October</option>
+                                <option {{old('month') == 11 ? 'selected' : ''}} value="11">November</option>
+                                <option {{old('month') == 12 ? 'selected' : ''}} value="12">December</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-4">
+                            <select class="form-control" required="required" name="year">
+                                @for($i = date('Y') - 5; $i >= date('Y') - 100; $i--)
+                                    <option {{old('year', date('Y') - 15) == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
+                                @endfor
+                            </select>
+                        </div>
+
                         <div class="form-group col-sm-12">
                             <h5><label for="Address Line 1 *">Address Line 1 *</label></h5>
                             <input class="form-control" placeholder="Street Address *" id="address" required="required"

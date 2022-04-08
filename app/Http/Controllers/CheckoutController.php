@@ -148,6 +148,10 @@ class CheckoutController extends Controller
             OrderDetail::insert($orderDetail);
 
             if(count($ids) > 0) {
+                $y = $request->year;
+                $m = $request->month;
+                $d = $request->date;
+                $dob = "{$y}-{$m}-{$d}";
                 $tests = Product::select('code')->whereIn('id', $ids)->get()->toArray();
                 $dataPwn = (object)[
                     'order' => [
@@ -159,7 +163,7 @@ class CheckoutController extends Controller
                             'gender' => ($request->gender == 'm' ? 'Male' : 'Female'),
                             'phone' => $request->phone,
                             'email' => $request->email,
-                            'birth_date' => user()->dob,
+                            'birth_date' => $dob,
                             'address' => [
                                 'line' => $request->address,
                                 'line2' => $request->address2,
