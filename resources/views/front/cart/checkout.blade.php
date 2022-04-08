@@ -102,6 +102,7 @@
 
                         <div class="form-group col-sm-4">
                             <select class="form-control" required="required" name="date">
+                                <option value="">Day</option>
                                 @for($i = 1;$i <= 31; $i++)
                                     <option  {{old('date') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
                                 @endfor
@@ -109,6 +110,7 @@
                         </div>
                         <div class="form-group col-sm-4">
                             <select class="form-control" required="required" name="month">
+                                <option value="">Month</option>
                                 <option {{old('month') == 1 ? 'selected' : ''}} value="1">January</option>
                                 <option {{old('month') == 2 ? 'selected' : ''}} value="2">February</option>
                                 <option {{old('month') == 3 ? 'selected' : ''}} value="3">March</option>
@@ -125,6 +127,7 @@
                         </div>
                         <div class="form-group col-sm-4">
                             <select class="form-control" required="required" name="year">
+                                <option value="">Year</option>
                                 @for($i = date('Y') - 5; $i >= date('Y') - 100; $i--)
                                     <option {{old('year', date('Y') - 15) == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
                                 @endfor
