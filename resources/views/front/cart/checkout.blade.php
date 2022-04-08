@@ -129,7 +129,7 @@
                             <select class="form-control" required="required" name="year">
                                 <option value="">Year</option>
                                 @for($i = date('Y') - 5; $i >= date('Y') - 100; $i--)
-                                    <option {{old('year', date('Y') - 15) == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
+                                    <option {{old('year') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
                                 @endfor
                             </select>
                         </div>
