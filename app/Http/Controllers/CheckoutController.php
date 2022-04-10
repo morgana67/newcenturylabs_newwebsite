@@ -130,7 +130,7 @@ class CheckoutController extends Controller
                 if($product->options->type == 'bundle') {
                     $productBundle = Product::find($product->id);
                     foreach($productBundle->productBundle as $productB) {
-                        $ids[] = $productB->id;
+                        $ids[] = $productB->product_id;
                     }
                 } else {
                     $ids[] = $product->id;
