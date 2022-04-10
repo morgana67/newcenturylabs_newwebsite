@@ -44,6 +44,12 @@
                                         <tr>
                                             <td class="text-left" rowspan="{{$numOfProducts}}">
                                                 <a href="{{route('bundle.show',['slug' => $product->options->slug])}}" class="view-cat-link">{{$product->name}} (Bundle Package)</a>
+                                                <button class="btn-xs btn-danger delete_product" type="button">remove</button>
+                                                <form action="{{route('cart.remove')}}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="rowId" value="{{$product->rowId}}">
+                                                    <input type="hidden" name="removeBundle" value="1">
+                                                </form>
                                             </td>
                                             <td class="text-left">
                                                 <a href="{{route('product_detail',['slug' => $productBundle->product->slug])}}" class="view-cat-link">{{$productBundle->product->name}}</a>
@@ -67,6 +73,12 @@
                                         <tr>
                                             <td class="text-left">
                                                 <a href="{{route('product_detail',['slug' => $productBundle->product->slug])}}" class="view-cat-link">{{$productBundle->product->name}}</a>
+                                                <button class="btn-xs btn-danger delete_product" type="button">remove</button>
+                                                <form action="{{route('cart.remove')}}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="productId" value="{{$productBundle->product_id}}">
+                                                    <input type="hidden" name="rowId" value="{{$product->rowId}}">
+                                                </form>
                                             </td>
                                             <td class="text-center">
                                                 {{setting('site.currency')}}{{format_price($productBundle->product->sale_price == null ? $productBundle->product->price : $productBundle->product->sale_price)}}
@@ -82,6 +94,7 @@
                                             <button class="btn-xs btn-danger delete_product" type="button">remove</button>
                                             <form action="{{route('cart.remove')}}" method="POST">
                                                 @csrf
+                                                <input type="hidden" name="productId" value="{{$product->id}}">
                                                 <input type="hidden" name="rowId" value="{{$product->rowId}}">
                                             </form>
                                         </td>

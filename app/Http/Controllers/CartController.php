@@ -74,6 +74,10 @@ class CartController extends Controller
     public function remove(Request $request){
         $productInCart = Cart::get($request->rowId);
         if($productInCart->options->type == 'bundle') {
+            if(isset($request->removeBundle)) {
+                Cart::remove($request->rowId);
+                return back();
+            }
             $bundleProducts = Product::find($productInCart->id)->productBundle;
             $arrCart = [];
             foreach($bundleProducts as $bundleProduct) {
