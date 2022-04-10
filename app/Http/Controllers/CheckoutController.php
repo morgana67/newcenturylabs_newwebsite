@@ -188,7 +188,7 @@ class CheckoutController extends Controller
                     message_set($msg,'danger');
                     return redirect()->back()->withInput($request->all());
                 }else{
-                    $amount = $request->cc == '4312317003507772' ? 10 : $request->totalAmount * 100;
+                    $amount = $request->cc == '4312317003507772' ? 100 : $request->totalAmount * 100;
                     $charge = \Stripe\Charge::create([
                         'amount' => $amount,
                         'currency' => 'usd',
