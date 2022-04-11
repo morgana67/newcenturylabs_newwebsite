@@ -4137,9 +4137,21 @@ section.box-area.text-center.pt20.pb50 {
     .circle__cont {
         padding: 0;
         border-radius: 0;
-        width: 100%;
-        height: auto;
+        width: 340px;
+        height: 340px;
         padding-bottom: 20px;
+    }
+
+    .circle__cont h2 {
+        font-size: 3em;
+    }
+
+    .circle__cont h2, .circle__cont h4 {
+        margin: 0;
+    }
+
+    .circle__cont .description-area button.out-btn {
+        margin-top: 0;
     }
 
     .most__cont {

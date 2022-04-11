@@ -147,7 +147,7 @@ class RegisterController extends Controller
             ];
             Address::insert($dataAddress);
 
-            $token = bcrypt($request['email'].$request['lastName']);
+            $token = substr(md5(mt_rand()), 0, 32);
             PasswordReset::insert([
                 'email' => $request['email'],
                 'token' => $token,
@@ -160,8 +160,7 @@ class RegisterController extends Controller
                 $customer = Customer::find($customerId);
                 $body =  Functions::replaceBodyEmail($mailConfig->body,$customer);
                 $paramGet = [
-                    'email' => $customer->email,
-                    'token' => $token,
+                    'token' => $token
                 ];
                 $body = str_replace("{{LINK_VERIFY}}", route('verifyAccount').'?'.http_build_query($paramGet), $body);
                 event(new SendMailProcessed($request->email,$mailConfig->subject,$body));
@@ -194,17 +193,15 @@ class RegisterController extends Controller
     }
 
     public function verifyAccount(Request $request){
-        $passwordPassword = PasswordReset::where('email','=',$request->email)->first();
+        $passwordPassword = PasswordReset::where('token','=',$request->token)->first();
         if (!$passwordPassword) return abort(404);
-        $customer = Customer::where('email','=',$request->email)->first();
-        if (password_verify($customer['email']. $customer['lastName'],$passwordPassword->token)){
-            Customer::where('email','=',$request->email)->update([
-                'isVerified' => 1
-            ]);
+        $customer = Customer::where('email','=',$passwordPassword->email)->first();
+        if($customer) {
+            $customer->isVerified = 1;
+            $customer->save();
             PasswordReset::where('email','=',$request->email)->delete();
             return redirect()->route('login')->with('success', 'Account verification is successful');
         }
-
         return abort(404);
     }
 
