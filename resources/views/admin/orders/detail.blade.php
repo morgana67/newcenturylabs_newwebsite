@@ -53,7 +53,7 @@
                                         <td>{{$order->address}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Address2:</td>
+                                        <td>Address 2:</td>
                                         <td>{{$order->address2}}</td>
                                     </tr>
                                     <tr>
@@ -108,7 +108,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Pwnhealth Requisition Order:</td>
+                                        <td>PWN Health Requisition Order:</td>
                                         <td>
                                             @if(!empty($order->pwh_order_id))
                                                 <form action="{{route('downloadRequisitionOrder',$order->pwh_order_id)}}" method="GET">
@@ -119,7 +119,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Pwnhealth Order Link:</td>
+                                        <td>PWN Health Order Link:</td>
                                         <td style="word-break: break-all;"><a href="{{$order->pwh_order_link}}">{{$order->pwh_order_link}}</a></td>
                                     </tr>
                                 </tbody>

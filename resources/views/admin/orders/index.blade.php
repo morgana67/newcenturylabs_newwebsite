@@ -62,7 +62,7 @@
                                     <td>${{$order->totalAmount}}</td>
                                     <td>{{$order->paymentStatus}}</td>
                                     <td>{{$order->orderStatus}}</td>
-                                    <td>{{$order->created_at}}</td>
+                                    <td>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$order->created_at)->format('M. jS, Y')}}</td>
                                     <td class="no-sort no-click bread-actions">
                                         <a href="javascript:;" title="Delete" class="btn btn-sm btn-danger pull-right delete" data-id="{{$order->id}}" id="delete-{{$order->id}}">
                                             <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">Delete</span>

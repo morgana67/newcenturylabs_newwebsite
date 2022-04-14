@@ -40,7 +40,7 @@
              style="background-image:url('/front/images/bnr-signup.jpg');">
         <div class="container">
             <div class="bnr__cont valign white text-center col-sm-12 text-uppercase anime-flipInX">
-                <h2>Detail Order</h2>
+                <h2>Order Details</h2>
                 <h4></h4>
             </div>
         </div>

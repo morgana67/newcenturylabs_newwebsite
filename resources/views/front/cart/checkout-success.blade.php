@@ -4,7 +4,7 @@
     <section class="bnr-area page-bnr-area bg-full bg-cntr valigner" style="background-image:url('{{ asset('/front/images/bnr-thankyou.jpg') }}');">
         <div class="container">
             <div class="bnr__cont valign white text-center col-sm-12 text-uppercase anime-flipInX">
-                <h2>Order Successfully!</h2>
+                <h2>Order Successful</h2>
             </div>
         </div>
     </section>

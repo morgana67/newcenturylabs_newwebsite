@@ -279,7 +279,7 @@
                                             <td>{{setting('site.currency')}}{{format_price($order->totalAmount)}}</td>
                                             <td>{{$order->paymentStatus}}</td>
                                             <td>{{$order->orderStatus}}</td>
-                                            <td>{{$order->created_at}}</td>
+                                            <td>{{\Carbon\Carbon::createFromFormat('Y-m-d H:i:s',$order->created_at)->format('M. jS, Y')}}</td>
                                             <td class="no-sort no-click bread-actions">
                                                 <a href="{{route('orderDetail', ['id' => $order->id])}}" title="Edit"
                                                    class="btn btn-sm btn-primary pull-right edit">
