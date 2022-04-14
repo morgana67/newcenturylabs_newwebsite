@@ -119,6 +119,10 @@
                                     <div>{{$order->firstName.' '.$order->lastName}}</div>
                                 </div>
                                 <div class="order-info-item">
+                                    <div>Date of Birth</div>
+                                    <div>{{$order->dob ? \Carbon\Carbon::createFromFormat('Y-m-d',$order->dob)->format('M. jS, Y') : ""}}</div>
+                                </div>
+                                <div class="order-info-item">
                                     <div>Gender</div>
                                     <div>{{$order->gender == "m" ? "Male" : "Female"}}</div>
                                 </div>
