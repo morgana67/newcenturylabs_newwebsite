@@ -81,6 +81,11 @@ class CheckoutController extends Controller
                     'cvc' => $request->cvc,
                 ],
             ]);
+            $y = $request->year;
+            $m = $request->month;
+            $d = $request->date;
+            $dob = "{$y}-{$m}-{$d}";
+
             if (isset(user()->stripe_customer_id)) {
                 $stripeCustomerId = user()->stripe_customer_id;
                 $customer = \Stripe\Customer::update($stripeCustomerId, array('source' => $token['id']));
@@ -115,6 +120,7 @@ class CheckoutController extends Controller
             $order->totalAmount = $request->totalAmount;
             $order->nick_name = $request->nick_name;
             $order->gender = $request->gender;
+            $order->dob = $dob;
             $order->save();
 
 
@@ -151,10 +157,6 @@ class CheckoutController extends Controller
             OrderDetail::insert($orderDetail);
 
             if(count($ids) > 0) {
-                $y = $request->year;
-                $m = $request->month;
-                $d = $request->date;
-                $dob = "{$y}-{$m}-{$d}";
                 $tests = Product::select('code')->whereIn('id', $ids)->get()->toArray();
                 $dataPwn = (object)[
                     'order' => [

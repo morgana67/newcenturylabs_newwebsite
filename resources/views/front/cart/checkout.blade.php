@@ -104,22 +104,22 @@
                             <select class="form-control" required="required" name="date">
                                 <option value="">Day</option>
                                 @for($i = 1;$i <= 31; $i++)
-                                    <option  {{old('date') == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
+                                    <option  {{old('date') == $i ? 'selected' : ''}} value="{{ $i < 10 ? "0$i" : $i}}">{{ $i < 10 ? "0$i" : $i}}</option>
                                 @endfor
                             </select>
                         </div>
                         <div class="form-group col-sm-4">
                             <select class="form-control" required="required" name="month">
                                 <option value="">Month</option>
-                                <option {{old('month') == 1 ? 'selected' : ''}} value="1">January</option>
-                                <option {{old('month') == 2 ? 'selected' : ''}} value="2">February</option>
-                                <option {{old('month') == 3 ? 'selected' : ''}} value="3">March</option>
-                                <option {{old('month') == 4 ? 'selected' : ''}} value="4">April</option>
-                                <option {{old('month') == 5 ? 'selected' : ''}} value="5">May</option>
-                                <option {{old('month') == 6 ? 'selected' : ''}} value="6">June</option>
-                                <option {{old('month') == 7 ? 'selected' : ''}} value="7">July</option>
-                                <option {{old('month') == 8 ? 'selected' : ''}} value="8">August</option>
-                                <option {{old('month') == 9 ? 'selected' : ''}} value="9">September</option>
+                                <option {{old('month') == 1 ? 'selected' : ''}} value="01">January</option>
+                                <option {{old('month') == 2 ? 'selected' : ''}} value="02">February</option>
+                                <option {{old('month') == 3 ? 'selected' : ''}} value="03">March</option>
+                                <option {{old('month') == 4 ? 'selected' : ''}} value="04">April</option>
+                                <option {{old('month') == 5 ? 'selected' : ''}} value="05">May</option>
+                                <option {{old('month') == 6 ? 'selected' : ''}} value="06">June</option>
+                                <option {{old('month') == 7 ? 'selected' : ''}} value="07">July</option>
+                                <option {{old('month') == 8 ? 'selected' : ''}} value="08">August</option>
+                                <option {{old('month') == 9 ? 'selected' : ''}} value="09">September</option>
                                 <option {{old('month') == 10 ? 'selected' : ''}} value="10">October</option>
                                 <option {{old('month') == 11 ? 'selected' : ''}} value="11">November</option>
                                 <option {{old('month') == 12 ? 'selected' : ''}} value="12">December</option>

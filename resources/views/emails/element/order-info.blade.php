@@ -94,7 +94,7 @@
                                         <p class="MsoNormal"><b>D.O.B.<u></u><u></u></b></p>
                                     </td>
                                     <td colspan="2" style="border:solid #eeeeee 1.0pt;padding:4.5pt 4.5pt 4.5pt 4.5pt">
-                                        <p class="MsoNormal"><span>{{date('F d Y',strtotime(user()->dob))}}</span><u></u><u></u></p>
+                                        <p class="MsoNormal"><span>{{date('M. jS, Y',strtotime($order->dob))}}</span><u></u><u></u></p>
                                     </td>
                                 </tr>
                                 <tr>

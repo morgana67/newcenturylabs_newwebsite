@@ -83,7 +83,7 @@
                                                         <h3 class="panel-title" style="line-height: 30px">
                                                             <a data-toggle="collapse" data-parent="#accordion"
                                                                href="#collapse{{$order->id}}">
-                                                                {{$order->nick_name .' #'.$order->id}} {{$order->lastName .', '.$order->firstName}} - {{\Carbon\Carbon::createFromFormat('Y-m-d',$order->customer->dob)->format('M. jS, Y')}}</a>
+                                                                {{$order->nick_name .' #'.$order->id}} {{$order->lastName .', '.$order->firstName}} - {{\Carbon\Carbon::createFromFormat('Y-m-d',$order->dob)->format('M. jS, Y')}}</a>
                                                         </h3>
                                                     </div>
                                                     <div id="collapse{{$order->id}}" class="panel-collapse collapse">
