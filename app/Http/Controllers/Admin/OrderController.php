@@ -2,20 +2,43 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Events\SendMailProcessed;
-use App\Functions\Functions;
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Models\MailConfig;
+use App\Models\Country;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index(){
-        $orders = Order::orderBy('id','desc')->paginate(10);
-        return view('admin.orders.index',compact('orders'));
+    public function index(Request $request){
+        $searchNames = [
+            'firstName' => 'First Name',
+            'lastName' => 'Last Name',
+            'email' => 'Email',
+            'phone' => 'Phone',
+            'address' => 'Address',
+            'country' => 'Country',
+            'state' => 'State',
+            'city' => 'City',
+            'zip' => 'Zip',
+            'orderStatus' => 'Order Status'
+        ];
+
+        $search = (object) ['value' => $request->get('s'), 'key' => $request->get('key'), 'filter' => $request->get('filter')];
+        $orders = Order::select('*');
+        if ($search->value != '' && $search->key && $search->filter) {
+            $search_filter = ($search->filter == 'equals') ? '=' : 'LIKE';
+            $search_value = ($search->filter == 'equals') ? $search->value : '%'.$search->value.'%';
+            if($search->key == 'country') {
+                $countries = Country::where('name', $search_filter, $search_value)->orWhere('code', $search_filter, $search_value)->toArray();
+                $orders->whereIn('country_id', $countries);
+            } else {
+                $orders->where($search->key, $search_filter, $search_value);
+            }
+        }
+        $orders = $orders->orderBy('id','desc')->paginate(10);
+
+        return view('admin.orders.index',compact('orders', 'search', 'searchNames'));
     }
 
     public function detail(Request $request,$id){

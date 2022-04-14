@@ -41,6 +41,14 @@
                                         <td>{{$order->phone}}</td>
                                     </tr>
                                     <tr>
+                                        <td>Date of Birth:</td>
+                                        <td>{{$order->dob ? \Carbon\Carbon::createFromFormat('Y-m-d',$order->dob)->format('M. jS, Y') : ""}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gender:</td>
+                                        <td>{{$order->gender ? ($order->gender == 'm' ? 'Male' : 'Female') : '' }}</td>
+                                    </tr>
+                                    <tr>
                                         <td>Address:</td>
                                         <td>{{$order->address}}</td>
                                     </tr>
