@@ -84,7 +84,7 @@
                                     ]) }}</div>
                         </div>
                         <div class="pull-right">
-                            {{ $orders->links() }}
+                            {{ $orders->withQueryString()->links() }}
                         </div>
                     </div>
 
