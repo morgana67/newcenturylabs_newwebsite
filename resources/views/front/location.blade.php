@@ -113,6 +113,6 @@
             });
         }
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1qKtXM-NvTrUxGfYpdkR3tCkGJMkIaq4&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_API_KEY')}}&callback=initMap">
     </script>
 @endsection
