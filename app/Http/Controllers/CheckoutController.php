@@ -203,6 +203,7 @@ class CheckoutController extends Controller
                         'capture' => true]);
 
                     $order->paymentStatus = $charge->status;
+                    $order->transactionid = $charge->id;
                     $order->pwh_order_id = $response->order->id ?? null;
                     $order->pwh_order_link = $response->order->links->ui_customer ?? null;
                     $order->save();
