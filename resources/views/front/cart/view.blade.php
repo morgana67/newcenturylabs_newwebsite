@@ -253,8 +253,10 @@
         @if($productAddToCart)
             dataLayer.push({
                 'event': 'add_to_cart',
-                'item_name': '{{$productAddToCart['name']}}',
-                'item_type': '{{$productAddToCart['type']}}'
+                'product_id': '{{$productAddToCart['id']}}',
+                'product_name': '{{$productAddToCart['name']}}',
+                'product_type': '{{$productAddToCart['type']}}',
+                'price': '{{$productAddToCart['price']}}'
             })
         @endif
     </script>
