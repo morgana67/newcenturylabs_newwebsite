@@ -249,5 +249,13 @@
                 return false;
             }
         })
+
+        @if($productAddToCart)
+            dataLayer.push({
+                'event': 'add_to_cart',
+                'item_name': '{{$productAddToCart['name']}}',
+                'item_type': '{{$productAddToCart['type']}}'
+            })
+        @endif
     </script>
 @endsection

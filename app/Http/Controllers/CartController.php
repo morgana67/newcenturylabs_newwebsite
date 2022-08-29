@@ -31,7 +31,7 @@ class CartController extends Controller
         }
         if($add) Cart::add($productInfo);
 
-        return redirect()->route('cart.view');
+        return redirect()->route('cart.view')->with(['productInfo' => $productInfo]);
     }
 
     public function addMultiple(Request $request){
@@ -63,7 +63,8 @@ class CartController extends Controller
 
         $mandatoryProducts = Product::active()->additionalType()->where('mandatory',1)->get();
         $additionalProducts = Product::active()->additionalType()->where('mandatory',0)->get();
-        return view('front.cart.view',compact('cart','mandatoryProducts','additionalProducts','suggestProducts'));
+        $productAddToCart = session('productInfo') ?? false;
+        return view('front.cart.view',compact('cart','mandatoryProducts','additionalProducts','suggestProducts', 'productAddToCart'));
     }
 
     public function update(Request $request){

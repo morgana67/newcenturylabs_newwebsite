@@ -23,7 +23,7 @@
         dataLayer.push({
             'event': 'purchase',
             'transactionId': '{{$order->transaction_id?? ""}}',
-            'tansactionTotal': '{{$order->total?? "0"}}'
+            'transactionTotal': '{{$order->total?? "0"}}'
         })
     </script>
 @stop
