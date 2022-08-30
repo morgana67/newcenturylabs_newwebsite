@@ -255,7 +255,6 @@
                 'event': 'add_to_cart',
                 'product_id': '{{$productAddToCart['id']}}',
                 'product_name': '{{$productAddToCart['name']}}',
-                'product_type': '{{$productAddToCart['type']}}',
                 'price': '{{$productAddToCart['price']}}'
             })
         @endif
