@@ -253,17 +253,17 @@
         @if($productAddToCart)
         dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
         dataLayer.push({
-            'event': 'addToCart',
+            'event': 'add_to_cart',
             'ecommerce': {
-                'currencyCode': 'USD',
-                'add': {
-                    'products': [{
-                        'id': "{{$productAddToCart['id']}}",
-                        'name': "{{$productAddToCart['name']}}",
-                        'price': "{{$productAddToCart['price']}}",
-                        'quantity': "{{$productAddToCart['qty']}}",
-                    }]
-                }
+                'items': [{
+                    'item_id': "{{$productAddToCart['id']}}",
+                    'item_name': "{{$productAddToCart['name']}}",
+                    'affiliation': "Google Merchandise Store",
+                    'price': "{{$productAddToCart['price']}}",
+                    'quantity': "{{$productAddToCart['qty']}}",
+                    'index': 0,
+                    'currency' 'USD'
+                }]
             }
         });
         @endif

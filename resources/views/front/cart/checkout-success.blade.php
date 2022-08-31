@@ -25,27 +25,25 @@
             foreach($order->details as $key => $productDetail) {
                 $product = $productDetail->product;
                 $products[] = [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'price' => $productDetail->name,
+                    'item_id' => $product->id,
+                    'item_name' => $product->name,
+                    'price' => number_format($productDetail->name, 2),
                     'quantity' => $productDetail->quantity,
-                    'index' => $key
+                    'index' => $key,
+                    'currency' => 'USD'
                 ];
             }
         @endphp
         var products = JSON.parse('{{json_encode($products)}}');
         dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
         dataLayer.push({
+            'event': 'purchase',
             'ecommerce': {
-                'purchase': {
-                    'actionField': {
-                        'id': '{{$order->transaction_id?? ""}}',// Transaction ID. Required for purchases and refunds.
-                        'affiliation': 'Online Store',
-                        'revenue': '{{$order->total?? "0"}}',  // Total transaction value
-                        'currencyCode': 'USD'
-                    },
-                    'products': products
-                }
+                'transaction_id': '{{$order->transaction_id?? ""}}',// Transaction ID. Required for purchases and refunds.
+                'affiliation': 'Google Merchandise Store',
+                'value': '{{number_format($order->total?? "0", 2)}}',  // Total transaction value
+                'currency': 'USD',
+                'items': products
             }
         });
     </script>
