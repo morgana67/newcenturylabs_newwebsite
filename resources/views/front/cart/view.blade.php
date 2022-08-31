@@ -251,12 +251,21 @@
         })
 
         @if($productAddToCart)
-            dataLayer.push({
-                'event': 'add_to_cart',
-                'product_id': '{{$productAddToCart['id']}}',
-                'product_name': '{{$productAddToCart['name']}}',
-                'price': '{{$productAddToCart['price']}}'
-            })
+        dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+        dataLayer.push({
+            'event': 'addToCart',
+            'ecommerce': {
+                'currencyCode': 'USD',
+                'add': {
+                    'products': [{
+                        'id': "{{$productAddToCart['id']}}",
+                        'name': "{{$productAddToCart['name']}}",
+                        'price': "{{$productAddToCart['price']}}",
+                        'quantity': "{{$productAddToCart['qty']}}",
+                    }]
+                }
+            }
+        });
         @endif
     </script>
 @endsection

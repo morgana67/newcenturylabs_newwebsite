@@ -20,10 +20,33 @@
 
 @section('script')
     <script>
+        @php
+            $products = [];
+            foreach($order->details as $key => $productDetail) {
+                $product = $productDetail->product;
+                $products[] = [
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'price' => $productDetail->name,
+                    'quantity' => $productDetail->quantity,
+                    'index' => $key
+                ];
+            }
+        @endphp
+        var products = JSON.parse('{{json_encode($products)}}');
+        dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
         dataLayer.push({
-            'event': 'purchase',
-            'transactionId': '{{$order->transaction_id?? ""}}',
-            'transactionTotal': '{{$order->total?? "0"}}'
-        })
+            'ecommerce': {
+                'purchase': {
+                    'actionField': {
+                        'id': '{{$order->transaction_id?? ""}}',// Transaction ID. Required for purchases and refunds.
+                        'affiliation': 'Online Store',
+                        'revenue': '{{$order->total?? "0"}}',  // Total transaction value
+                        'currencyCode': 'USD'
+                    },
+                    'products': products
+                }
+            }
+        });
     </script>
 @stop
