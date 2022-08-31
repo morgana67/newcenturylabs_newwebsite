@@ -262,7 +262,7 @@
                     'price': "{{$productAddToCart['price']}}",
                     'quantity': "{{$productAddToCart['qty']}}",
                     'index': 0,
-                    'currency' 'USD'
+                    'currency': 'USD'
                 }]
             }
         });
