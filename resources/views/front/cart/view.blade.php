@@ -255,11 +255,13 @@
         dataLayer.push({
             'event': 'add_to_cart',
             'ecommerce': {
+                'currency': 'USD',
+                'value': '{{number_format($productAddToCart['price'], 2)}}',
                 'items': [{
                     'item_id': "{{$productAddToCart['id']}}",
                     'item_name': "{{$productAddToCart['name']}}",
                     'affiliation': "Google Merchandise Store",
-                    'price': "{{$productAddToCart['price']}}",
+                    'price': "{{number_format($productAddToCart['price'], 2)}}",
                     'quantity': "{{$productAddToCart['qty']}}",
                     'index': 0,
                     'currency': 'USD'
