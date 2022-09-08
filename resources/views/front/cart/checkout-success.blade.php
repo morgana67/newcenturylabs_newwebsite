@@ -34,7 +34,7 @@
                 ];
             }
         @endphp
-        var products = JSON.parse('{{json_encode($products)}}');
+        var products = JSON.parse('{!! json_encode($products) !!}');
         dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
         dataLayer.push({
             'event': 'purchase',
