@@ -21,13 +21,14 @@
 @section('script')
     <script>
         @php
+        xdebug_break();
             $products = [];
             foreach($order->details as $key => $productDetail) {
                 $product = $productDetail->product;
                 $products[] = [
                     'item_id' => $product->id,
                     'item_name' => $product->name,
-                    'price' => number_format($productDetail->name, 2),
+                    'price' => number_format($productDetail->price, 2),
                     'quantity' => $productDetail->quantity,
                     'index' => $key,
                     'currency' => 'USD'
@@ -41,7 +42,7 @@
             'ecommerce': {
                 'transaction_id': '{{$order->transaction_id?? ""}}',// Transaction ID. Required for purchases and refunds.
                 'affiliation': 'Google Merchandise Store',
-                'value': '{{number_format($order->total?? "0", 2)}}',  // Total transaction value
+                'value': '{{number_format($order->totalAmount?? "0", 2)}}',  // Total transaction value
                 'currency': 'USD',
                 'items': products
             }
