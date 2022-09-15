@@ -21,7 +21,6 @@
 @section('script')
     <script>
         @php
-        xdebug_break();
             $products = [];
             foreach($order->details as $key => $productDetail) {
                 $product = $productDetail->product;
