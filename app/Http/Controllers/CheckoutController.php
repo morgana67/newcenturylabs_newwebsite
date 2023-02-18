@@ -18,7 +18,8 @@ class CheckoutController extends Controller
 {
     public function __construct()
     {
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_SK'));
+        // \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_SK'));
+        \Stripe\Stripe::setApiKey('sk_test_51LG45EHmNIXxiyGEyNNWM59G4Ga01lFZB3AArSmqiDuo2LQmVO2askC8WcpDTsuGAJjBjX7bCMbUQNWumFQI20su00FQ1qYuSF');
     }
 
     function base64url_encode($data) {
@@ -142,38 +143,38 @@ class CheckoutController extends Controller
 
             if(count($ids) > 0) {
                 $tests = Product::select('code')->whereIn('id', $ids)->get()->toArray();
-                $dataPwn = (object)[
-                    'order' => [
-                        'tests' => \Arr::pluck($tests,'code'),
-                        'account_number' => "97513297",
-                        'customer' => [
-                            'first_name' => $request->firstName,
-                            'last_name' => $request->lastName,
-                            'gender' => ($request->gender == 'm' ? 'Male' : 'Female'),
-                            'phone' => $request->phone,
-                            'email' => $request->email,
-                            'birth_date' => user()->dob,
-                            'address' => [
-                                'line' => $request->address,
-                                'line2' => $request->address2,
-                                'city' => $request->city,
-                                'state' => $request->state,
-                                'zip' => $request->zip,
-                            ]
+                // $dataPwn = (object)[
+                //     'order' => [
+                //         'tests' => \Arr::pluck($tests,'code'),
+                //         'account_number' => "97513297",
+                //         'customer' => [
+                //             'first_name' => $request->firstName,
+                //             'last_name' => $request->lastName,
+                //             'gender' => ($request->gender == 'm' ? 'Male' : 'Female'),
+                //             'phone' => $request->phone,
+                //             'email' => $request->email,
+                //             'birth_date' => user()->dob,
+                //             'address' => [
+                //                 'line' => $request->address,
+                //                 'line2' => $request->address2,
+                //                 'city' => $request->city,
+                //                 'state' => $request->state,
+                //                 'zip' => $request->zip,
+                //             ]
 
-                        ]
-                    ]
-                ];
-                $response = $this->curl(json_encode($dataPwn));
-                if(!empty($response->errors)){
-                    DB::rollBack();
-                    $msg = "";
-                    foreach($response->errors as $error){
-                        $msg .= "{$error->field} {$error->messages[0]} <br>";
-                    }
-                    message_set($msg,'danger');
-                    return redirect()->back()->withInput($request->all());
-                }else{
+                //         ]
+                //     ]
+                // ];
+                // $response = $this->curl(json_encode($dataPwn));
+                // if(!empty($response->errors)){
+                //     DB::rollBack();
+                //     $msg = "";
+                //     foreach($response->errors as $error){
+                //         $msg .= "{$error->field} {$error->messages[0]} <br>";
+                //     }
+                //     message_set($msg,'danger');
+                //     return redirect()->back()->withInput($request->all());
+                // }else{
                     $charge = \Stripe\Charge::create([
                         'amount' => $request->totalAmount * 100,
                         'currency' => 'usd',
@@ -186,10 +187,12 @@ class CheckoutController extends Controller
                         'capture' => true]);
 
                     $order->paymentStatus = $charge->status;
-                    $order->pwh_order_id = $response->order->id ?? null;
-                    $order->pwh_order_link = $response->order->links->ui_customer ?? null;
+                    // $order->pwh_order_id = $response->order->id ?? null;
+                    // $order->pwh_order_link = $response->order->links->ui_customer ?? null;
+                    $order->pwh_order_id =  null;
+                    $order->pwh_order_link =  null;
                     $order->save();
-                }
+                
             }
             DB::commit();
             Cart::destroy();
@@ -201,13 +204,13 @@ class CheckoutController extends Controller
     }
 
     public function curl($field = array()){
-        $ch = curl_init();
+        // $ch = curl_init();
         // curl_setopt($ch, CURLOPT_URL,env('PWN_END_POINT_ORDER'));
-        if ($field && !empty($field)) {
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $field);
-        } //Post Fields
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // if ($field && !empty($field)) {
+        //     curl_setopt($ch, CURLOPT_POST, 1);
+        //     curl_setopt($ch, CURLOPT_POSTFIELDS, $field);
+        // } //Post Fields
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $token = generateToken();
         $headers = [
             'Accept: application/json',
@@ -215,10 +218,12 @@ class CheckoutController extends Controller
             "Authorization:Bearer {$token}"
         ];
 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        $server_output = curl_exec ($ch);
-        curl_close ($ch);
-        return json_decode($server_output);
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        // $server_output = curl_exec ($ch);
+        // curl_close ($ch);
+        // return json_decode($server_output);
+
+        return;
     }
 
     public function orderSuccess($id) {
@@ -227,7 +232,7 @@ class CheckoutController extends Controller
             $message = 'You have received an order from ' . $order->firstName.' '.$order->lastName . '. Their order is as follows:';
             $sendAdmin = true;
             $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
-            event(new SendMailProcessed(setting('site.email_receive_notification'),'New Order #'.$order->id,$bodyRender));
+            // event(new SendMailProcessed(setting('site.email_receive_notification'),'New Order #'.$order->id,$bodyRender));
 
             $mailConfig = MailConfig::where('code','order_confirmation')->first();
             $message = '';
@@ -236,9 +241,9 @@ class CheckoutController extends Controller
             $body =  Functions::replaceBodyEmail($mailConfig->body,user());
             $body = str_replace("{{ORDER_ID}}", $order->id , $body);
             $body = str_replace("{{ORDERINFO}}", $bodyRender , $body);
-            event(new SendMailProcessed($order->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
+            // event(new SendMailProcessed($order->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
             if($order->email != user()->email){
-                event(new SendMailProcessed(user()->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
+                // event(new SendMailProcessed(user()->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
             }
         }
         return view('front.cart.checkout-success',compact('order'));
@@ -246,14 +251,16 @@ class CheckoutController extends Controller
 
 
 
-    public function findOldInfoByNickname(Request $request): \Illuminate\Http\JsonResponse
+    // public function findOldInfoByNickname(Request $request): \Illuminate\Http\JsonResponse
+    public function findOldInfoByNickname(Request $request)
     {
         $order = Order::where('nick_name',$request->nick_name)->where('customer_id',user()->getAuthIdentifier())->latest()->first();
-        if($order){
-            return response()->json(['status' => 'success','data' => $order],200);
-        }else{
-            return response()->json(['status' => 'fail'],200);
-        }
+        // if($order){
+        //     return response()->json(['status' => 'success','data' => $order],200);
+        // }else{
+        //     return response()->json(['status' => 'fail'],200);
+        // }
+        return;
     }
 
 
@@ -271,10 +278,11 @@ class CheckoutController extends Controller
             ];
         }
         Cart::add($arrayCart);
-        return response()->json([
-            'cart' => Cart::content(),
-            'cart_total' => Cart::total(),
-        ],200);
+        // return response()->json([
+        //     'cart' => Cart::content(),
+        //     'cart_total' => Cart::total(),
+        // ],200);
+        return;
     }
 
 }
