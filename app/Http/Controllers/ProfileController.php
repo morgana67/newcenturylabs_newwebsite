@@ -139,7 +139,7 @@ class ProfileController extends Controller
 
     public function downloadRequisitionOrder(Request $request,$id){
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,env('PWN_END_POINT_ORDER')."/{$id}/pdfs/requisition");
+        // curl_setopt($ch, CURLOPT_URL,env('PWN_END_POINT_ORDER')."/{$id}/pdfs/requisition");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $token = generateToken();
         $headers = [
@@ -162,7 +162,7 @@ class ProfileController extends Controller
 
     public function downloadResultTest(Request $request,$id){
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,env('PWN_END_POINT_ORDER')."/{$id}/pdfs/results");
+        // curl_setopt($ch, CURLOPT_URL,env('PWN_END_POINT_ORDER')."/{$id}/pdfs/results");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $token = generateToken();
         $headers = [
@@ -185,7 +185,7 @@ class ProfileController extends Controller
 
     public function curl($field = array()){
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,"https://api-staging.pwnhealth.com/v2/labs/orders");
+        // curl_setopt($ch, CURLOPT_URL,"https://api-staging.pwnhealth.com/v2/labs/orders");
         if ($field && !empty($field)) {
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $field);
