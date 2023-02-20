@@ -142,38 +142,38 @@ class CheckoutController extends Controller
 
             if(count($ids) > 0) {
                 $tests = Product::select('code')->whereIn('id', $ids)->get()->toArray();
-                $dataPwn = (object)[
-                    'order' => [
-                        'tests' => \Arr::pluck($tests,'code'),
-                        'account_number' => "97513297",
-                        'customer' => [
-                            'first_name' => $request->firstName,
-                            'last_name' => $request->lastName,
-                            'gender' => ($request->gender == 'm' ? 'Male' : 'Female'),
-                            'phone' => $request->phone,
-                            'email' => $request->email,
-                            'birth_date' => user()->dob,
-                            'address' => [
-                                'line' => $request->address,
-                                'line2' => $request->address2,
-                                'city' => $request->city,
-                                'state' => $request->state,
-                                'zip' => $request->zip,
-                            ]
+                // $dataPwn = (object)[
+                //     'order' => [
+                //         'tests' => \Arr::pluck($tests,'code'),
+                //         'account_number' => "97513297",
+                //         'customer' => [
+                //             'first_name' => $request->firstName,
+                //             'last_name' => $request->lastName,
+                //             'gender' => ($request->gender == 'm' ? 'Male' : 'Female'),
+                //             'phone' => $request->phone,
+                //             'email' => $request->email,
+                //             'birth_date' => user()->dob,
+                //             'address' => [
+                //                 'line' => $request->address,
+                //                 'line2' => $request->address2,
+                //                 'city' => $request->city,
+                //                 'state' => $request->state,
+                //                 'zip' => $request->zip,
+                //             ]
 
-                        ]
-                    ]
-                ];
-                $response = $this->curl(json_encode($dataPwn));
-                if(!empty($response->errors)){
-                    DB::rollBack();
-                    $msg = "";
-                    foreach($response->errors as $error){
-                        $msg .= "{$error->field} {$error->messages[0]} <br>";
-                    }
-                    message_set($msg,'danger');
-                    return redirect()->back()->withInput($request->all());
-                }else{
+                //         ]
+                //     ]
+                // ];
+                // $response = $this->curl(json_encode($dataPwn));
+                // if(!empty($response->errors)){
+                //     DB::rollBack();
+                //     $msg = "";
+                //     foreach($response->errors as $error){
+                //         $msg .= "{$error->field} {$error->messages[0]} <br>";
+                //     }
+                //     message_set($msg,'danger');
+                //     return redirect()->back()->withInput($request->all());
+                // }else{
                     $charge = \Stripe\Charge::create([
                         'amount' => $request->totalAmount * 100,
                         'currency' => 'usd',
@@ -186,10 +186,12 @@ class CheckoutController extends Controller
                         'capture' => true]);
 
                     $order->paymentStatus = $charge->status;
-                    $order->pwh_order_id = $response->order->id ?? null;
-                    $order->pwh_order_link = $response->order->links->ui_customer ?? null;
+                    // $order->pwh_order_id = $response->order->id ?? null;
+                    // $order->pwh_order_link = $response->order->links->ui_customer ?? null;
+                    $order->pwh_order_id = null;
+                    $order->pwh_order_link =  null;
                     $order->save();
-                }
+                
             }
             DB::commit();
             Cart::destroy();
@@ -201,24 +203,26 @@ class CheckoutController extends Controller
     }
 
     public function curl($field = array()){
-        $ch = curl_init();
-        // curl_setopt($ch, CURLOPT_URL,env('PWN_END_POINT_ORDER'));
-        if ($field && !empty($field)) {
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $field);
-        } //Post Fields
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $token = generateToken();
-        $headers = [
-            'Accept: application/json',
-            'Content-Type: application/json',
-            "Authorization:Bearer {$token}"
-        ];
+        // $ch = curl_init();
+        // // curl_setopt($ch, CURLOPT_URL,env('PWN_END_POINT_ORDER'));
+        // if ($field && !empty($field)) {
+        //     curl_setopt($ch, CURLOPT_POST, 1);
+        //     curl_setopt($ch, CURLOPT_POSTFIELDS, $field);
+        // } //Post Fields
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // $token = generateToken();
+        // $headers = [
+        //     'Accept: application/json',
+        //     'Content-Type: application/json',
+        //     "Authorization:Bearer {$token}"
+        // ];
 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        $server_output = curl_exec ($ch);
-        curl_close ($ch);
-        return json_decode($server_output);
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        // $server_output = curl_exec ($ch);
+        // curl_close ($ch);
+        // return json_decode($server_output);
+
+        return;
     }
 
     public function orderSuccess($id) {
