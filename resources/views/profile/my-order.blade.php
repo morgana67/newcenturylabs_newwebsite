@@ -114,17 +114,17 @@
                                                                             <div class="order-info-item">
                                                                                 <div>PWH Requisition Order</div>
                                                                                 <div>
-                                                                                    @if(!empty($order->pwh_order_id))
+                                                                                    {{-- @if(!empty($order->pwh_order_id))
                                                                                         <form action="{{route('downloadRequisitionOrder',$order->pwh_order_id)}}" method="GET">
                                                                                             @csrf
                                                                                             <button type="submit" class="btn btn-primary">Download Requisition Order</button>
                                                                                         </form>
-                                                                                    @endif
+                                                                                    @endif --}}
                                                                                 </div>
                                                                             </div>
                                                                             <div class="order-info-item">
                                                                                 <div>PWH Order Link</div>
-                                                                                <div style="word-break: break-all;"><a href="{{$order->pwh_order_link}}" class="btn btn-primary">Order Link</a></div>
+                                                                                {{-- <div style="word-break: break-all;"><a href="{{$order->pwh_order_link}}" class="btn btn-primary">Order Link</a></div> --}}
                                                                             </div>
                                                                             <div class="order-info-item">
                                                                                 <div>PWH Status</div>
@@ -134,12 +134,12 @@
                                                                                 <div class="order-info-item">
                                                                                     <div>PWH Order Result</div>
                                                                                     <div>
-                                                                                        @if(!empty($order->pwh_order_id))
+                                                                                        {{-- @if(!empty($order->pwh_order_id))
                                                                                             <form action="{{route('downloadResultTest',$order->pwh_order_id)}}" method="GET">
                                                                                                 @csrf
                                                                                                 <button type="submit" class="btn btn-primary">Download Order Result</button>
                                                                                             </form>
-                                                                                        @endif
+                                                                                        @endif --}}
                                                                                     </div>
                                                                                 </div>
                                                                             @endif
